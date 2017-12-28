@@ -22,7 +22,7 @@ a, a:hover{
   /* Needed for children to be absolutely positioned relative to the parent. */
   position: relative;
   /* The height of the container. Must be set, but it doesn't really matter what the value is. */
-  height: 100vh;
+  min-height: 100vh;
   
   /* For text formatting. */
   /* display: flex; */
@@ -46,7 +46,7 @@ a, a:hover{
   transform: translateZ(-1px) scale(1.5);
   /* Force the background image to fill the whole element. */
   background-size: cover;
-  background-position: center;
+  background-position: top;
   /* Keep the image from overlapping sibling elements. */ 
   z-index: -1;
 }
