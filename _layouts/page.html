@@ -19,7 +19,7 @@ layout: default
                 <a class="nav-link" href="/calendar">Calendar</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/schedule">Meet</a>
+                <a class="nav-link" href="/meet">Meet</a>
             </li>
 
         </ul>
@@ -27,13 +27,8 @@ layout: default
 </nav>
 
 <div class="container">
+    <div class="page-header">
+        <h1>{{ page.title }} <small>{{  subtitle }}</small></h1>
+    </div>
     {{ content }}
 </div><!-- /.container -->
-
-<footer>
-    <ul>
-        <li>
-            <a href="https://github.com/bentleydavis">github.com/bentleydavis</a>
-        </li>
-    </ul>
-</footer>
