@@ -2,8 +2,6 @@
 layout: page
 title: Bentley's Blog
 ---
-
-	<ul class="posts">
 		{% for post in site.posts %}
 		<a href="{{ post.url }}" title="{{ post.title }}">
 			<div class="card mb-3">
@@ -16,4 +14,3 @@ title: Bentley's Blog
 			</div>
 		</a>
 	  {% endfor %}
-	</ul>
