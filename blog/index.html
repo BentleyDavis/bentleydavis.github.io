@@ -3,14 +3,15 @@ layout: page
 title: Bentley's Blog
 ---
 
-header-img
 	<ul class="posts">
 		{% for post in site.posts %}
 		<a href="{{ post.url }}" title="{{ post.title }}">
 			<div class="card mb-3">
-				<img class="card-img-top" src="{{ post.header.img}}" alt="Card image cap">
+				<img class="card-img-top" src="{{ post.header-img}}" alt="Card image cap">
 				<div class="card-body">
-					<p class="card-text">{{ post.title }}<small>{{ post.subtitle}}</small></p>
+						<h5 class="card-title">{{ post.title }}</h5>
+					<p class="card-text">{{ post.subtitle}}</p>
+					<p class="card-text"><small class="text-muted">{{ post.date | date_to_string }}</small></p>
 				</div>
 			</div>
 		</a>
