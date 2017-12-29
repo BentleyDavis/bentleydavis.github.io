@@ -1,2 +1,9 @@
 /* Tiny reset thingy */
 body,html{margin:0;padding:0;}
+
+.limit-image {
+    max-width: 400px;
+    width: auto;
+    height: auto;
+    max-height: 400px;
+}
