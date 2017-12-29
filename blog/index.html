@@ -2,8 +2,17 @@
 layout: page
 title: Bentley's Blog
 ---
+
+header-img
 	<ul class="posts">
-	  {% for post in site.posts %}
-	    <li><span>{{ post.date | date_to_string }}</span> » <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+		{% for post in site.posts %}
+		<a href="{{ post.url }}" title="{{ post.title }}">
+			<div class="card mb-3">
+				<img class="card-img-top" src="{{ post.header.img}}" alt="Card image cap">
+				<div class="card-body">
+					<p class="card-text">{{ post.title }}<small>{{ post.subtitle}}</small></p>
+				</div>
+			</div>
+		</a>
 	  {% endfor %}
 	</ul>
