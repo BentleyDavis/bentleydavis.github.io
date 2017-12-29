@@ -3,9 +3,8 @@ body,html{margin:0;padding:0;}
 
 .limit-img {
     max-width: 400px;
-    max-height: 400px;
 }
-.limited-img {
+.limit-img img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 200px;
 }
