@@ -1,0 +1,16 @@
+{
+  "name": "reasonscore",
+  "version": "1.0.0",
+  "description": "Reason Score",
+  "main": "index.js",
+  "scripts": {
+    "start": "eleventy --serve --watch",
+    "build": "eleventy",
+    "deploy": "gh-pages -d dist -b master"
+  },
+  "author": "Bentley Davis <Bentley@BentleyDavis.com> (http://BentleyDavis.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
+}

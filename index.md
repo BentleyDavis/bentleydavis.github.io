@@ -1,76 +1,12 @@
 ---
-layout: default
-title: Bentley Davis
+layout: page.njk
+title: Reason Score
+datePublished: 2018-6-10
 ---
-<style>
-    a, a:hover{
-    color: white;
-}
-
-.wrapper {
-  /* The height needs to be set to a fixed value for the effect to work.
-   * 100vh is the full height of the viewport. */
-  height: 100vh;
-  /* The scaling of the images would add a horizontal scrollbar, so disable x overflow. */
-  overflow-x: hidden;
-  /* Enable scrolling on the page. */
-  overflow-y: auto;
-  /* Set the perspective to 2px. This is essentailly the simulated distance from the viewport to transformed objects.*/
-  perspective: 2px;
-}
-
-.section {
-  /* Needed for children to be absolutely positioned relative to the parent. */
-  position: relative;
-  /* The height of the container. Must be set, but it doesn't really matter what the value is. */
-  min-height: 90vh;
-  
-  /* For text formatting. */
-  /* display: flex; */
-  /* align-items: center;
-  justify-content: center;
-  text-shadow: 0 0 px rgb(255, 255, 255); */
-}
-
-.parallax::after {
-  /* Display and position the pseudo-element */
-  content: " ";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  
-  /* Move the pseudo-element back away from the camera,
-   * then scale it back up to fill the viewport.
-   * Because the pseudo-element is further away, it appears to move more slowly, like in real life. */
-  transform: translateZ(-1px) scale(1.56);
-  /* Force the background image to fill the whole element. */
-  background-size: cover;
-  background-position: top;
-  /* Keep the image from overlapping sibling elements. */ 
-  z-index: -1;
-}
-
-/* The styling for the static div. */
-.static {
-  background: hsl(212, 29%, 60%)
-}
-
-/* Sets the actual background images to adorable kitties. This part is crucial. */
-.bg1::after {
-  background-image: url('hero.jpg');
-}
-
-.bg2::after {
-  background-image: url('hero2.jpg');
-}
-</style>
-
-<main class="wrapper">
-        {% include nav.html %}
-    <section class="section parallax bg1" style="display: flex; align-items: center;">
-        <div class="container">
+<main style="background-color: hsl(212, 29%, 60%);">
+    <section style="display: flex; align-items: center; background-image: url('/img/hero.jpg');  background-size: cover;
+  background-position: top; ">
+        <div class="content" amp-fx="parallax" data-parallax-factor="1.5" style="padding-top: 200px;">
             <h1 style="max-width:50%;  color: #6481a1;">Bentley Davis</h1>
             <table>
                 <tr>
@@ -97,16 +33,17 @@ title: Bentley Davis
                     background-color: hsla(0, 0%, 100%, 0.6);
                     border-radius: .5rem; max-width:400px; border: 1px #6481a1 solid;">
                 <h3>Current Project:</h3>
-                I grew tired of the divisive bickering and misinformation so I created<br>
+                I grew tired of the divisive bickering and misinformation so I created: <br />
                 <a href="https://ReasonScore.com">
-                    <img src="reasonscore.png"><br>
-                </a> - a crowd sourced super fact checking web app.
+                    <amp-img src="/img/rslogowide.png" alt="Reason Score Logo" width="230" height="50" style="top: 3px;">
+                </a>
+                <br />
+                 - a crowd sourced super fact checking web app.
             </div>
         </div>
     </section>
-    <section class="section static">
-        <div class="container">
-
+    <section class="inverse">
+        <div  class="content" >
             <h1>Links</h1>
             <ul>
                 <li>
@@ -153,11 +90,6 @@ title: Bentley Davis
             <a href="/strategic-futuristic-relator-learner-ideation">Strategic, Futuristic, Relator, Learner, Ideation</a>
             <br/> Fascination Advantage Assessment:
             <a title="I am a Maverick leader" href="/maverick-leader">Maverick Leader</a>
-        </div>
-    </section>
-    <section class="section parallax bg2">
-        <div class="container">
-            <div id="tripit-badge"><script type="text/javascript" src="https://www.tripit.com/account/badge/id/FC06286D105D0AB67BCA4AD40FA8A448/div_id/tripit-badge/badge.js"></script><noscript><a href="/">TripIt - Organize your travel</a></noscript></div>
         </div>
     </section>
 </main>
