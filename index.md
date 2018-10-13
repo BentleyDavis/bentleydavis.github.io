@@ -1,5 +1,5 @@
 ---
-layout: page.njk
+layout: base.njk
 title: Bentley Davis
 datePublished: 2018-6-10
 ---

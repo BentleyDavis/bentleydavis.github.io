@@ -6,6 +6,7 @@
   "scripts": {
     "start": "eleventy --serve --watch",
     "build": "eleventy",
+    "debug": "@powershell -Command $env:DEBUG='*'; eleventy",
     "deploy": "gh-pages -d dist -b master"
   },
   "author": "Bentley Davis <Bentley@BentleyDavis.com> (http://BentleyDavis.com)",
