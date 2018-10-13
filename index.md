@@ -1,6 +1,6 @@
 ---
 layout: page.njk
-title: Reason Score
+title: Bentley Davis
 datePublished: 2018-6-10
 ---
 <main style="background-color: hsl(212, 29%, 60%);">
