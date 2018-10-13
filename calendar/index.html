@@ -29,170 +29,196 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700)">
     <style amp-custom="amp-custom">
       body {
-        width: auto;
-        margin: 0;
-        padding: 0;
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-      }
-      header {
-        background: white;
-        color: #ffffff;
-        padding: 0 5px;
-      }
-      .headerbar {
-        height: 50px;
-        top: 0;
-        width: 100%;
-        background-color: hsl(212, 29%, 60%);
-        padding-top: 5px;
-      }
-      .site-name {
-        flex: 1;
-        font-size: 1.5em;
-      }
-      .topnav {
-        display: none;
-        padding: 0 10px 0 0;
-      }
-      @media (min-width: 600px) {
-        .topnav {
-          display: unset;
-        }
-        .hamburger {
-          display: none;
-        }
-      }
-      .topnav li {
-        display: inline;
-        margin: 0 0 0 20px;
-      }
-      .hamburger {
-        margin-right: 10px;
-        outline: none;
-        font-size: .7em;
-        border: 1px solid #ffffff;
-        padding: 5px 5px 7px 5px;
-        border-radius: 10px;
-        cursor: pointer;
-      }      
-      .sidebar {
-        padding: 10px;
-        margin: 0;
-        font-size: 2em;
-      }
-      .sidebar li {
-        padding: 5px;
-      }
-      .headerbar li {
-        list-style: none;
-        margin-bottom:10px;
-        font-size: 1.25em;
-      }
-      .headerbar li a{
-        color: rgba(255,255,255,.5);
-      }
-      .inverse {
-       background-color: hsl(212, 29%, 60%);
-      }
-      a {
-        text-decoration: none;
-        color: hsl(212, 29%, 60%);;
-      }
-      .inverse a {
-        color: #ffffff
-      }
+  width: auto;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
 
-      .headerbar a, .sidebar a {
-        text-decoration: none;
-        color: #ffffff;
-      }
-      
-      .close-sidebar {
-        font-size: 2em;
-        padding-right: 10px;
-        text-align: right;
-        margin-right: 10px;
-        outline: none;
-        padding: 5px 5px 7px 5px;
-        cursor: pointer;
-        color: #ffffff;
-      }
-      .content {
-        padding: 0 15px;
-        margin: auto;
-        max-width: 1140px;
-        width: 100%;
-      }
-      h1, h2{
-          margin-block-end: 0.2em;
-      }
-      ul{
-        margin:0;
-      }
-      .card-deck {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
-      }
-      .card-deck .card {
-          margin-bottom: 15px;
-      }
+header {
+  background: white;
+  color: #ffffff;
+  padding: 0 5px;
+}
 
-      .card {
-          position: relative;
-          display: -webkit-box;
-          display: -ms-flexbox;
-          display: flex;
-          -webkit-box-orient: vertical;
-          -webkit-box-direction: normal;
-          -ms-flex-direction: column;
-          flex-direction: column;
-          min-width: 200px;
-          word-wrap: break-word;
-          background-color: #fff;
-          background-clip: border-box;
-          border: 1px solid rgba(0,0,0,.125);
-          border-radius: .25rem;
-      }
-      .card-img-top {
-          width: 100%;
-          border-top-left-radius: calc(.25rem - 1px);
-          border-top-right-radius: calc(.25rem - 1px);
-          background: radial-gradient(circle, rgba(9,9,121,1) 0%, rgba(123,151,183,1) 100%);
-      }
+.headerbar {
+  height: 50px;
+  top: 0;
+  width: 100%;
+  background-color: hsl(212, 29%, 60%);
+  padding-top: 5px;
+}
 
-      img {
-          vertical-align: middle;
-          border-style: none;
-      }
-      .card-body {
-          -webkit-box-flex: 1;
-          -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-          padding: 1.25rem;
-      }
-      .card-title {
-          margin-bottom: .75rem;
-      }
-      .card-text:last-child {
-          margin-bottom: 0;
-      }
-      @media (min-width: 576px) {
-        .card-deck {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
-            -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
-            margin: -15px;
-            margin-left: -15px;
-        }
-      }
-      @media (min-width: 576px){
+.site-name {
+  flex: 1;
+  font-size: 1.5em;
+}
+
+.topnav {
+  display: none;
+  padding: 0 10px 0 0;
+}
+
+@media (min-width: 600px) {
+  .topnav {
+    display: unset;
+  }
+  .hamburger {
+    display: none;
+  }
+}
+
+.topnav li {
+  display: inline;
+  margin: 0 0 0 20px;
+}
+
+.hamburger {
+  margin-right: 10px;
+  outline: none;
+  font-size: .7em;
+  border: 1px solid #ffffff;
+  padding: 5px 5px 7px 5px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.sidebar {
+  padding: 10px;
+  margin: 0;
+  font-size: 2em;
+}
+
+.sidebar li {
+  padding: 5px;
+}
+
+.headerbar li {
+  list-style: none;
+  margin-bottom: 10px;
+  font-size: 1.25em;
+}
+
+.headerbar li a {
+  color: rgba(255, 255, 255, .5);
+}
+
+.inverse {
+  background-color: hsl(212, 29%, 60%);
+}
+
+a {
+  text-decoration: none;
+  color: hsl(212, 29%, 60%);
+  ;
+}
+
+.inverse a {
+  color: #ffffff
+}
+
+.headerbar a, .sidebar a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.close-sidebar {
+  font-size: 2em;
+  padding-right: 10px;
+  text-align: right;
+  margin-right: 10px;
+  outline: none;
+  padding: 5px 5px 7px 5px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.content {
+  padding: 0 15px;
+  margin: auto;
+  max-width: 1140px;
+  width: 100%;
+}
+
+h1, h2 {
+  margin-block-end: 0.2em;
+}
+
+ul {
+  margin: 0;
+}
+
+.card-deck {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 .card-deck .card {
+  margin-bottom: 15px;
+}
+
+.card {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 200px;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: .25rem;
+}
+
+.card-img-top {
+  width: 100%;
+  border-top-left-radius: calc(.25rem - 1px);
+  border-top-right-radius: calc(.25rem - 1px);
+  background: radial-gradient(circle, rgba(9, 9, 121, 1) 0%, rgba(123, 151, 183, 1) 100%);
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+.card-body {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+.card-title {
+  margin-bottom: .75rem;
+}
+
+.card-text:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 576px) {
+  .card-deck {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin: -15px;
+    margin-left: -15px;
+  }
+}
+
+@media (min-width: 576px) {
+  .card-deck .card {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -204,14 +230,15 @@
     -ms-flex-direction: column;
     flex-direction: column;
     margin: 10px;
-}}
+  }
+}
     </style>
   </head>
   <body>
     <header class="headerbar">
     <div style="display: flex;
         align-items: center;
-        margin: auto; max-width: 1140px;
+        margin: auto; max-width: 1140px; padding: 0 15px;
 ">
       <div class="site-name">
       <a href="/">
@@ -233,8 +260,11 @@
         <li><a href="/calendar">Calendar</a></li>
       </ul>
     </amp-sidebar>
-      <div class="content">
+    <div class="content">
+    <div class="content">
     <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;mode=WEEK&amp;height=800&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=bntlyd%40gmail.com&amp;color=%23182C57&amp;src=695hr7e6qoakkrv9ug1e505ar8%40group.calendar.google.com&amp;color=%23B1440E&amp;src=bentley.davis%40invitae.com&amp;color=%23182C57&amp;ctz=America%2FChicago" style="border-width:0" width="800" height="800" frameborder="0" scrolling="no"></iframe>
+</div>
+
 </div>
 
     <br>
