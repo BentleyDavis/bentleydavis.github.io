@@ -30,7 +30,6 @@
       header {
         background: white;
         color: #ffffff;
-        font-size: 1.5em;
         padding: 0 5px;
       }
       .headerbar {
@@ -42,6 +41,7 @@
       }
       .site-name {
         flex: 1;
+        font-size: 1.5em;
       }
       .topnav {
         display: none;
@@ -57,7 +57,7 @@
       }
       .topnav li {
         display: inline;
-        margin: 0 10px 0 0;
+        margin: 0 0 0 20px;
       }
       .hamburger {
         margin-right: 10px;
@@ -73,9 +73,16 @@
         margin: 0;
         font-size: 2em;
       }
+      .sidebar li {
+        padding: 5px;
+      }
       .headerbar li {
         list-style: none;
         margin-bottom:10px;
+        font-size: 1.25em;
+      }
+      .headerbar li a{
+        color: rgba(255,255,255,.5);
       }
       .inverse {
        background-color: hsl(212, 29%, 60%);
@@ -106,7 +113,8 @@
       .content {
         padding: 0 15px;
         margin: auto;
-        max-width: 800px;
+        max-width: 1140px;
+        width: 100%;
       }
       h1, h2{
           margin-block-end: 0.2em;
@@ -136,7 +144,7 @@
           -webkit-box-direction: normal;
           -ms-flex-direction: column;
           flex-direction: column;
-          min-width: 0;
+          min-width: 200px;
           word-wrap: break-word;
           background-color: #fff;
           background-clip: border-box;
@@ -147,6 +155,7 @@
           width: 100%;
           border-top-left-radius: calc(.25rem - 1px);
           border-top-right-radius: calc(.25rem - 1px);
+          background: radial-gradient(circle, rgba(9,9,121,1) 0%, rgba(123,151,183,1) 100%);
       }
 
       img {
@@ -171,7 +180,7 @@
             -webkit-box-direction: normal;
             -ms-flex-flow: row wrap;
             flex-flow: row wrap;
-            margin-right: -15px;
+            margin: -15px;
             margin-left: -15px;
         }
       }
@@ -187,17 +196,15 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    margin-right: 15px;
-    margin-bottom: 0;
-    margin-left: 15px;
+    margin: 10px;
 }}
     </style>
   </head>
   <body>
     <header class="headerbar">
-    <div class ="content" style="        display: flex;
+    <div style="display: flex;
         align-items: center;
-        margin: auto;
+        margin: auto; max-width: 1140px;
 ">
       <div class="site-name">
       <a href="/">
@@ -215,7 +222,8 @@
       <div role="button" aria-label="close sidebar" on="tap:sidebar1.toggle" tabindex="0" class="close-sidebar">✕</div>
       <ul class="sidebar">
         <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/calendar">Calendar</a></li>
       </ul>
     </amp-sidebar>
       {{ content | safe }}

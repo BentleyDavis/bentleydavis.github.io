@@ -1,0 +1,13 @@
+---
+layout: page.njk
+tags: post
+---
+<div class="content">
+    <div style="max-width: 400px; margin: auto;">
+        <amp-img src="{{ img }}" alt="{{ title }}" height="1024" width="1024" layout="responsive" ></amp-img>
+    </div>
+    {{ author }}
+    -
+    {{ date }}
+    {{ content | safe }}
+</div>
