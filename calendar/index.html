@@ -1,5 +1,243 @@
----
-layout: page
-title: Calendar
----
-<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;mode=WEEK&amp;height=800&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=bntlyd%40gmail.com&amp;color=%23182C57&amp;src=695hr7e6qoakkrv9ug1e505ar8%40group.calendar.google.com&amp;color=%23B1440E&amp;src=bentley.davis%40invitae.com&amp;color=%23182C57&amp;ctz=America%2FChicago" style="border-width:0" width="800" height="800" frameborder="0" scrolling="no"></iframe>
+<!doctype html>
+<html amp="amp" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <script async="async" src="https://cdn.ampproject.org/v0.js"></script>
+    <script async="async" custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+    <script async custom-element="amp-fx-collection" src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
+    <title>Calendar</title>
+    <link rel="canonical" href="/calendar/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "headline": "Calendar",
+        "datePublished": "",
+        "image": ["/img/logo.png"]
+      }
+    </script>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700)">
+    <style amp-custom="amp-custom">
+      body {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      }
+      header {
+        background: white;
+        color: #ffffff;
+        padding: 0 5px;
+      }
+      .headerbar {
+        height: 50px;
+        top: 0;
+        width: 100%;
+        background-color: hsl(212, 29%, 60%);
+        padding-top: 5px;
+      }
+      .site-name {
+        flex: 1;
+        font-size: 1.5em;
+      }
+      .topnav {
+        display: none;
+        padding: 0 10px 0 0;
+      }
+      @media (min-width: 600px) {
+        .topnav {
+          display: unset;
+        }
+        .hamburger {
+          display: none;
+        }
+      }
+      .topnav li {
+        display: inline;
+        margin: 0 0 0 20px;
+      }
+      .hamburger {
+        margin-right: 10px;
+        outline: none;
+        font-size: .7em;
+        border: 1px solid #ffffff;
+        padding: 5px 5px 7px 5px;
+        border-radius: 10px;
+        cursor: pointer;
+      }      
+      .sidebar {
+        padding: 10px;
+        margin: 0;
+        font-size: 2em;
+      }
+      .sidebar li {
+        padding: 5px;
+      }
+      .headerbar li {
+        list-style: none;
+        margin-bottom:10px;
+        font-size: 1.25em;
+      }
+      .headerbar li a{
+        color: rgba(255,255,255,.5);
+      }
+      .inverse {
+       background-color: hsl(212, 29%, 60%);
+      }
+      a {
+        text-decoration: none;
+        color: hsl(212, 29%, 60%);;
+      }
+      .inverse a {
+        color: #ffffff
+      }
+
+      .headerbar a, .sidebar a {
+        text-decoration: none;
+        color: #ffffff;
+      }
+      
+      .close-sidebar {
+        font-size: 2em;
+        padding-right: 10px;
+        text-align: right;
+        margin-right: 10px;
+        outline: none;
+        padding: 5px 5px 7px 5px;
+        cursor: pointer;
+        color: #ffffff;
+      }
+      .content {
+        padding: 0 15px;
+        margin: auto;
+        max-width: 1140px;
+        width: 100%;
+      }
+      h1, h2{
+          margin-block-end: 0.2em;
+      }
+      ul{
+        margin:0;
+      }
+      .card-deck {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+      .card-deck .card {
+          margin-bottom: 15px;
+      }
+
+      .card {
+          position: relative;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          min-width: 200px;
+          word-wrap: break-word;
+          background-color: #fff;
+          background-clip: border-box;
+          border: 1px solid rgba(0,0,0,.125);
+          border-radius: .25rem;
+      }
+      .card-img-top {
+          width: 100%;
+          border-top-left-radius: calc(.25rem - 1px);
+          border-top-right-radius: calc(.25rem - 1px);
+          background: radial-gradient(circle, rgba(9,9,121,1) 0%, rgba(123,151,183,1) 100%);
+      }
+
+      img {
+          vertical-align: middle;
+          border-style: none;
+      }
+      .card-body {
+          -webkit-box-flex: 1;
+          -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+          padding: 1.25rem;
+      }
+      .card-title {
+          margin-bottom: .75rem;
+      }
+      .card-text:last-child {
+          margin-bottom: 0;
+      }
+      @media (min-width: 576px) {
+        .card-deck {
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+            margin: -15px;
+            margin-left: -15px;
+        }
+      }
+      @media (min-width: 576px){
+.card-deck .card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 0%;
+    flex: 1 0 0%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin: 10px;
+}}
+    </style>
+  </head>
+  <body>
+    <header class="headerbar">
+    <div style="display: flex;
+        align-items: center;
+        margin: auto; max-width: 1140px;
+">
+      <div class="site-name">
+      <a href="/">
+        Bentley Davis
+      </a>
+      </div>
+      <ul class="topnav">
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+      </ul>
+      <div role="button" on="tap:sidebar1.toggle" tabindex="0" class="hamburger">MENU</div>
+    </header>
+    </div>
+    <amp-sidebar id="sidebar1" layout="nodisplay" side="right" style="background-color: hsl(212, 29%, 60%);">
+      <div role="button" aria-label="close sidebar" on="tap:sidebar1.toggle" tabindex="0" class="close-sidebar">✕</div>
+      <ul class="sidebar">
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+      </ul>
+    </amp-sidebar>
+      <div class="content">
+    <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;mode=WEEK&amp;height=800&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=bntlyd%40gmail.com&amp;color=%23182C57&amp;src=695hr7e6qoakkrv9ug1e505ar8%40group.calendar.google.com&amp;color=%23B1440E&amp;src=bentley.davis%40invitae.com&amp;color=%23182C57&amp;ctz=America%2FChicago" style="border-width:0" width="800" height="800" frameborder="0" scrolling="no"></iframe>
+</div>
+
+    <br>
+    <br>
+  </body>
+</html>

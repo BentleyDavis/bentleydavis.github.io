@@ -1,76 +1,242 @@
----
-layout: default
-title: Bentley Davis
----
-<style>
-    a, a:hover{
-    color: white;
-}
+<!doctype html>
+<html amp="amp" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <script async="async" src="https://cdn.ampproject.org/v0.js"></script>
+    <script async="async" custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+    <script async custom-element="amp-fx-collection" src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
+    <title>Bentley Davis</title>
+    <link rel="canonical" href="/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "headline": "Bentley Davis",
+        "datePublished": "2018-6-10",
+        "image": ["/img/logo.png"]
+      }
+    </script>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700)">
+    <style amp-custom="amp-custom">
+      body {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      }
+      header {
+        background: white;
+        color: #ffffff;
+        padding: 0 5px;
+      }
+      .headerbar {
+        height: 50px;
+        top: 0;
+        width: 100%;
+        background-color: hsl(212, 29%, 60%);
+        padding-top: 5px;
+      }
+      .site-name {
+        flex: 1;
+        font-size: 1.5em;
+      }
+      .topnav {
+        display: none;
+        padding: 0 10px 0 0;
+      }
+      @media (min-width: 600px) {
+        .topnav {
+          display: unset;
+        }
+        .hamburger {
+          display: none;
+        }
+      }
+      .topnav li {
+        display: inline;
+        margin: 0 0 0 20px;
+      }
+      .hamburger {
+        margin-right: 10px;
+        outline: none;
+        font-size: .7em;
+        border: 1px solid #ffffff;
+        padding: 5px 5px 7px 5px;
+        border-radius: 10px;
+        cursor: pointer;
+      }      
+      .sidebar {
+        padding: 10px;
+        margin: 0;
+        font-size: 2em;
+      }
+      .sidebar li {
+        padding: 5px;
+      }
+      .headerbar li {
+        list-style: none;
+        margin-bottom:10px;
+        font-size: 1.25em;
+      }
+      .headerbar li a{
+        color: rgba(255,255,255,.5);
+      }
+      .inverse {
+       background-color: hsl(212, 29%, 60%);
+      }
+      a {
+        text-decoration: none;
+        color: hsl(212, 29%, 60%);;
+      }
+      .inverse a {
+        color: #ffffff
+      }
 
-.wrapper {
-  /* The height needs to be set to a fixed value for the effect to work.
-   * 100vh is the full height of the viewport. */
-  height: 100vh;
-  /* The scaling of the images would add a horizontal scrollbar, so disable x overflow. */
-  overflow-x: hidden;
-  /* Enable scrolling on the page. */
-  overflow-y: auto;
-  /* Set the perspective to 2px. This is essentailly the simulated distance from the viewport to transformed objects.*/
-  perspective: 2px;
-}
+      .headerbar a, .sidebar a {
+        text-decoration: none;
+        color: #ffffff;
+      }
+      
+      .close-sidebar {
+        font-size: 2em;
+        padding-right: 10px;
+        text-align: right;
+        margin-right: 10px;
+        outline: none;
+        padding: 5px 5px 7px 5px;
+        cursor: pointer;
+        color: #ffffff;
+      }
+      .content {
+        padding: 0 15px;
+        margin: auto;
+        max-width: 1140px;
+        width: 100%;
+      }
+      h1, h2{
+          margin-block-end: 0.2em;
+      }
+      ul{
+        margin:0;
+      }
+      .card-deck {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+      .card-deck .card {
+          margin-bottom: 15px;
+      }
 
-.section {
-  /* Needed for children to be absolutely positioned relative to the parent. */
-  position: relative;
-  /* The height of the container. Must be set, but it doesn't really matter what the value is. */
-  min-height: 90vh;
-  
-  /* For text formatting. */
-  /* display: flex; */
-  /* align-items: center;
-  justify-content: center;
-  text-shadow: 0 0 px rgb(255, 255, 255); */
-}
+      .card {
+          position: relative;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          min-width: 200px;
+          word-wrap: break-word;
+          background-color: #fff;
+          background-clip: border-box;
+          border: 1px solid rgba(0,0,0,.125);
+          border-radius: .25rem;
+      }
+      .card-img-top {
+          width: 100%;
+          border-top-left-radius: calc(.25rem - 1px);
+          border-top-right-radius: calc(.25rem - 1px);
+          background: radial-gradient(circle, rgba(9,9,121,1) 0%, rgba(123,151,183,1) 100%);
+      }
 
-.parallax::after {
-  /* Display and position the pseudo-element */
-  content: " ";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  
-  /* Move the pseudo-element back away from the camera,
-   * then scale it back up to fill the viewport.
-   * Because the pseudo-element is further away, it appears to move more slowly, like in real life. */
-  transform: translateZ(-1px) scale(1.56);
-  /* Force the background image to fill the whole element. */
-  background-size: cover;
-  background-position: top;
-  /* Keep the image from overlapping sibling elements. */ 
-  z-index: -1;
-}
-
-/* The styling for the static div. */
-.static {
-  background: hsl(212, 29%, 60%)
-}
-
-/* Sets the actual background images to adorable kitties. This part is crucial. */
-.bg1::after {
-  background-image: url('hero.jpg');
-}
-
-.bg2::after {
-  background-image: url('hero2.jpg');
-}
-</style>
-
-<main class="wrapper">
-        {% include nav.html %}
-    <section class="section parallax bg1" style="display: flex; align-items: center;">
-        <div class="container">
+      img {
+          vertical-align: middle;
+          border-style: none;
+      }
+      .card-body {
+          -webkit-box-flex: 1;
+          -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+          padding: 1.25rem;
+      }
+      .card-title {
+          margin-bottom: .75rem;
+      }
+      .card-text:last-child {
+          margin-bottom: 0;
+      }
+      @media (min-width: 576px) {
+        .card-deck {
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+            margin: -15px;
+            margin-left: -15px;
+        }
+      }
+      @media (min-width: 576px){
+.card-deck .card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 0%;
+    flex: 1 0 0%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin: 10px;
+}}
+    </style>
+  </head>
+  <body>
+    <header class="headerbar">
+    <div style="display: flex;
+        align-items: center;
+        margin: auto; max-width: 1140px;
+">
+      <div class="site-name">
+      <a href="/">
+        Bentley Davis
+      </a>
+      </div>
+      <ul class="topnav">
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+      </ul>
+      <div role="button" on="tap:sidebar1.toggle" tabindex="0" class="hamburger">MENU</div>
+    </header>
+    </div>
+    <amp-sidebar id="sidebar1" layout="nodisplay" side="right" style="background-color: hsl(212, 29%, 60%);">
+      <div role="button" aria-label="close sidebar" on="tap:sidebar1.toggle" tabindex="0" class="close-sidebar">✕</div>
+      <ul class="sidebar">
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+      </ul>
+    </amp-sidebar>
+      <main style="background-color: hsl(212, 29%, 60%);">
+    <section style="display: flex; align-items: center; background-image: url('/img/hero.jpg');  background-size: cover;
+  background-position: top; ">
+        <div class="content" amp-fx="parallax" data-parallax-factor="1.5" style="padding-top: 200px;">
             <h1 style="max-width:50%;  color: #6481a1;">Bentley Davis</h1>
             <table>
                 <tr>
@@ -97,16 +263,17 @@ title: Bentley Davis
                     background-color: hsla(0, 0%, 100%, 0.6);
                     border-radius: .5rem; max-width:400px; border: 1px #6481a1 solid;">
                 <h3>Current Project:</h3>
-                I grew tired of the divisive bickering and misinformation so I created<br>
+                I grew tired of the divisive bickering and misinformation so I created: <br />
                 <a href="https://ReasonScore.com">
-                    <img src="reasonscore.png"><br>
-                </a> - a crowd sourced super fact checking web app.
+                    <amp-img src="/img/rslogowide.png" alt="Reason Score Logo" width="230" height="50" style="top: 3px;">
+                </a>
+                <br />
+                 - a crowd sourced super fact checking web app.
             </div>
         </div>
     </section>
-    <section class="section static">
-        <div class="container">
-
+    <section class="inverse">
+        <div  class="content" >
             <h1>Links</h1>
             <ul>
                 <li>
@@ -155,9 +322,9 @@ title: Bentley Davis
             <a title="I am a Maverick leader" href="/maverick-leader">Maverick Leader</a>
         </div>
     </section>
-    <section class="section parallax bg2">
-        <div class="container">
-            <div id="tripit-badge"><script type="text/javascript" src="https://www.tripit.com/account/badge/id/FC06286D105D0AB67BCA4AD40FA8A448/div_id/tripit-badge/badge.js"></script><noscript><a href="/">TripIt - Organize your travel</a></noscript></div>
-        </div>
-    </section>
 </main>
+
+    <br>
+    <br>
+  </body>
+</html>
