@@ -1,7 +1,7 @@
 {
-  "name": "reasonscore",
+  "name": "bentleydavis",
   "version": "1.0.0",
-  "description": "Reason Score",
+  "description": "Bentley Davis",
   "main": "index.js",
   "scripts": {
     "start": "eleventy --serve --watch",
