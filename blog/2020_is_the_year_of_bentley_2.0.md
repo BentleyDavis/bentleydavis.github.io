@@ -4,7 +4,7 @@ title: "2020 is the year of Bentley 2.0"
 date: 2020-02-07 12:00:00
 author: "Bentley Davis"
 img: "/img/bentley_wide_small.jpg"
-permalink: 2020_is_the_year_of_bentley_2.0.html
+permalink: 2020_is_the_year_of_bentley_2.0/index.html
 ---
 For my birthday for this round year of 2020 I decided to focus on improving myself. I quit my job and took a personal
 retreat in a cabin on the lake to investigate who I wanted to be. I followed the The Zen Founder Guide to Retreats. Here
@@ -47,7 +47,7 @@ hours per day that is not allocated. Here are some interesting allocations:
 <table>
     <tbody>
         <tr><td class="hours-column"> 8</td><td>Learning new Tech</td></tr>
-        <tr><td class="hours-column">16</td><td>Reason Score/ Gullibot</td></tr>
+        <tr><td class="hours-column">16</td><td><a href="https://ReasonScore.com">Reason Score</a>/ <a href="https://Gullibot.com">Gullibot</a></td></tr>
         <tr><td class="hours-column"> 7</td><td>Community (local and online)</td></tr>
         <tr><td class="hours-column">12</td><td>Other Projects</td></tr>
         <tr><td class="hours-column">15</td><td>Physical Health (exercise, yoga, etc.)</td></tr>
@@ -68,4 +68,4 @@ will be accomplished soon. I follow the Getting Things Done (GTD) method with a 
 too many tasks. I’m considering having a limit on the number of active tasks. Maybe 50 instead of the 111 that I have
 now.
 # Updates
-Keep up with my passion projects and personal growth by signing up for my newsletter at BentleyDavis.com/updates
+Keep up with my passion projects and personal growth by signing up for my <a href="updates">newsletter</a>.
