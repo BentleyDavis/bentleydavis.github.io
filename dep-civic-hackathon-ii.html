@@ -147,6 +147,20 @@ ul {
   margin: 0;
 }
 
+amp-img.contain img {
+  object-fit: contain;
+}
+
+amp-img.cover img {
+  object-fit: cover;
+}
+
+.fixed-height-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+
 .card-deck {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -176,13 +190,20 @@ ul {
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, .125);
   border-radius: .25rem;
+  max-width: 200px;
 }
 
-.card-img-top {
+amp-img.card-img-top {
+  width: 200px;
+  height: 200px;
+}
+
+amp-img.card-img-top img {
   width: 100%;
   border-top-left-radius: calc(.25rem - 1px);
   border-top-right-radius: calc(.25rem - 1px);
   background: radial-gradient(circle, rgba(9, 9, 121, 1) 0%, rgba(123, 151, 183, 1) 100%);
+  object-fit: cover;
 }
 
 img {
@@ -195,6 +216,8 @@ img {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   padding: 1.25rem;
+  padding: 0 1.25rem;
+  height: 100px;
 }
 
 .card-title {
@@ -260,9 +283,14 @@ img {
       </ul>
     </amp-sidebar>
     <div class="content">
-    <div style="max-width: 400px; margin: auto;">
-        <amp-img src="/img/dep.jpg" alt="Civic Hackathon" height="1024" width="1024" layout="responsive" ></amp-img>
-    </div>
+<div class="fixed-height-container">
+    <amp-img
+        class="contain"
+        layout="fill"
+        src="/img/dep.jpg"
+        alt="Civic Hackathon"
+    ></amp-img>
+</div>
     Bentley Davis
     -
     Mon Sep 29 2014 07:00:00 GMT-0500 (Central Daylight Time)
