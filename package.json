@@ -12,6 +12,6 @@
   "author": "Bentley Davis <Bentley@BentleyDavis.com> (http://BentleyDavis.com)",
   "license": "ISC",
   "devDependencies": {
-    "gh-pages": "^2.0.1"
+    "gh-pages": "^2.2.0"
   }
 }
