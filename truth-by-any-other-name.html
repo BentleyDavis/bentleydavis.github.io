@@ -9,8 +9,8 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script async="async" src="https://cdn.ampproject.org/v0.js"></script>
-    <script async="async" custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
     <script async custom-element="amp-fx-collection" src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
     <title>Truth by Any Other Name</title>
@@ -260,8 +260,7 @@ img {
     <header class="headerbar">
     <div style="display: flex;
         align-items: center;
-        margin: auto; max-width: 1140px; padding: 0 15px;
-">
+        margin: auto; max-width: 1140px; padding: 0 15px;">
       <div class="site-name">
       <a href="/">
         Bentley Davis
@@ -269,6 +268,7 @@ img {
       </div>
       <ul class="topnav">
         <li><a href="/blog">Blog</a></li>
+        <li><a href="/calendar">Calendar</a></li>
       </ul>
       <div role="button" on="tap:sidebar1.toggle" tabindex="0" class="hamburger">MENU</div>
     </header>
@@ -278,6 +278,7 @@ img {
       <ul class="sidebar">
         <li><a href="/">Home</a></li>
         <li><a href="/blog">Blog</a></li>
+        <li><a href="/calendar">Calendar</a></li>
       </ul>
     </amp-sidebar>
     <div class="content">
@@ -306,9 +307,19 @@ img {
 
 </div>
     <br>
-    <iframe width="480" height="320" src="https://bentleydavis.substack.com/embed" frameborder="0" scrolling="no" 
+    <amp-iframe width="480" height="320"
+      src="https://bentleydavis.substack.com/embed"
+      sandbox="allow-scripts allow-same-origin allow-popups"
+      frameborder="0"
+      scrolling="no" 
       style="margin: 0 auto; display: block;"
-    ></iframe>
+    >
+      <div overflow
+        tabindex="0"
+        role="button"
+        aria-label="Show more">...
+      </div>
+    </amp-iframe>
     <br>
   </body>
 </html>
