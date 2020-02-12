@@ -7,7 +7,7 @@ img: "/img/bentley_wide_small.jpg"
 permalink: 2020_is_the_year_of_bentley_2.0/index.html
 ---
 For my birthday for this round year of 2020 I decided to focus on improving myself. I quit my job and took a personal
-retreat in a cabin on the lake to investigate who I wanted to be. I followed the The Zen Founder Guide to Retreats. Here
+retreat in a cabin on the lake to investigate who I wanted to be. I followed the The [Zen Founder Guide to Retreats](https://zenfounder.com/product/zen-founder-guide-founder-retreats/). Here
 is what I discovered:
 # Ahh Yeah, Satisfaction
 I’ve been focusing on exponentially increasing satisfaction in the world but I have been neglecting my own. Through much
@@ -55,16 +55,16 @@ hours per day that is not allocated. Here are some interesting allocations:
     </tbody>
 </table>
 
-I will be using Toggl to track my time. It doesn’t have a hierarchy of projects so I had to decide how I wanted the
+I will be using [Toggl](https://toggl.com/) to track my time. It doesn’t have a hierarchy of projects so I had to decide how I wanted the
 charts and reports to display. I ended up with just 4 main buckets (projects) I wanted to show on the charts. Business,
 Personal, Reason Score, and Learning. That will allow me to keep things balanced in my priorities easily. I added the
 hierarchy of my time allocation as tags so I could filter by each to see how much time I am spending to compare it to my
 time allocation chart and know when I need to switch to a different item.
 # Tasks
-I have 618 tasks in Todoist. I might switch over to OmniFocus because Todoist doesn’t allow me to hide tasks until later
+I have 618 tasks in [Todoist](https://todoist.com/). I might switch over to [OmniFocus](https://www.omnigroup.com/omnifocus/) because Todoist doesn’t allow me to hide tasks until later
 in the day or task counts and I find seeing too many tasks at a time stressful.
 389 of those tasks are “bonus” which are just optional tasks. Of the remaining 229 real tasks 111 are “Active” which
-will be accomplished soon. I follow the Getting Things Done (GTD) method with a few changes. I can’t decide if that is
+will be accomplished soon. I follow the [Getting Things Done (GTD)](https://gettingthingsdone.com/) method with a few changes. I can’t decide if that is
 too many tasks. I’m considering having a limit on the number of active tasks. Maybe 50 instead of the 111 that I have
 now.
 # Updates
