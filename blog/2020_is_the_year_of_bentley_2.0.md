@@ -7,6 +7,7 @@ description: "For my birthday for this round year of 2020 I decided to focus on 
 retreat in a cabin on the lake to investigate who I wanted to be. Here is what I discovered:"
 img: "/img/bentley_wide_small.jpg"
 permalink: 2020_is_the_year_of_bentley_2.0/index.html
+tags: post
 ---
 For my birthday for this round year of 2020 I decided to focus on improving myself. I quit my job and took a personal
 retreat in a cabin on the lake to investigate who I wanted to be. I followed the The [Zen Founder Guide to Retreats](https://zenfounder.com/product/zen-founder-guide-founder-retreats/). Here
