@@ -23,6 +23,13 @@ module.exports = function (eleventyConfig) {
     return buffer;
   });
 
+  eleventyConfig.addShortcode("formatDate", function(date) { 
+    return "" + date.toLocaleDateString(
+      "en-US",
+      { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+    ) + "";
+  });
+
   return {
     dir: {
       output: "dist"

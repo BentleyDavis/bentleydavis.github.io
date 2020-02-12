@@ -11,8 +11,9 @@ tags: post
         alt="{{ title }}"
     ></amp-img>
 </div>
-    {{ author }}
-    -
-    {{ date.toDateString() }}
+    <span style="font-size: x-small;">
+        {% formatDate page.date %}
+    </span>
+    <h1>{{ title }}</h1>
     {{ content | safe }}
 </div>
