@@ -16,7 +16,7 @@
       <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
       <script async custom-element="amp-fx-collection" src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
 
-    <title>Calendar</title>
+    <title>Schedule a meeting with Bentley</title>
     <link rel="canonical" href="https://BentleyDavis.com/schedule/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <script type="application/ld+json">
@@ -24,7 +24,7 @@
         "author.name": "Bentley Davis",
         "@context": "http://schema.org",
         "@type": "NewsArticle",
-        "headline": "Calendar",
+        "headline": "Schedule a meeting with Bentley",
         "datePublished": "",
         "image": ["https://BentleyDavis.com"]
       }
@@ -32,13 +32,13 @@
     
       <meta property="og:url"         content="https://BentleyDavis.com/schedule/" />
       <meta property="og:type"        content="article" />
-      <meta property="og:title"       content="Calendar" />
+      <meta property="og:title"       content="Schedule a meeting with Bentley" />
       <meta property="og:description" content="" />
       <meta property="og:image"       content="https://BentleyDavis.com" />
     
       <meta name="twitter:card" content="summary_large_image">
       <meta name="twitter:site" content="@bntlyd">
-      <meta name="twitter:title" content="Calendar">
+      <meta name="twitter:title" content="Schedule a meeting with Bentley">
       <meta name="twitter:description" content="">
       <meta name="twitter:creator" content="@bntlyd">
       <meta name="twitter:image" content="https://BentleyDavis.com">
@@ -128,6 +128,10 @@ header {
 
 h1, h2, h3, h4, h5 {
   color: hsl(212, 29%, 60%);
+}
+
+.inverse h1, .inverse h2, .inverse h3, .inverse h4, .inverse h5 {
+  color: white;
 }
 
 a {
@@ -291,6 +295,7 @@ img {
       </div>
       <ul class="topnav">
         <li><a href="/blog">Blog</a></li>
+        <li><a href="/schedule">Schedule</a></li>
         <li><a href="/calendar">Calendar</a></li>
       </ul>
       <div role="button" on="tap:sidebar1.toggle" tabindex="0" class="hamburger">MENU</div>
@@ -301,15 +306,21 @@ img {
       <ul class="sidebar">
         <li><a href="/">Home</a></li>
         <li><a href="/blog">Blog</a></li>
+        <li><a href="/schedule">Schedule</a></li>
         <li><a href="/calendar">Calendar</a></li>
       </ul>
     </amp-sidebar>
-    <div class="content">
-    <div class="content">
-    <iframe src="https://calendly.com/bentleydavis/schedule" style="border-width:0" width="800" height="800" frameborder="0" scrolling="no"></iframe>
-</div>
-
-</div>
+    <amp-iframe src="https://calendly.com/bentleydavis/schedule" style="max-height:100%;" width="500" height="1000" 
+    frameborder="0"
+    sandbox="allow-scripts allow-same-origin allow-popups"
+    layout="responsive"
+    resizable
+    scrolling="no">
+    <div overflow tabindex="0"
+    role="button"
+    aria-label="Show more">...</div>
+    <div placeholder>Loading Bentley's Scheduler...</div>
+</amp-iframe>
 
     <br>
     <amp-iframe width="480" height="320"
