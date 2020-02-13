@@ -81,6 +81,10 @@ h1, h2, h3, h4, h5 {
   color: hsl(212, 29%, 60%);
 }
 
+.inverse h1, .inverse h2, .inverse h3, .inverse h4, .inverse h5 {
+  color: white;
+}
+
 a {
   text-decoration: none;
   color: hsl(212, 29%, 60%);

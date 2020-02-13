@@ -71,4 +71,4 @@ will be accomplished soon. I follow the [Getting Things Done (GTD)](https://gett
 too many tasks. I’m considering having a limit on the number of active tasks. Maybe 50 instead of the 111 that I have
 now.
 ## Updates
-Keep up with my passion projects and personal growth by signing up for my <a href="updates">newsletter</a>.
+Keep up with my passion projects and personal growth by signing up for my <a href="/updates">newsletter</a>.

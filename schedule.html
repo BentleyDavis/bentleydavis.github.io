@@ -1,7 +1,15 @@
 ---
-layout: page.njk
-title: Calendar
+layout: base.njk
+title: Schedule a meeting with Bentley
 ---
-<div class="content">
-    <iframe src="https://calendly.com/bentleydavis/schedule" style="border-width:0" width="800" height="800" frameborder="0" scrolling="no"></iframe>
-</div>
+<amp-iframe src="https://calendly.com/bentleydavis/schedule" style="max-height:100%;" width="500" height="1000" 
+    frameborder="0"
+    sandbox="allow-scripts allow-same-origin allow-popups"
+    layout="responsive"
+    resizable
+    scrolling="no">
+    <div overflow tabindex="0"
+    role="button"
+    aria-label="Show more">...</div>
+    <div placeholder>Loading Bentley's Scheduler...</div>
+</amp-iframe>
