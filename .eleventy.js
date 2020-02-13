@@ -13,10 +13,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("safari-pinned-tab.svg");
   eleventyConfig.addPassthroughCopy("site.webmanifest");
 
-  eleventyConfig.addShortcode("maincss", function (test) {
+  eleventyConfig.addShortcode("fileImport", function (file) {
     var fs = require('fs');
     var path = process.cwd();
-    var filePath = path + "\\main.css";
+    var filePath = path + "\\" + file;
     if (fs.existsSync(filePath)) {
       var buffer = fs.readFileSync(filePath).toString();
     }
