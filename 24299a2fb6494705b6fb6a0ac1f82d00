@@ -1,0 +1,86 @@
+// ==UserScript==
+// @name         Meetup ical to CSV
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Download a CSV of the ical info from a gorup.
+// @author       Bentley Davis
+// @match        https://www.meetup.com/*
+// @grant        none
+// ==/UserScript==
+
+(function () {
+    'use strict';
+
+    // Your code here...
+    fetch(`https://www.meetup.com/${window.location.href.split("/")[3]}/events/ical/`)
+        .then((response) => {
+            return response.text();
+        })
+        .then((body) => {
+            //console.log(body.split(/\r\n/));
+            parsEvents(ical2json(body));
+        });
+
+    function ical2json(ical) {
+        const lines = ical.split(/\r\n/);
+        const events = [];
+        let event = {};
+        let prop = "";
+        for (const line of lines) {
+            if (line == "BEGIN:VEVENT") {
+                event = {}
+                events.push(event)
+            } else if (line[0] != " ") {
+                const index = line.indexOf(":");
+                const indexSemicolon = line.indexOf(";");
+                if (indexSemicolon > 0 &&  indexSemicolon < index) {
+                    prop = line.substring(0, indexSemicolon);
+                } else {
+                    prop = line.substring(0, index);
+                }
+                event[prop] = line.substring(index + 1);
+            } else if (line[0] == " ") {
+                event[prop] += line.substring(1);
+            }
+        }
+        console.log(events);
+        return events;
+    }
+
+    function parsEvents(events) {
+
+        let csv = '"Event Title","Event External URL","Event Description Short","Event Image","Start Date & Time","End Date & Time"'
+            + '\r\n';
+        for (const event of events) {
+            csv += '"'
+                + event.SUMMARY
+                + '","'
+                + event.URL
+                + '","'
+                + event.DESCRIPTION
+                + '","'
+                + "" //image,url
+                + '","'
+                + event.DTSTART
+                + '","'
+                + event.DTEND
+                + '"\r\n';
+        }
+        download("data.csv", csv);
+        console.log(csv);
+    }
+
+    function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+
+})();
