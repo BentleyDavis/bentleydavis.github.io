@@ -4,11 +4,12 @@
   "description": "Bentley Davis",
   "main": "index.js",
   "scripts": {
-    "start": "del dist /q && eleventy --serve --watch",
-    "build": "del dist /q && eleventy",
-    "debug": "@powershell -Command $env:DEBUG='*'; eleventy",
-    "deploy": "del dist /q && eleventy && gh-pages -d dist -b master",
-    "upgrade-all": "ncu -u --timeout 60000 && npm install"
+    "start": "npm run deleteDist && eleventy --serve --watch",
+    "build": "npm run deleteDist && eleventy",
+    "debug": "npm run deleteDist && @powershell -Command $env:DEBUG='*'; eleventy",
+    "deploy": "npm run deleteDist && eleventy && gh-pages -d dist -b master",
+    "upgrade-all": "ncu -u --timeout 60000 && npm install",
+    "deleteDist": "if exist dist (rmdir /s /q dist)"
   },
   "author": "Bentley Davis <Bentley@BentleyDavis.com> (http://BentleyDavis.com)",
   "license": "ISC",
