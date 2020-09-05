@@ -2,23 +2,21 @@
 layout: page.njk
 title: Bentley's Blog
 ---
-<div class="content">    
-    <h1>Bentley's Blog</h1>
-    <div class="card-deck">
-        {%- for post in collections.post | reverse -%}
-            <a href="{{post.url}}">
-                <div class="card">
-                    {% if post.data.img %}
-                        <amp-img class="card-img-top" src="{{post.data.img}}" alt="{{ post.data.title }}" layout="responsive" height="200" width="200" ></amp-img>
-                    {% else %}
-                        <div class="bigtext" >{{ post.data.title }}</div>
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ post.data.title }}</h5>
-                        <p class="card-text"></p>
-                    </div>
+<h1>Bentley's Blog</h1>
+<div class="card-deck">
+    {%- for post in collections.post | reverse -%}
+        <a href="{{post.url}}">
+            <div class="card">
+                {% if post.data.img %}
+                    <amp-img class="card-img-top" src="{{post.data.img}}" alt="{{ post.data.title }}" layout="responsive" height="200" width="200" ></amp-img>
+                {% else %}
+                    <div class="bigtext" >{{ post.data.title }}</div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.data.title }}</h5>
+                    <p class="card-text"></p>
                 </div>
-            </a>
-        {%- endfor -%}
-    </div>
+            </div>
+        </a>
+    {%- endfor -%}
 </div>
