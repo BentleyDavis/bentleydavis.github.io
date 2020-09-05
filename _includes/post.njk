@@ -3,14 +3,16 @@ layout: base.njk
 tags: post
 ---
 <div class="content">
-<div class="fixed-height-container">
-    <amp-img
-        class="contain"
-        layout="fill"
-        src="{{ img }}"
-        alt="{{ title }}"
-    ></amp-img>
-</div>
+    {% if post.data.img %}
+        <div class="fixed-height-container">
+            <amp-img
+                class="contain"
+                layout="fill"
+                src="{{ img }}"
+                alt="{{ title }}"
+            ></amp-img>
+        </div>
+    {% endif %}
     <span style="font-size: x-small;">
         {% formatDate page.date %}
     </span>
