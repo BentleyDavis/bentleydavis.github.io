@@ -18,6 +18,7 @@
                 html += `${rate} %</br>`;
                 current = data.pop()
             } while (current)
+            html += `<br>As of ${new Date().toLocaleDateString()}`;
             document.getElementById("results").innerHTML = html;
         });
 </script>
