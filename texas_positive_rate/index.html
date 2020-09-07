@@ -1,0 +1,10 @@
+<div id="results">
+
+</div>
+<script>
+    fetch('https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/3/query?f=json&where=Date%3Etimestamp%20%272020-09-01%2004%3A59%3A59%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=10&resultType=standard&cacheHint=true')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("results").innerHTML = data.features.pop().attributes.SevenDayPositiveTestRate;
+        });
+</script>
