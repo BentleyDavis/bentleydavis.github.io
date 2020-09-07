@@ -2,9 +2,22 @@
 
 </div>
 <script>
-    fetch('https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/3/query?f=json&where=Date%3Etimestamp%20%272020-09-01%2004%3A59%3A59%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=10&resultType=standard&cacheHint=true')
+    const d = new Date();
+    d.setDate(d.getDate()-8);
+    const when = `${d.getFullYear()}-${
+        ("0" + (d.getMonth() + 1)).slice(-2)}-${
+        ("0" + d.getDate()).slice(-2)}`
+    fetch(`https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/3/query?f=json&where=Date%3Etimestamp%20%27${when}%2004%3A59%3A59%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=10&resultType=standard&cacheHint=true`)
         .then(response => response.json())
-        .then(data => {
-            document.getElementById("results").innerHTML = data.features.pop().attributes.SevenDayPositiveTestRate;
+        .then(fetchResult => {
+            const data = fetchResult.features;
+            let current = data.pop();
+            let html = "";
+            do {
+                const rate = (current.attributes.SevenDayPositiveTestRate * 100).toFixed(1)
+                html += `${rate} %</br>`;
+                current = data.pop()
+            } while (current)
+            document.getElementById("results").innerHTML = html;
         });
 </script>
