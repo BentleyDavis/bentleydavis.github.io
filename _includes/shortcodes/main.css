@@ -180,7 +180,6 @@ amp-img.card-img-top img {
   width: 100%;
   border-top-left-radius: calc(.25rem - 1px);
   border-top-right-radius: calc(.25rem - 1px);
-  background: radial-gradient(circle, rgba(9, 9, 121, 1) 0%, rgba(123, 151, 183, 1) 100%);
   object-fit: cover;
 }
 
