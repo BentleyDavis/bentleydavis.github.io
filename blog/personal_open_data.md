@@ -5,7 +5,7 @@ date: 2020-12-09 12:00:00
 author: "Bentley Davis"
 description: "A low maintenance way to keep all your shared info up to date"
 permalink: dry_data/
-tags: ['Blog','draft']
+tags: ['Draft']
 ---
 ## Problem
 I find myself posting my photo and description on a lot of sites. Same thing for each of my projects. It's time consuming to update it all and even to track where it is all stored. Ideally, I could update it one place and all those sites can come and get it.

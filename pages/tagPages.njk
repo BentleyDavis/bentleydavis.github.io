@@ -11,7 +11,7 @@ pagination:
 layout: page.njk
 eleventyComputed:
   title: -{{ tag }}
-permalink: /{{ tag }}/
+permalink: /{{ tag.toLowerCase() }}/
 ---
 <h1>{{ tag }}</h1>
 
