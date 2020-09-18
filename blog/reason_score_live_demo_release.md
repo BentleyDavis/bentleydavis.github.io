@@ -5,8 +5,8 @@ date: 2020-04-30 12:00:00
 author: "Bentley Davis"
 description: "Finally, a live demo of Reason Score was released today!"
 img: "/img/blog/reason_score_20200430.gif"
-permalink: reason_score_live_demo_release/index.html
-tags: post
+permalink: reason_score_live_demo_release/
+tags: ['post']
 ---
 Today I released the (updated) Reason Score interactive demo. This is the latest in demos but really the first one getting to the ultimate vision. You can try it out at [ReasonScore.com/demo](https://ReasonScore.com/demo/). Here are the new features:
 

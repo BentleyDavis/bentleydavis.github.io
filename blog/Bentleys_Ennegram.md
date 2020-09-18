@@ -5,7 +5,7 @@ date: 2020-06-21 12:00:00
 author: "Bentley Davis"
 description: "I am an 8 on the Ennegram Personality Test"
 img: "/img/blog/ennegram.jpg"
-permalink: Bentleys_Ennegram/index.html
+permalink: Bentleys_Ennegram/
 tags: ["post", "perosnality"]
 ---
 <p>On the Ennegram personality test I come out mostly as an 8.</p>
