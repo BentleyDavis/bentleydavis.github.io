@@ -1,0 +1,19 @@
+---
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - nav
+    - tagList
+    - draft
+  addAllPagesToCollections: true
+layout: page.njk
+eleventyComputed:
+  title: -{{ tag }}
+permalink: /{{ tag }}/
+---
+<h1>{{ tag }}</h1>
+
+{% set items = collections[ tag ] %}
+{% include "itemlist.njk" %}

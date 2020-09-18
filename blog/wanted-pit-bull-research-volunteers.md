@@ -6,7 +6,7 @@ author: "Bentley Davis"
 description: "Whether you love or fear pit bull dogs we are searching for volunteers to research the pros and cons of breed specific legislation."
 img: "/img/blog/pit-bull-comparison.jpg"
 permalink: "wanted-pit-bull-research-volunteers/"
-tags: ['post']
+tags: ['Blog']
 ---
 Whether you love or fear pit bull dogs we are searching for volunteers to research the pros and cons of breed specific legislation.
 
