@@ -7,28 +7,161 @@ img: "/img/bentley_wide_small.jpg"
 permalink: /
 ---
 <main style="background-color: hsl(212, 29%, 60%);">
-    <section style="display: flex; align-items: center; background-image: url('/img/hero.jpg');  background-size: cover;
-  background-position: top; ">
-        <div class="content" amp-fx="parallax" data-parallax-factor="1.5" style="padding-top: 200px;width:100%;">
-            <h1 style="max-width:50%;  color: #6481a1; font-size: xxx-large;">Bentley Davis</h1>
-            <p style="font-size: x-large;"><b>Startup Prototypes<br>& Mass Agreement</b></p>
-            <div style="padding: 1rem 1rem;
-                    margin: 2rem 0;
-                    background-color: hsla(0, 0%, 100%, 0.6);
-                    border-radius: .5rem; max-width:400px; border: 1px #6481a1 solid;">
-                <p>I create apps that help people make sense of the deluge of information. I aspire to eventually
-                    improve billions of lives exponentially.</p>
-                <h3>Current Project:</h3>
-                I grew tired of the divisive bickering and misinformation so I created: <br />
-                <a href="https://ReasonScore.com">
-                    <amp-img src="/img/rslogowide.png" alt="Reason Score Logo" width="230" height="50"
-                        style="top: 3px;">
-                </a>
-                <br />
-                - a crowd sourced super fact checking web app.
+    <style>
+        .bd-hero {
+            background-image: url("/img/hero2.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            margin: auto;
+            max-height: 80vh;
+            perspective-origin: 0% 8%;
+
+            perspective: 3000px;
+            width: 2000px;
+            height: 1659px;
+            font-size: 150px;
+        }
+
+        @media (max-width: 1500px) {
+            .bd-hero {
+                perspective: 2250px;
+                width: 1500px;
+                height: 1244.25px;
+                font-size: 112.5px;
+            }
+        }
+
+        @media (max-width: 1250px) {
+            .bd-hero {
+                perspective: 1875px;
+                width: 1250px;
+                height: 1036.875px;
+                font-size: 93.75px;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .bd-hero {
+                perspective: 1500px;
+                width: 1000px;
+                height: 829.5px;
+                font-size: 75px;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .bd-hero {
+                perspective: 1275px;
+                width: 850px;
+                height: 705.075px;
+                font-size: 63.75px;
+            }
+        }
+
+        @media (max-width: 750px) {
+            .bd-hero {
+                perspective: 1125px;
+                width: 750px;
+                height: 622.125px;
+                font-size: 56.25px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .bd-hero {
+                perspective: 975px;
+                width: 650px;
+                height: 539.175px;
+                font-size: 48.75px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .bd-hero {
+                perspective: 825px;
+                width: 550px;
+                height: 456.225px;
+                font-size: 41.25px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .bd-hero {
+                perspective: 675px;
+                width: 450px;
+                height: 373.275px;
+                font-size: 33.75px;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .bd-hero {
+                perspective: 525px;
+                width: 350px;
+                height: 290.325px;
+                font-size: 26.25px;
+            }
+        }
+
+        .bd-hero .bd-inner {
+            width: 245%;
+            transform-origin: left top;
+            position: relative;
+            transform: rotate3d(0, 1, 0, 37deg);
+            top: -5%;
+        }
+    </style>
+    <div class="bd-hero">
+        <div class="bd-inner">
+            <div style="opacity: 1; color: #00000033;">
+                Passion Executor •
+                Purpose Driven Development •
+                Full Stack Purpose •
+                Incremental Indelible Value •
+                Small Experiments •
+                Look at the world in a new •
+                <svg style="fill: #00000099;width: 1.2em;display: inline-block;vertical-align: bottom;" viewBox="0 0 1000 1000">
+                    <path d="m364 496c318-26 131 370 26 202 0 0 18 96-52 106 322 80 426-374 134-354 324-247-211-350-407-65 249-176 574-154 300 111z"/>
+                    <path d="m60 782c353 292 858 148 858-295 0.3-409-584-628-884-145 402-354 745-119 757 138 12 258-248 527-731 302z"/>
+                    <path d="m326 306c-50 8-84 101-78 147 27 190 54 326-183 299 484 155 196-284 261-446z"/>
+                   </svg>
+                <span style="color: #00000099;">Bentley Davis</span> •
+                Startup Prototypes •
+                Evidence Based Decisions •
+                Mass Agreement •
+                Full Stack Passion Implementor •
+                I create apps that help people make sense of the deluge of information.
+                I aspire to eventually improve billions of lives exponentially.
+                Passion Executor •
+                Purpose Driven Development •
+                Full Stack Purpose •
+                Mass Agreement •
+                Incremental Indelible Value •
+                Small Experiments •
+                Look at the world in a new way •
+                Startup Prototypes •
+                Evidence Based Decisions •
+                Full Stack Passion Implementor •
+                Passion Executor •
+                Purpose Driven Development •
+                I create apps that help people make sense of the deluge of information.
+                I aspire to eventually improve billions of lives exponentially.
+                Evidence Based Decisions •
+                Full Stack Passion Implementor •
+                Passion Executor •
+                Purpose Driven Development •
+                I create apps that help people make sense of the deluge of information.
+                I aspire to eventually improve billions of lives exponentially.
             </div>
         </div>
-    </section>
+        <div class="bd-hero"
+            style="background: linear-gradient(90deg, rgba(0,0,0,0) 63%, rgba(212,214,203,1) 100%);position: absolute;top: 0;">
+        </div>
+        <div class="bd-hero" style="background-image: url('/img/hero2.png');position: absolute;top: 0;"></div>
+    </div>
     <section class="inverse">
         <div class="content">
             <h1>Links</h1>
