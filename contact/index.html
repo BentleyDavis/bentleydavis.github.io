@@ -16,30 +16,30 @@
       <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
       <script async custom-element="amp-fx-collection" src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
 
-    <title>-page</title>
-    <link rel="canonical" href="https://BentleyDavis.com/page/">
+    <title>Contact Bentley</title>
+    <link rel="canonical" href="https://BentleyDavis.com/contact/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <script type="application/ld+json">
       {
         "author.name": "Bentley Davis",
         "@context": "http://schema.org",
         "@type": "NewsArticle",
-        "headline": "-page",
-        "datePublished": "",
+        "headline": "Contact Bentley",
+        "datePublished": "Mon Nov 02 2020 18:00:00 GMT-0600 (Central Standard Time)",
         "image": ["https://BentleyDavis.com"]
       }
     </script>
     
-      <meta property="og:url"         content="https://BentleyDavis.com/page/" />
+      <meta property="og:url"         content="https://BentleyDavis.com/contact/" />
       <meta property="og:type"        content="article" />
-      <meta property="og:title"       content="-page" />
-      <meta property="og:description" content="" />
+      <meta property="og:title"       content="Contact Bentley" />
+      <meta property="og:description" content="Contact Bentley" />
       <meta property="og:image"       content="https://BentleyDavis.com" />
     
       <meta name="twitter:card" content="summary_large_image">
       <meta name="twitter:site" content="@bntlyd">
-      <meta name="twitter:title" content="-page">
-      <meta name="twitter:description" content="">
+      <meta name="twitter:title" content="Contact Bentley">
+      <meta name="twitter:description" content="Contact Bentley">
       <meta name="twitter:creator" content="@bntlyd">
       <meta name="twitter:image" content="https://BentleyDavis.com">
       <meta name="twitter:domain" content="BentleyDavis.com">
@@ -324,60 +324,31 @@ img {
       </ul>
     </amp-sidebar>
     <div class="content">
-    <h1>page</h1>
+    
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function() {
+        emailjs.init('user_RuGsRAY3sEeU5Rrg5ZdXP');
+    })();
+</script>
+<script type="text/javascript">
+    window.onload = function() {
+        document.getElementById('bd-contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            emailjs.sendForm('service_9phywvt', 'template_7y8e5i3', this);
+        });
+    }
+</script>
 
-
-<div class="card-deck"><a href="/min/">
-            <div class="card">
-                
-                    <div class="bigtext" >Bentley&#39;s Minimalist Home Page</div>
-                
-                <div class="card-body">
-                    <h5 class="card-title">Bentley&#39;s Minimalist Home Page</h5>
-                    <p class="card-text"></p>
-                </div>
-            </div>
-        </a><a href="/contact/">
-            <div class="card">
-                
-                    <div class="bigtext" >Contact Bentley</div>
-                
-                <div class="card-body">
-                    <h5 class="card-title">Contact Bentley</h5>
-                    <p class="card-text"></p>
-                </div>
-            </div>
-        </a><a href="/now/">
-            <div class="card">
-                
-                    <div class="bigtext" >What Bentley is Working on Now</div>
-                
-                <div class="card-body">
-                    <h5 class="card-title">What Bentley is Working on Now</h5>
-                    <p class="card-text"></p>
-                </div>
-            </div>
-        </a><a href="/updates/">
-            <div class="card">
-                
-                    <div class="bigtext" >Updates</div>
-                
-                <div class="card-body">
-                    <h5 class="card-title">Updates</h5>
-                    <p class="card-text"></p>
-                </div>
-            </div>
-        </a><a href="/calendar/">
-            <div class="card">
-                
-                    <div class="bigtext" >Bentley&#39;s Availability Calendar</div>
-                
-                <div class="card-body">
-                    <h5 class="card-title">Bentley&#39;s Availability Calendar</h5>
-                    <p class="card-text"></p>
-                </div>
-            </div>
-        </a></div>
+<form id="bd-contact-form">
+    <label>Name</label>
+    <input type="text" name="from_name">
+    <label>Email</label>
+    <input type="email" name="from_email">
+    <label>Message</label>
+    <textarea name="message"></textarea>
+    <input type="submit" value="Send">
+</form>
 </div>
 
     <br>

@@ -8,26 +8,28 @@
 </head>
 
 <body>
+    <br><br>
     <div id="results" style="text-align: center; font-size: 25px;">
     </div>
     <script>
+        const days = 30;
         const d = new Date();
-        d.setDate(d.getDate() - 8);
+        d.setDate(d.getDate() - days);
         const when = `${d.getFullYear()}-${
             ("0" + (d.getMonth() + 1)).slice(-2)}-${
             ("0" + d.getDate()).slice(-2)}`
-        fetch(`https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/3/query?f=json&where=Date%3Etimestamp%20%27${when}%2004%3A59%3A59%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=10&resultType=standard&cacheHint=true`)
+        //fetch(`https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/3/query?f=json&where=Date%3Etimestamp%20%27${when}%2004%3A59%3A59%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=30&resultType=standard&cacheHint=true`)
+        fetch(`https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/6/query?f=json&where=Date%3Etimestamp%20%27${when}%2004%3A59%3A59%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=${days}&resultType=standard&cacheHint=true`)
             .then(response => response.json())
             .then(fetchResult => {
                 const data = fetchResult.features;
                 let current = data.pop();
-                let html = "";
+                let html = `${new Date().toLocaleDateString()}<br>`;
                 do {
-                    const rate = (current.attributes.SevenDayPositiveTestRate * 100).toFixed(1)
+                    const rate = (current.attributes.Specimen * 100).toFixed(1)
                     html += `${rate} %</br>`;
                     current = data.pop()
                 } while (current)
-                html += `<br>As of ${new Date().toLocaleDateString()}`;
                 document.getElementById("results").innerHTML = html;
             });
     </script>
