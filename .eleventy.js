@@ -3,10 +3,11 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "static-root": "/" });
   eleventyConfig.addPassthroughCopy("static");
 
-  eleventyConfig.addShortcode("fileImport", function (file) {
-    var fs = require('fs');
-    var path = process.cwd();
-    var filePath = path + "\\_includes\\shortcodes\\" + file;
+  eleventyConfig.addShortcode("fileImport", function (fileName) {
+    const fs = require('fs');
+    const path = require('path');
+    const dirPath = process.cwd();
+    const filePath = path.join(dirPath,"_includes","shortcodes", fileName);
     if (fs.existsSync(filePath)) {
       var buffer = fs.readFileSync(filePath).toString();
     }
