@@ -1,0 +1,32 @@
+---
+layout: page.njk
+title: Contact Bentley
+datePublished: 2020-11-03
+description: "Contact Bentley"
+permalink: contact/
+---
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function() {
+        emailjs.init('user_RuGsRAY3sEeU5Rrg5ZdXP');
+    })();
+</script>
+<script type="text/javascript">
+    window.onload = function() {
+        document.getElementById('bd-contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            emailjs.sendForm('service_9phywvt', 'template_7y8e5i3', this);
+        });
+    }
+</script>
+
+<form id="bd-contact-form">
+    <label>Name</label>
+    <input type="text" name="from_name">
+    <label>Email</label>
+    <input type="email" name="from_email">
+    <label>Message</label>
+    <textarea name="message"></textarea>
+    <input type="submit" value="Send">
+</form>
