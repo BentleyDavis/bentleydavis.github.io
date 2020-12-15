@@ -114,13 +114,41 @@ permalink: /
             top: -5%;
         }
     </style>
+
+    <script>
+        document.addEventListener('readystatechange', event => {
+            if (event.target.readyState === "interactive") {   //does same as:  ..addEventListener("DOMContentLoaded"..
+                const el = document.getElementById("heroContent");
+                typeText = `                                      
+                Startup Prototypes • Evidence Based Decisions •
+Mass Agreement •
+---- Full Stack Passion Implementor • Passion Executor •
+Purpose Driven Development •
+Full Stack Purpose •
+Incremental Indelible Value •
+----- Small Experiments • I create apps that help people make sense of the deluge of information.
+I aspire to eventually improve billions of lives exponentially.• Startup Prototypes • Evidence Based
+Decisions •
+Mass Agreement •
+Full Stack Passion Implementor • Passion Executor •
+Purpose Driven Development •
+Full Stack Purpose •
+Incremental Indelible Value •
+Small Experiments •`;
+                let counter = 0
+                nIntervId = setInterval(function () {
+                    counter++;
+                    el.innerHTML = typeText.slice(0, counter);
+                }, 40, typeText.length);
+            }
+
+        });
+    </script>
+
     <div class="bd-hero">
         <div class="bd-inner">
             <div style="opacity: 1;color: #00000033;padding-left: 2%;">
-                <span style="
-font-size: 300%;
-">
-
+                <span style="font-size: 300%;">
                     <svg style="fill: #00000077;width: 1.2em;display: inline-block;vertical-align: bottom;"
                         viewBox="0 0 1000 1000">
                         <path
@@ -131,22 +159,11 @@ font-size: 300%;
                         </path>
                         <path d="m326 306c-50 8-84 101-78 147 27 190 54 326-183 299 484 155 196-284 261-446z"></path>
                     </svg>
-                    <span style="color: #00000077;">Bentley Davis</span></span><br>
-                Startup Prototypes • Evidence Based Decisions •
-                Mass Agreement •
-                Full Stack Passion Implementor • Passion Executor •
-                Purpose Driven Development •
-                Full Stack Purpose •
-                Incremental Indelible Value •
-                Small Experiments • I create apps that help people make sense of the deluge of information.
-                I aspire to eventually improve billions of lives exponentially.• Startup Prototypes • Evidence Based
-                Decisions •
-                Mass Agreement •
-                Full Stack Passion Implementor • Passion Executor •
-                Purpose Driven Development •
-                Full Stack Purpose •
-                Incremental Indelible Value •
-                Small Experiments •</div>
+                    <span style="color: #00000077;">Bentley Davis</span>
+                </span><br>
+                <div id="heroContent">
+                </div>
+            </div>
         </div>
         <div class="bd-hero"
             style="background: linear-gradient(90deg, rgba(0,0,0,0) 63%, rgba(212,214,203,1) 100%);position: absolute;top: 0;">
