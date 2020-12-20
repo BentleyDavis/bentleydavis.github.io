@@ -113,32 +113,23 @@ permalink: /
             transform: rotate3d(0, 1, 0, 37deg);
             top: -5%;
         }
+
+        #heroContent{
+            margin: 0;
+        }
     </style>
 
     <script>
         document.addEventListener('readystatechange', event => {
             if (event.target.readyState === "interactive") {   //does same as:  ..addEventListener("DOMContentLoaded"..
                 const el = document.getElementById("heroContent");
-                typeText = `                                      
-                Startup Prototypes • Evidence Based Decisions •
-Mass Agreement •
----- Full Stack Passion Implementor • Passion Executor •
-Purpose Driven Development •
-Full Stack Purpose •
-Incremental Indelible Value •
------ Small Experiments • Startup Prototypes • Evidence Based
-Decisions •
-Mass Agreement •
-Full Stack Passion Implementor • Passion Executor •
-Purpose Driven Development •
-Full Stack Purpose •
-Incremental Indelible Value •
-Small Experiments •`;
+                typeText = `Web and Mobile Apps           Fractional CTO
+Startup Prototypes`;
                 let counter = 0
                 nIntervId = setInterval(function () {
-                    counter++;
-                    el.innerHTML = typeText.slice(0, counter);
-                }, 40, typeText.length);
+                    el.innerHTML = typeText.slice(0, counter++);
+                    if (counter > typeText.length) clearInterval(nIntervId)
+                }, 40);
             }
 
         });
@@ -160,8 +151,8 @@ Small Experiments •`;
                     </svg>
                     <span style="color: #00000077;">Bentley Davis</span>
                 </span><br>
-                <div id="heroContent">
-                </div>
+                <pre id="heroContent">
+                </pre>
             </div>
         </div>
         <div class="bd-hero"
