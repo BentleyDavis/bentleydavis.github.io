@@ -1,7 +1,6 @@
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "static-root": "/" });
-  eleventyConfig.addPassthroughCopy("static");
 
   eleventyConfig.addShortcode("fileImport", function (fileName) {
     const fs = require('fs');

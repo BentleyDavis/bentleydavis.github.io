@@ -1,0 +1,5 @@
+{
+    "permalink": "{{ page.fileSlug }}/",
+    "title": "Bentley Davis",
+    "img": "/img/bentley_wide_small.jpg"
+}
