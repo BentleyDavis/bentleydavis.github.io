@@ -1,9 +1,8 @@
-
-const e = document.createElement('pre');
-document.body.appendChild(e);
+const e = document.getElementById('bd-hero-dynamic');
 const typeText = `Web and Mobile Apps
 Fractional CTO
-Startup Prototypes`;
+Startup Prototypes
+Better Agreement`;
 let counter = 0
 const nIntervId = setInterval(function () {
     e.innerHTML = typeText.slice(0, counter++);
