@@ -138,29 +138,15 @@
       position: absolute;
       top: 0;
     }
+    pre {
+      margin: 0;
+    }
   </style>
+  <script async="async" custom-element="amp-script" src="https://cdn.ampproject.org/v0/amp-script-0.1.js"></script>
 {% endblock %}
 
 {% block content %}
   <main style="background-color: hsl(212, 29%, 60%);">
-    {# <script>
-      document.addEventListener('readystatechange', event => {
-        if (event.target.readyState === "interactive") { //does same as:  ..addEventListener("DOMContentLoaded"..
-          const el = document.getElementById("heroContent");
-          typeText = `Web and Mobile Apps
-Fractional CTO
-Startup Prototypes`;
-          let counter = 0
-          nIntervId = setInterval(function () {
-            el.innerHTML = typeText.slice(0, counter++);
-            if (counter > typeText.length) 
-              clearInterval(nIntervId)
-          }, 40);
-        }
-
-      });
-    </script> #}
-
     <div class="bd-hero">
       <div class="bd-inner">
         <div class="bd-inner2">
@@ -170,7 +156,7 @@ Startup Prototypes`;
             </svg>
             <span >Bentley Davis</span>
           </span><br>
-          <div id="hero-content">Web and Mobile Apps<br>Fractional CTO<br>Startup Prototypes</div>
+          <amp-script layout="fixed-height" height="500" src="/hero-content.js" id="hero-content"></amp-script>
         </div>
       </div>
       <div class="bd-hero bd-fadeout"></div>
