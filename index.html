@@ -485,7 +485,11 @@ img {
       position: absolute;
       top: 0;
     }
+    #bd-hero-dynamic {
+      white-space: pre;
+    }
   </style>
+  <script async="async" custom-element="amp-script" src="https://cdn.ampproject.org/v0/amp-script-0.1.js"></script>
 
   </head>
   <body>
@@ -534,8 +538,6 @@ img {
     </amp-sidebar>
     
   <main style="background-color: hsl(212, 29%, 60%);">
-    
-
     <div class="bd-hero">
       <div class="bd-inner">
         <div class="bd-inner2">
@@ -545,7 +547,9 @@ img {
             </svg>
             <span >Bentley Davis</span>
           </span><br>
-          <div id="hero-content">Web and Mobile Apps<br>Fractional CTO<br>Startup Prototypes</div>
+          <amp-script layout="fixed-height" height="500" src="/hero-content.js" id="hero-content">
+            <div id="bd-hero-dynamic"></div>
+          </amp-script>
         </div>
       </div>
       <div class="bd-hero bd-fadeout"></div>
