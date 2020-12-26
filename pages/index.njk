@@ -1,77 +1,113 @@
 {% block content %}
-  <main class="bd-hero-main">
-    <div class="bd-hero">
-      <div class="bd-inner">
-        <div class="bd-inner2">
-          <span class="bd-hero-title">
-            <svg class="bd-hero-icon" viewbox="0 0 100 100">
-              <path d="m10 10c-0.434 2.51 0.243 3.91 3.14 3.47 4.01 0.143 7.94 3.04 7.28 7.41-0.0206 19.4 0.0414 38.7-0.0312 58.1 0.252 4.26-3.04 8.08-7.46 7.69-2.66-0.477-3.36 0.756-2.93 3.14 1 0.414 2.77 0.0594 4.07 0.178 13.1-0.044 26.2 0.0905 39.3-0.072 13.1-0.505 26.1-7.87 32.1-19.8 6.51-12.8 6.01-28.8-0.734-41.5-5.69-10.7-17.1-18-29.3-18.6-12.7-0.236-25.4-0.043-38.1-0.106zm8.52 3.35c4.59-0.64 7.09 3.73 6.82 7.81 0.332 11.2 0.0802 22.5 0.159 33.7-0.0568 8.46 0.118 16.9-0.0965 25.4 0.127 3.81-2.91 7.22-6.88 6.65 4.29-2.6 3.49-8.2 3.59-12.5-0.0293-18 0.0589-36-0.0446-54.1-0.0327-2.74-0.856-5.69-3.55-6.96zm38.8 0.227c7.02 1.04 13.5 5.16 17 11.4 6.03 10.3 6.84 22.9 5.6 34.5-1.27 10.1-5.89 21-15.7 25.5-1.74 0.926-6.04 2.08-6.55 1.74 9.07-4.06 15.9-12.5 17.8-22.3 2.22-10.3 1.86-21.2-1.15-31.4-2.59-8.57-8.76-16-17.1-19.5zm-17.5 1.39c4.15-0.104 8.93 0.517 11.4 4.33 4.47 6.54 4.75 15.8 0.99 22.7-4.71 6.27-12.1 5.39-18.9 5.39 0.106-9.4-0.278-18.8 0.359-28.2 0.172-3.82 2.79-4.45 6.14-4.22zm8.53 0c6.79 0.495 10.5 7.5 10.8 13.6 0.736 6.55-1.06 14.4-7.49 17.6-1.81 0.913-4.2 1.78-1.28 0.047 6.21-4.82 6.65-13.7 5.23-20.8-0.935-4.23-3.22-8.52-7.32-10.4zm14.8 4.39c9.07 7.39 12.1 19.7 12.1 30.9 0.0375 9.02-1.28 18.8-7.3 25.9 3.37-8.2 0.434-18.7-7.3-23.3-3.29-2.1-7.1-3.24-10.9-3.83 7.37-1.02 15.2-5.34 17.1-13 1.56-5.72 0.188-12.2-3.68-16.7zm-29.9 31c5.34 0.256 11.2-0.996 15.9 2.21 6.6 4.4 7.66 13.4 6.49 20.6-0.667 5.35-4.42 10.6-10 11.5-3.65 0.261-8.55 1.36-11.4-1.16-1.64-4.81-0.84-10-1.03-15zm14.7 0.107c6.66 0.209 11.4 6.4 12.1 12.6 0.89 7.06 0.211 15.8-6.09 20.2-1.51 1.37-8.43 3.08-3.66 1.01 6.61-3.92 7.74-12.5 7.06-19.5-0.386-6.05-3.63-12-9.45-14.4z"/>
-            </svg>
-            <span >Bentley Davis</span>
-          </span><br>
-          <amp-script layout="fixed-height" height="500" src="/hero-content.js" id="hero-content">
-            <div id="bd-hero-dynamic"></div>
-          </amp-script>
-        </div>
+<main class="bd-hero-main">
+  <div class="bd-hero">
+    <div class="bd-inner">
+      <div class="bd-inner2">
+        <span class="bd-hero-title">
+          <svg class="bd-hero-icon" viewbox="0 0 100 100">
+            <path
+              d="m10 10c-0.434 2.51 0.243 3.91 3.14 3.47 4.01 0.143 7.94 3.04 7.28 7.41-0.0206 19.4 0.0414 38.7-0.0312 58.1 0.252 4.26-3.04 8.08-7.46 7.69-2.66-0.477-3.36 0.756-2.93 3.14 1 0.414 2.77 0.0594 4.07 0.178 13.1-0.044 26.2 0.0905 39.3-0.072 13.1-0.505 26.1-7.87 32.1-19.8 6.51-12.8 6.01-28.8-0.734-41.5-5.69-10.7-17.1-18-29.3-18.6-12.7-0.236-25.4-0.043-38.1-0.106zm8.52 3.35c4.59-0.64 7.09 3.73 6.82 7.81 0.332 11.2 0.0802 22.5 0.159 33.7-0.0568 8.46 0.118 16.9-0.0965 25.4 0.127 3.81-2.91 7.22-6.88 6.65 4.29-2.6 3.49-8.2 3.59-12.5-0.0293-18 0.0589-36-0.0446-54.1-0.0327-2.74-0.856-5.69-3.55-6.96zm38.8 0.227c7.02 1.04 13.5 5.16 17 11.4 6.03 10.3 6.84 22.9 5.6 34.5-1.27 10.1-5.89 21-15.7 25.5-1.74 0.926-6.04 2.08-6.55 1.74 9.07-4.06 15.9-12.5 17.8-22.3 2.22-10.3 1.86-21.2-1.15-31.4-2.59-8.57-8.76-16-17.1-19.5zm-17.5 1.39c4.15-0.104 8.93 0.517 11.4 4.33 4.47 6.54 4.75 15.8 0.99 22.7-4.71 6.27-12.1 5.39-18.9 5.39 0.106-9.4-0.278-18.8 0.359-28.2 0.172-3.82 2.79-4.45 6.14-4.22zm8.53 0c6.79 0.495 10.5 7.5 10.8 13.6 0.736 6.55-1.06 14.4-7.49 17.6-1.81 0.913-4.2 1.78-1.28 0.047 6.21-4.82 6.65-13.7 5.23-20.8-0.935-4.23-3.22-8.52-7.32-10.4zm14.8 4.39c9.07 7.39 12.1 19.7 12.1 30.9 0.0375 9.02-1.28 18.8-7.3 25.9 3.37-8.2 0.434-18.7-7.3-23.3-3.29-2.1-7.1-3.24-10.9-3.83 7.37-1.02 15.2-5.34 17.1-13 1.56-5.72 0.188-12.2-3.68-16.7zm-29.9 31c5.34 0.256 11.2-0.996 15.9 2.21 6.6 4.4 7.66 13.4 6.49 20.6-0.667 5.35-4.42 10.6-10 11.5-3.65 0.261-8.55 1.36-11.4-1.16-1.64-4.81-0.84-10-1.03-15zm14.7 0.107c6.66 0.209 11.4 6.4 12.1 12.6 0.89 7.06 0.211 15.8-6.09 20.2-1.51 1.37-8.43 3.08-3.66 1.01 6.61-3.92 7.74-12.5 7.06-19.5-0.386-6.05-3.63-12-9.45-14.4z"
+            />
+          </svg>
+          <span>Bentley Davis</span> </span
+        ><br />
+        <amp-script
+          layout="fixed-height"
+          height="500"
+          src="/hero-content.js"
+          id="hero-content"
+        >
+          <div id="bd-hero-dynamic"></div>
+        </amp-script>
       </div>
-      <div class="bd-hero bd-fadeout"></div>
-      <div class="bd-hero bd-hero-background"></div>
     </div>
-    <section class="inverse">
-      <div class="content">
-        <h1>Links</h1>
-        <ul>
-          <li>
-            <a href="schedule">Schedule a meeting</a>
-          </li>
-          <li>
-            <a href="calendar">Availability Calendar</a>
-          </li>
-          <li>
-            <a href="http://careers.stackoverflow.com/bentleydavis">Resume on Stack Overflow</a>
-          </li>
-          <li>
-            <a href="http://www.linkedin.com/in/bntlyd">LinkedIn: BntlyD</a>
-          </li>
-          <li>
-            <a href="http://www.facebook.com/bntlyd">Facebook: BntlyD</a>
-          </li>
-          <li>
-            <a href="https://twitter.com/BntlyD">Twitter: @BntlyD</a>
-          </li>
-          <li>
-            <a href="http://www.youtube.com/user/BentleyD">YouTube: BentleyD</a>
-          </li>
-          <li>
-            <a href="https://github.com/BentleyDavis">GitHub</a>
-          </li>
-          <li>
-            <a href="http://www.kickstarter.com/profile/bentleydavis">KickStarter</a>
-          </li>
-          <li>
-            <a href="https://www.quora.com/Bentley-Davis">Quora</a>
-          </li>
-          <li>
-            <a href="http://www.reddit.com/user/BentleyDavis/">Reddit</a>
-          </li>
-        </ul>
-        <h1>Personality</h1>
-        Myers-Briggs personality type:
-        <a href="http://en.wikipedia.org/wiki/INTJ" target="_blank">INTJ</a>
-        <br/>
-        Clifton Strengths:
-        <a href="/strategic-futuristic-relator-learner-ideation">Strategic, Futuristic, Relator, Learner, Ideation</a>
-        <br/>
-        Fascination Advantage Assessment:
-        <a title="I am a Maverick leader" href="/maverick-leader">Maverick Leader</a>
-        <br><br><br>
-      </div>
-    </section>
-  </main>
+    <div class="bd-hero bd-fadeout"></div>
+    <div class="bd-hero bd-hero-background"></div>
+  </div>
+  <section class="inverse">
+    <div class="content">
+      <h1>Bentley elsewhere</h1>
+      <span class="bd-elsewhere-icons"> 
+        <a href='https://twitter.com/BntlyD' target='_blank' class="bd-social-icon">
+          <svg viewBox="75 98 250 203">
+            <path
+              d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23"
+            />
+          </svg>
+        </a>
+        <a href='https://www.facebook.com/bntlyd' target='_blank' class="bd-social-icon">
+          <svg
+            version="1.1"
+            viewBox="0 0 36 36"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m18 0c-9.9 0-18 8.1-18 18 0 8.9 6.5 16 15 18l0.11-0.086c-0.036-0.0069-0.072-0.0085-0.11-0.016v-13h-4.5v-5h4.5v-4c0-4.5 2.9-7 7-7 1.3 0 2.7 0.2 4 0.4v4.6h-2.3c-2.2 0-2.7 1.1-2.7 2.5v3.5h4.8l-0.8 5h-4v13c-0.036 0.0072-0.072 0.0087-0.11 0.016l0.11 0.086c8.5-1.5 15-8.9 15-18 0-9.9-8.1-18-18-18z"
+            />
+          </svg>
+        </a>
+        <a href='https://www.linkedin.com/in/bntlyd' target='_blank' class="bd-social-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 48 48"
+            preserveAspectRatio="xMinYMin meet"
+            fill-rule="evenodd"
+          >
+            <path d="M0 4.01A4.01 4.01 0 014.01 0h39.98A4.01 4.01 0 0148 4.01v39.98A4.01 4.01 0 0143.99 48H4.01A4.01 4.01 0 010 43.99V4.01zM19 18.3h6.5v3.266C26.437 19.688 28.838 18 32.445 18 39.359 18 41 21.738 41 28.597V41.3h-7V30.159c0-3.906-.937-6.109-3.32-6.109-3.305 0-4.68 2.375-4.68 6.109V41.3h-7v-23zM7 41h7V18H7v23zm8-30.5a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"></path>
+          </svg>
+        </a>
+        <a href='https://github.com/BentleyDavis' target='_blank' class="bd-social-icon">
+          <svg class="octicon octicon-mark-github v-align-middle" viewBox="0 0 16 16" version="1.1" >
+            <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+            </svg>
+        </a>
+      </span><br>
+        <a href='https://www.youtube.com/user/BentleyD' target='_blank' class="bd-social-icon">
+          <svg viewBox="0 2 29 20" preserveAspectRatio="xMidYMid meet">
+            <path d="m14 2.2s-8.8 1.3e-5 -11 0.59c-1.2 0.32-2.2 1.3-2.5 2.5-0.4 2.2-0.6 4.5-0.59 6.8-0.0098 2.3 0.19 4.5 0.59 6.8 0.32 1.2 1.3 2.2 2.5 2.5 2.2 0.59 11 0.59 11 0.59s8.8-1.3e-5 11-0.59c1.2-0.31 2.2-1.3 2.5-2.5 0.4-2.2 0.6-4.5 0.59-6.8 0.0098-2.3-0.19-4.5-0.59-6.8-0.33-1.2-1.3-2.2-2.5-2.5-2.2-0.59-11-0.59-11-0.59zm-2.8 5.6 7.3 4.2-7.3 4.2v-8.4z"></path>
+          </svg>
+        </a>
+        <a href='https://www.kickstarter.com/profile/bentleydavis' target='_blank' class="bd-social-icon">
+            <svg viewBox="0 0 60 60">
+            <path fill-rule="nonzero" d="M43.34 29.838l4.31-4.304c4.467-4.46 4.467-11.72 0-16.18-4.466-4.458-11.74-4.458-16.207 0l-1.57 1.568C27.793 7.942 24.367 6 20.453 6 14.13 6 9 11.12 9 17.433V42.22c0 6.313 5.13 11.434 11.454 11.434 3.913 0 7.34-1.943 9.42-4.922l1.57 1.567c4.465 4.457 11.74 4.457 16.206 0 4.467-4.46 4.467-11.72 0-16.18l-4.31-4.282z"></path>
+          </svg>
+        </a>
+ -           <a href="https://www.quora.com/Bentley-Davis">Quora</a>
+ -           <a href="http://www.reddit.com/user/BentleyDavis/">Reddit</a>
+      <h1>Personality</h1>
+      Myers-Briggs personality type:
+      <a href="http://en.wikipedia.org/wiki/INTJ" target="_blank">INTJ</a>
+      <br />
+      Clifton Strengths:
+      <a href="/strategic-futuristic-relator-learner-ideation"
+        >Strategic, Futuristic, Relator, Learner, Ideation</a
+      >
+      <br />
+      Fascination Advantage Assessment:
+      <a title="I am a Maverick leader" href="/maverick-leader"
+        >Maverick Leader</a
+      >
+      <br /><br /><br />
+    </div>
+  </section>
+</main>
 {% endblock %}
-
 <style>
   {% block styles %}
+.bd-elsewhere-icons{
+  font-size: 50px;
+}
+
+    .bd-social-icon {
+      width: fit-content;
+      display: inline-block;
+      fill: currentColor;
+    }
+
+    .bd-social-icon svg {
+      height: .8em;
+    }
+
     .bd-hero-main {
       background-color: hsl(212, 29%, 60%);
     }
@@ -203,7 +239,11 @@
       vertical-align: bottom;
     }
     .bd-fadeout {
-      background: linear-gradient(90deg, rgba(0,0,0,0) 63%, rgba(212,214,203,1) 100%);
+      background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 63%,
+        rgba(212, 214, 203, 1) 100%
+      );
       position: absolute;
       top: 0;
     }
@@ -217,9 +257,15 @@
     }
   {% endblock %}
 </style>
-
 {% block head %}
-  <script async="async" custom-element="amp-script" src="https://cdn.ampproject.org/v0/amp-script-0.1.js"></script>
-{% endblock %}
-
-{% extends "_includes/default.njk" %}
+<script
+  async="async"
+  custom-element="amp-script"
+  src="https://cdn.ampproject.org/v0/amp-script-0.1.js"
+></script>
+<script
+  async
+  custom-element="amp-social-share"
+  src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
+></script>
+{% endblock %} {% extends "_includes/default.njk" %}

@@ -75,6 +75,7 @@ header {
 
 .inverse {
   background-color: hsl(212, 29%, 60%);
+  color: white;
 }
 
 h1, h2, h3, h4, h5 {
