@@ -103,7 +103,7 @@
     </noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700)">
     <style amp-custom="amp-custom">
-      {% fileImport "main.css" %}
+      {% include "shortcodes/main.css" %}
       {% block styles %}{% endblock %}
     </style>
     {% block head %}{% endblock %}
@@ -150,7 +150,7 @@
       {{ content | safe }}
     {% endblock %}
     <br>
-    {% fileImport "newsletterSignup.html" %}
+    {% include "shortcodes/newsletterSignup.html" %}
     <br>
   </body>
 </html>
