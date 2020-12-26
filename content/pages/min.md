@@ -1,11 +1,9 @@
 ---
-layout: page.njk
 title: "Bentley's Minimalist Home Page"
 date: 2020-13-09 12:00:00
 author: "Bentley Davis"
 description: "Bentley's Minimalist Home Page"
 permalink: min/
-tags: ['page']
 ---
 <div class="content">
 <br><br>

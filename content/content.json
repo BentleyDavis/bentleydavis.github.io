@@ -1,5 +1,6 @@
 {
     "permalink": "{{ page.fileSlug }}/",
     "title": "Bentley Davis",
-    "img": "/img/bentley_wide_small.jpg"
+    "img": "/img/bentley_wide_small.jpg",
+    "layout": "base.njk"
 }
