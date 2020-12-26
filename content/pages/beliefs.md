@@ -1,10 +1,8 @@
 ---
-layout: post.njk
 title: "I Believe"
 date: 2020-13-09 12:00:00
 author: "Bentley Davis"
 description: "A list of my beliefs. Change my mind."
-permalink: beliefs/
 tags: ['Draft']
 ---
 This is a list of my beliefs that I am open to discuss. Pick one or two that you disagree with and let's have an effective discussion.

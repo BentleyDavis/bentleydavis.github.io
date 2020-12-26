@@ -1,10 +1,8 @@
 ---
-layout: post.njk
 title: "Dry Data: Let's stop duplicating our data everywhere!"
 date: 2020-12-09 12:00:00
 author: "Bentley Davis"
 description: "A low maintenance way to keep all your shared info up to date"
-permalink: dry_data/
 tags: ['Draft']
 ---
 ## Problem

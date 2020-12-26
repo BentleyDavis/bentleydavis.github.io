@@ -1,5 +1,4 @@
 ---
-layout: post.njk
 title: "Sustainable Bentley - Time Theme"
 date: 2020-12-14 12:00:00
 author: "Bentley Davis"

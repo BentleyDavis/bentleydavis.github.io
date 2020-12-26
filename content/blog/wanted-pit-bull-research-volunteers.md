@@ -1,12 +1,9 @@
 ---
-layout: post.njk
 title: "Wanted: Pit Bull Research Volunteers"
 date: 2020-05-01 12:00:00
 author: "Bentley Davis"
 description: "Whether you love or fear pit bull dogs we are searching for volunteers to research the pros and cons of breed specific legislation."
 img: "/img/blog/pit-bull-comparison.jpg"
-permalink: "wanted-pit-bull-research-volunteers/"
-tags: ['Blog']
 ---
 Whether you love or fear pit bull dogs we are searching for volunteers to research the pros and cons of breed specific legislation.
 

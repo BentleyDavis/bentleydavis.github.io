@@ -1,12 +1,10 @@
 ---
-layout: post.njk
 title: "2020 is the year of Bentley 2.0"
 date: 2020-02-07 12:00:00
 author: "Bentley Davis"
 description: "For my birthday for this round year of 2020 I decided to focus on improving myself. I quit my job and took a personal
 retreat in a cabin on the lake to investigate who I wanted to be. Here is what I discovered:"
 img: "/img/bentley_wide_small.jpg"
-permalink: 2020_is_the_year_of_bentley_2.0/
 tags: ['Blog', 'Time Theme']
 ---
 For my birthday for this round year of 2020 I decided to focus on improving myself. I quit my job and took a personal
