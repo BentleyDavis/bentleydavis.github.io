@@ -2,7 +2,6 @@
 title: "Drawing Genetic Family Trees"
 date: 2020-17-09 12:00:00
 description: "I created an application to draw genetic family trees"
-permalink: genetic-trees/
 ---
 
 <p>While working for CancerGene Connect I created software to draw family trees.
