@@ -4,7 +4,7 @@ date: 2020-12-14 12:00:00
 author: "Bentley Davis"
 description: "My next time theme will be for me to be more mentally, physically and financially sustainable"
 permalink: Sustainable_Bentley_Time_Theme/
-tags: ['Blog','Time Theme']
+tags: ['Time Theme']
 ---
 Following the [CGP Grey Theme process](https://youtu.be/NVGuFdX5guE) I am declaring my next theme. My last theme was [Bentley 2.0](/2020_is_the_year_of_bentley_2.0). This is partially a continuation. My hope is to take what I have learned about myself and move to a sustainable way of life.
 

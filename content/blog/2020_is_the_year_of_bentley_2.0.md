@@ -5,7 +5,7 @@ author: "Bentley Davis"
 description: "For my birthday for this round year of 2020 I decided to focus on improving myself. I quit my job and took a personal
 retreat in a cabin on the lake to investigate who I wanted to be. Here is what I discovered:"
 img: "/img/bentley_wide_small.jpg"
-tags: ['Blog', 'Time Theme']
+tags: ['Time Theme']
 ---
 For my birthday for this round year of 2020 I decided to focus on improving myself. I quit my job and took a personal
 retreat in a cabin on the lake to investigate who I wanted to be. I followed the The [Zen Founder Guide to Retreats](https://zenfounder.com/product/zen-founder-guide-founder-retreats/). Here
