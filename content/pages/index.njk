@@ -1,5 +1,5 @@
 {% block content %}
-<main class="bd-hero-main">
+<div class="bd-hero-main">
   <div class="bd-hero">
     <div class="bd-inner">
       <div class="bd-inner2">
@@ -24,8 +24,11 @@
     <div class="bd-hero bd-fadeout"></div>
     <div class="bd-hero bd-hero-background"></div>
   </div>
+</div>
   <section class="inverse">
     <div class="content">
+    <br>
+    <br>
       <h1>Bentley elsewhere</h1>
       <span class="bd-elsewhere-icons"> 
         <a href='https://twitter.com/BntlyD' target='_blank' class="bd-social-icon">
@@ -90,7 +93,6 @@
       <br /><br /><br />
     </div>
   </section>
-</main>
 {% endblock %}
 <style>
   {% block styles %}
@@ -109,7 +111,7 @@
     }
 
     .bd-hero-main {
-      background-color: hsl(212, 29%, 60%);
+      background-color: rgb(228 230 222);
     }
 
     .bd-hero {
@@ -123,28 +125,10 @@
       max-height: 90vh;
       perspective-origin: 0 8%;
 
-      perspective: 3000px;
-      width: 2000px;
-      height: 1659px;
-      font-size: 150px;
-    }
-
-    @media (max-width: 1500px) {
-      .bd-hero {
-        perspective: 2250px;
-        width: 1500px;
-        height: 1244.25px;
-        font-size: 112.5px;
-      }
-    }
-
-    @media (max-width: 1250px) {
-      .bd-hero {
-        perspective: 1875px;
-        width: 1250px;
-        height: 1036.875px;
-        font-size: 93.75px;
-      }
+      perspective: 1500px;
+      width: 1000px;
+      height: 829.5px;
+      font-size: 75px;
     }
 
     @media (max-width: 1000px) {
@@ -241,8 +225,10 @@
     .bd-fadeout {
       background: linear-gradient(
         90deg,
+        rgb(228 230 222) 0%,
+        rgba(0, 0, 0, 0) 5%,
         rgba(0, 0, 0, 0) 63%,
-        rgba(212, 214, 203, 1) 100%
+        rgb(228 230 222) 100%
       );
       position: absolute;
       top: 0;
