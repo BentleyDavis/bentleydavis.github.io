@@ -1,0 +1,21 @@
+
+{% block content %}
+  {%- for item in skills -%}
+    {% if item.New == "TRUE" %}
+      {{item.Title}} (NEW!)
+    {% elif item.Old == "TRUE" %}
+      {{item.Title}}
+    {% else %}
+      <h1>{{item.Title}}</h1>
+    {% endif %}
+    <br>
+  {%- endfor -%}
+{% endblock %}
+
+<style>
+{% block styles %}
+
+{% endblock %}
+</style>
+
+{% extends "_includes/base.njk" %}

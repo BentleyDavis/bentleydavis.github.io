@@ -1,0 +1,28 @@
+module.exports =
+    [
+        { "ID":"React", "Title":"React", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Node", "Title":"Node", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Eleventy (11ty)", "Title":"Eleventy (11ty)", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Ionic", "Title":"Ionic", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Firebase", "Title":"Firebase", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Project Management", "Title":"Project Management", "Type":"Management", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Product Management", "Title":"Product Management", "Type":"Management", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Scrum", "Title":"Scrum", "Type":"Management", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Agile", "Title":"Agile", "Type":"Management", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Customer Service", "Title":"Customer Service", "Type":"Management", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"UX", "Title":"UX", "Type":"Technical", "New":"TRUE", "Old":"FALSE"},
+        { "ID":"SEO", "Title":"SEO", "Type":"Technical", "New":"TRUE", "Old":"FALSE"},
+        { "ID":"Growth Hacking", "Title":"Growth Hacking", "Type":"Technical", "New":"TRUE", "Old":"FALSE"},
+        { "ID":"Svelt", "Title":"Svelt", "Type":"Tool", "New":"TRUE", "Old":"FALSE"},
+        { "ID":"Mongo DB Realm", "Title":"Mongo DB Realm", "Type":"Technology", "New":"TRUE", "Old":"FALSE"},
+        { "ID":"Microsoft Access", "Title":"Microsoft Access", "Type":"Tool", "New":"FALSE", "Old":"TRUE"},
+        { "ID":"MS SQL", "Title":"MS SQL", "Type":"Tool", "New":"FALSE", "Old":"TRUE"},
+        { "ID":"C#", "Title":"C#", "Type":"Language", "New":"FALSE", "Old":"TRUE"},
+        { "ID":"Visual Basic", "Title":"Visual Basic", "Type":"Language", "New":"FALSE", "Old":"TRUE"},
+        { "ID":"VBA", "Title":"VBA", "Type":"Language", "New":"FALSE", "Old":"TRUE"},
+        { "ID":"Angular", "Title":"Angular", "Type":"Technology", "New":"FALSE", "Old":"TRUE"},
+        { "ID":"Knockout", "Title":"Knockout", "Type":"Technology", "New":"FALSE", "Old":"TRUE"},
+        { "ID":"ASP.NET", "Title":"ASP.NET", "Type":"Technology", "New":"FALSE", "Old":"TRUE"},
+        { "ID":"VBA", "Title":"VBA", "Type":"Language", "New":"FALSE", "Old":"TRUE"},
+        { "ID":"Sybase", "Title":"Sybase", "Type":"Tool", "New":"FALSE", "Old":"TRUE"}
+    ];
