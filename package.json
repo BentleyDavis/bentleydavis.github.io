@@ -9,7 +9,8 @@
     "debug": "npm run deleteDist && @powershell -Command $env:DEBUG='*'; eleventy",
     "deploy": "npm run deleteDist && eleventy && gh-pages -d dist -b master",
     "upgrade-all": "ncu -u --timeout 60000 && npm install",
-    "deleteDist": "if exist dist (rmdir /s /q dist)"
+    "deleteDist": "if exist dist (rmdir /s /q dist)",
+    "play": "node src/PlayGetExternalData.js"
   },
   "author": "Bentley Davis <Bentley@BentleyDavis.com> (http://BentleyDavis.com)",
   "license": "ISC",
@@ -17,5 +18,9 @@
     "@11ty/eleventy": "^0.11.1",
     "gh-pages": "^3.1.0",
     "npm-check-updates": "^10.2.5"
+  },
+  "dependencies": {
+    "metascraper": "^5.16.0",
+    "metascraper-logo-favicon": "^5.16.3"
   }
 }
