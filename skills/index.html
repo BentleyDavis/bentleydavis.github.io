@@ -16,30 +16,30 @@
     <script async="async" custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     <script async="async" custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
     <script async="async" custom-element="amp-fx-collection" src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
-    <title>Texas Positive Rate</title>
-    <link rel="canonical" href="https://BentleyDavis.com/tpr/">
+    <title>Bentley Davis</title>
+    <link rel="canonical" href="https://BentleyDavis.com/skills/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <script type="application/ld+json">
       {
         "author.name": "Bentley Davis",
         "@context": "http://schema.org",
         "@type": "NewsArticle",
-        "headline": "Texas Positive Rate",
+        "headline": "Bentley Davis",
         "datePublished": "",
         "image": ["https://BentleyDavis.com/img/bentley_wide_small.jpg"]
       }
     </script>
     
-    <meta property="og:url" content="https://BentleyDavis.com/tpr/"/>
+    <meta property="og:url" content="https://BentleyDavis.com/skills/"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:title" content="Texas Positive Rate"/>
-    <meta property="og:description" content="Texas Positive Rate for Coronovirus"/>
+    <meta property="og:title" content="Bentley Davis"/>
+    <meta property="og:description" content=""/>
     <meta property="og:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg"/>
     
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@bntlyd">
-    <meta name="twitter:title" content="Texas Positive Rate">
-    <meta name="twitter:description" content="Texas Positive Rate for Coronovirus">
+    <meta name="twitter:title" content="Bentley Davis">
+    <meta name="twitter:description" content="">
     <meta name="twitter:creator" content="@bntlyd">
     <meta name="twitter:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg">
     <meta name="twitter:domain" content="BentleyDavis.com">
@@ -109,6 +109,13 @@
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background: #ffffff;
+  color:hsl(212, 29%, 60%)
+}
+
+.light-background{
+  background: #ffffff;
+  color:hsl(212, 29%, 60%)
 }
 
 header {
@@ -133,6 +140,10 @@ header {
 .topnav {
   display: none;
   padding: 0 10px 0 0;
+}
+
+a {
+  color: currentColor;
 }
 
 @media (min-width: 600px) {
@@ -179,29 +190,6 @@ header {
   color: rgba(255, 255, 255, .8);
 }
 
-.inverse {
-  background-color: hsl(212, 29%, 60%);
-  color: white;
-}
-
-h1, h2, h3, h4, h5 {
-  color: hsl(212, 29%, 60%);
-}
-
-.inverse h1, .inverse h2, .inverse h3, .inverse h4, .inverse h5 {
-  color: white;
-}
-
-a {
-  text-decoration: none;
-  color: hsl(212, 29%, 60%);
-  ;
-}
-
-.inverse a {
-  color: #ffffff
-}
-
 .headerbar a, .sidebar a {
   text-decoration: none;
   color: #ffffff;
@@ -224,6 +212,19 @@ a {
   max-width: 1140px;
 }
 
+section {
+  padding: 1em 0 4em 0;
+}
+
+section:nth-child(even) {
+  color: #ffffff;
+  background:hsl(212, 29%, 60%)
+}
+
+h1 {
+  font-size: 2em;
+}
+
 h1, h2 {
   margin-block-end: 0.2em;
 }
@@ -241,6 +242,8 @@ amp-img.cover img {
 }
 
       
+
+
     </style>
     
   </head>
@@ -283,48 +286,9 @@ amp-img.cover img {
       </ul>
     </amp-sidebar>
     
-      <div class="content">
-    <!doctype html>
-<html lang="en">
+<section></section>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Texas Positivity Rate</title>
-</head>
 
-<body>
-    <br><br><br><br>
-    <div id="results" style="text-align: center; font-size: 25px;">
-    </div>
-    <script>
-        const days = 30;
-        const d = new Date();
-        d.setDate(d.getDate() - days);
-        const when = `${d.getFullYear()}-${
-            ("0" + (d.getMonth() + 1)).slice(-2)}-${
-            ("0" + d.getDate()).slice(-2)}`
-        //fetch(`https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/3/query?f=json&where=Date%3Etimestamp%20%27${when}%2004%3A59%3A59%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=30&resultType=standard&cacheHint=true`)
-        fetch(`https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/6/query?f=json&where=Date%3Etimestamp%20%27${when}%2004%3A59%3A59%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=${days}&resultType=standard&cacheHint=true`)
-            .then(response => response.json())
-            .then(fetchResult => {
-                const data = fetchResult.features;
-                let current = data.pop();
-                let html = `${new Date().toLocaleDateString()}<br>`;
-                do {
-                    const rate = (current.attributes.Specimen * 100).toFixed(1)
-                    html += `${rate} %</br>`;
-                    current = data.pop()
-                } while (current)
-                document.getElementById("results").innerHTML = html;
-            });
-    </script>
-</body>
-
-</html>
-</div>
-
-    
     <br>
     <amp-iframe width="480" height="320" src="https://bentleydavis.substack.com/embed"
   sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals" frameborder="0" scrolling="no"

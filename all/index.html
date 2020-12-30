@@ -109,6 +109,13 @@
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background: #ffffff;
+  color:hsl(212, 29%, 60%)
+}
+
+.light-background{
+  background: #ffffff;
+  color:hsl(212, 29%, 60%)
 }
 
 header {
@@ -133,6 +140,10 @@ header {
 .topnav {
   display: none;
   padding: 0 10px 0 0;
+}
+
+a {
+  color: currentColor;
 }
 
 @media (min-width: 600px) {
@@ -179,29 +190,6 @@ header {
   color: rgba(255, 255, 255, .8);
 }
 
-.inverse {
-  background-color: hsl(212, 29%, 60%);
-  color: white;
-}
-
-h1, h2, h3, h4, h5 {
-  color: hsl(212, 29%, 60%);
-}
-
-.inverse h1, .inverse h2, .inverse h3, .inverse h4, .inverse h5 {
-  color: white;
-}
-
-a {
-  text-decoration: none;
-  color: hsl(212, 29%, 60%);
-  ;
-}
-
-.inverse a {
-  color: #ffffff
-}
-
 .headerbar a, .sidebar a {
   text-decoration: none;
   color: #ffffff;
@@ -222,6 +210,19 @@ a {
   padding: 0 15px;
   margin: auto;
   max-width: 1140px;
+}
+
+section {
+  padding: 1em 0 4em 0;
+}
+
+section:nth-child(even) {
+  color: #ffffff;
+  background:hsl(212, 29%, 60%)
+}
+
+h1 {
+  font-size: 2em;
 }
 
 h1, h2 {
@@ -427,13 +428,13 @@ img {
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/static-root/html_code/">
+            </a><a href="/skills/">
                 <div class="card">
                     
-                        <div class="bigtext" ></div>
+                        <amp-img class="card-img-top" src="/img/bentley_wide_small.jpg" alt="Bentley Davis" layout="responsive" height="200" width="200" ></amp-img>
                     
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
+                        <h5 class="card-title">Bentley Davis</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
@@ -627,7 +628,7 @@ img {
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/tpr/">
+            </a><a href="/content/pages/tpr/">
                 <div class="card">
                     
                         <amp-img class="card-img-top" src="/img/bentley_wide_small.jpg" alt="Texas Positive Rate" layout="responsive" height="200" width="200" ></amp-img>

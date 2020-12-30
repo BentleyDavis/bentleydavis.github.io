@@ -109,6 +109,13 @@
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background: #ffffff;
+  color:hsl(212, 29%, 60%)
+}
+
+.light-background{
+  background: #ffffff;
+  color:hsl(212, 29%, 60%)
 }
 
 header {
@@ -133,6 +140,10 @@ header {
 .topnav {
   display: none;
   padding: 0 10px 0 0;
+}
+
+a {
+  color: currentColor;
 }
 
 @media (min-width: 600px) {
@@ -179,29 +190,6 @@ header {
   color: rgba(255, 255, 255, .8);
 }
 
-.inverse {
-  background-color: hsl(212, 29%, 60%);
-  color: white;
-}
-
-h1, h2, h3, h4, h5 {
-  color: hsl(212, 29%, 60%);
-}
-
-.inverse h1, .inverse h2, .inverse h3, .inverse h4, .inverse h5 {
-  color: white;
-}
-
-a {
-  text-decoration: none;
-  color: hsl(212, 29%, 60%);
-  ;
-}
-
-.inverse a {
-  color: #ffffff
-}
-
 .headerbar a, .sidebar a {
   text-decoration: none;
   color: #ffffff;
@@ -224,6 +212,19 @@ a {
   max-width: 1140px;
 }
 
+section {
+  padding: 1em 0 4em 0;
+}
+
+section:nth-child(even) {
+  color: #ffffff;
+  background:hsl(212, 29%, 60%)
+}
+
+h1 {
+  font-size: 2em;
+}
+
 h1, h2 {
   margin-block-end: 0.2em;
 }
@@ -241,152 +242,196 @@ amp-img.cover img {
 }
 
       
-.bd-elsewhere-icons{
-  font-size: 50px;
-}
+      .bd-elsewhere-icons{
+        font-size: 50px;
+      }
 
-    .bd-social-icon {
-      width: fit-content;
-      display: inline-block;
-      fill: currentColor;
-    }
+      .bd-social-icon {
+        width: fit-content;
+        display: inline-block;
+        fill: currentColor;
+      }
 
-    .bd-social-icon svg {
-      height: .8em;
-    }
+      .bd-social-icon svg {
+        height: .8em;
+      }
 
-    .bd-hero-main {
-      background-color: #dbddd8;
-    }
+      .bd-hero-main {
+        background-color: #dbddd8;
+      }
 
-    .bd-hero {
-      background-image: url("/img/hero2.jpg");
-      background-size: cover;
-      background-repeat: no-repeat;
-      position: relative;
-      overflow: hidden;
-      transform-style: preserve-3d;
-      margin: auto;
-      max-height: 90vh;
-      perspective-origin: 0 8%;
-
-      perspective: 1500px;
-      width: 1000px;
-      height: 829.5px;
-      font-size: 75px;
-    }
-
-    @media (max-width: 1000px) {
       .bd-hero {
+        background-image: url("/img/hero2.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+        overflow: hidden;
+        transform-style: preserve-3d;
+        margin: auto;
+        max-height: 90vh;
+        perspective-origin: 0 8%;
+
         perspective: 1500px;
         width: 1000px;
         height: 829.5px;
         font-size: 75px;
       }
-    }
 
-    @media (max-width: 850px) {
-      .bd-hero {
-        perspective: 1275px;
-        width: 850px;
-        height: 705.075px;
-        font-size: 63.75px;
+      @media (max-width: 1000px) {
+        .bd-hero {
+          perspective: 1500px;
+          width: 1000px;
+          height: 829.5px;
+          font-size: 75px;
+        }
       }
-    }
 
-    @media (max-width: 750px) {
-      .bd-hero {
-        perspective: 1125px;
-        width: 750px;
-        height: 622.125px;
-        font-size: 56.25px;
+      @media (max-width: 850px) {
+        .bd-hero {
+          perspective: 1275px;
+          width: 850px;
+          height: 705.075px;
+          font-size: 63.75px;
+        }
       }
-    }
 
-    @media (max-width: 650px) {
-      .bd-hero {
-        perspective: 975px;
-        width: 650px;
-        height: 539.175px;
-        font-size: 48.75px;
+      @media (max-width: 750px) {
+        .bd-hero {
+          perspective: 1125px;
+          width: 750px;
+          height: 622.125px;
+          font-size: 56.25px;
+        }
       }
-    }
 
-    @media (max-width: 550px) {
-      .bd-hero {
-        perspective: 825px;
-        width: 550px;
-        height: 456.225px;
-        font-size: 41.25px;
+      @media (max-width: 650px) {
+        .bd-hero {
+          perspective: 975px;
+          width: 650px;
+          height: 539.175px;
+          font-size: 48.75px;
+        }
       }
-    }
 
-    @media (max-width: 450px) {
-      .bd-hero {
-        perspective: 675px;
-        width: 450px;
-        height: 373.275px;
-        font-size: 33.75px;
+      @media (max-width: 550px) {
+        .bd-hero {
+          perspective: 825px;
+          width: 550px;
+          height: 456.225px;
+          font-size: 41.25px;
+        }
       }
-    }
 
-    @media (max-width: 350px) {
-      .bd-hero {
-        perspective: 525px;
-        width: 350px;
-        height: 290.325px;
-        font-size: 26.25px;
+      @media (max-width: 450px) {
+        .bd-hero {
+          perspective: 675px;
+          width: 450px;
+          height: 373.275px;
+          font-size: 33.75px;
+        }
       }
-    }
 
-    .bd-hero .bd-inner {
-      width: 245%;
-      transform-origin: left top;
-      position: relative;
-      transform: rotate3d(0, 1, 0, 37deg);
-      top: -5%;
-    }
+      @media (max-width: 350px) {
+        .bd-hero {
+          perspective: 525px;
+          width: 350px;
+          height: 290.325px;
+          font-size: 26.25px;
+        }
+      }
 
-    #hero-content {
-      margin: 0;
-      line-height: 1;
-    }
+      .bd-hero .bd-inner {
+        width: 245%;
+        transform-origin: left top;
+        position: relative;
+        transform: rotate3d(0, 1, 0, 37deg);
+        top: -5%;
+      }
 
-    .bd-inner2 {
-      opacity: 1;
-      color: #00000033;
-      padding-left: 2%;
-    }
-    .bd-hero-title {
-      font-size: 300%;
-      color: #00000077;
-    }
-    .bd-hero-icon {
-      fill: #00000077;
-      width: 1.2em;
-      display: inline-block;
-      vertical-align: bottom;
-    }
-    .bd-fadeout {
-      background: linear-gradient(
-        90deg,
-        #dbddd8 0%,
-        rgba(0, 0, 0, 0) 5%,
-        rgba(0, 0, 0, 0) 63%,
-        #dbddd8 100%
-      );
-      position: absolute;
-      top: 0;
-    }
-    .bd-hero-background {
-      background-image: url("/img/hero2.png");
-      position: absolute;
-      top: 0;
-    }
-    #bd-hero-dynamic {
-      white-space: pre;
-    }
-  
+      #hero-content {
+        margin: 0;
+        line-height: 1;
+      }
+
+      .bd-inner2 {
+        opacity: 1;
+        color: #00000033;
+        padding-left: 2%;
+      }
+      .bd-hero-title {
+        font-size: 300%;
+        color: #00000077;
+      }
+      .bd-hero-icon {
+        fill: #00000077;
+        width: 1.2em;
+        display: inline-block;
+        vertical-align: bottom;
+      }
+      .bd-fadeout {
+        background: linear-gradient(
+          90deg,
+          #dbddd8 0%,
+          rgba(0, 0, 0, 0) 5%,
+          rgba(0, 0, 0, 0) 63%,
+          #dbddd8 100%
+        );
+        position: absolute;
+        top: 0;
+      }
+      .bd-hero-background {
+        background-image: url("/img/hero2.png");
+        position: absolute;
+        top: 0;
+      }
+      #bd-hero-dynamic {
+        white-space: pre;
+      }
+
+      /* Skills Section */
+.new-icon {
+    position: absolute;
+    top: -5px;
+    left: -10px;
+    background: yellow;
+    color: black;
+    transform: rotate(-30deg);
+    padding: 5px 10px;
+}
+
+.url-icon{
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin-right: 1rem;
+  }
+
+.grid-current-skills{
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1rem;
+}
+
+.cell-current-skill{
+  position: relative;
+  border: 1px solid hsl(212, 29%, 60%);
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.cell-current-skill h2{
+  padding:0;
+  margin:0;
+}
+amp-img.contain img {
+   object-fit: contain;
+ }
+/* End Skills Section */
+    
     </style>
     
 <script
@@ -466,74 +511,356 @@ amp-img.cover img {
     <div class="bd-hero bd-hero-background"></div>
   </div>
 </div>
-  <section class="inverse">
-    <div class="content">
-    <br>
-    <br>
-      <h1>Bentley elsewhere</h1>
-      <span class="bd-elsewhere-icons"> 
-        <a href='https://twitter.com/BntlyD' target='_blank' class="bd-social-icon">
-          <svg viewBox="75 98 250 203">
-            <path
-              d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23"
-            />
-          </svg>
-        </a>
-        <a href='https://www.facebook.com/bntlyd' target='_blank' class="bd-social-icon">
-          <svg
-            version="1.1"
-            viewBox="0 0 36 36"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="m18 0c-9.9 0-18 8.1-18 18 0 8.9 6.5 16 15 18l0.11-0.086c-0.036-0.0069-0.072-0.0085-0.11-0.016v-13h-4.5v-5h4.5v-4c0-4.5 2.9-7 7-7 1.3 0 2.7 0.2 4 0.4v4.6h-2.3c-2.2 0-2.7 1.1-2.7 2.5v3.5h4.8l-0.8 5h-4v13c-0.036 0.0072-0.072 0.0087-0.11 0.016l0.11 0.086c8.5-1.5 15-8.9 15-18 0-9.9-8.1-18-18-18z"
-            />
-          </svg>
-        </a>
-        <a href='https://www.linkedin.com/in/bntlyd' target='_blank' class="bd-social-icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 48 48"
-            preserveAspectRatio="xMinYMin meet"
+<section>
+  <div class="content">
+    <h1>About</h1>
+    <h2>Howdy, I’m Bentley Davis, a Fractional CTO and Full Stack Engineer </h2>
+    I solve big problems with small experiments and use code when necessary. I have been creating software for over 30 years, managing teams for over 20 years, and mentoring startups for over 5 years. I was chief technology officer of a successful startup exit. I collaborate to build innovative web and mobile experiences.
+  </div>
+</section>
+<section >
+  <div class="content">
+    <h1>Bentley Elsewhere</h1>
+    <span class="bd-elsewhere-icons">
+      <a
+        href="https://twitter.com/BntlyD"
+        target="_blank"
+        class="bd-social-icon"
+      >
+        <svg viewBox="75 98 250 203">
+          <path
+            d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23"
+          />
+        </svg>
+      </a>
+      <a
+        href="https://www.facebook.com/bntlyd"
+        target="_blank"
+        class="bd-social-icon"
+      >
+        <svg
+          version="1.1"
+          viewBox="0 0 36 36"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m18 0c-9.9 0-18 8.1-18 18 0 8.9 6.5 16 15 18l0.11-0.086c-0.036-0.0069-0.072-0.0085-0.11-0.016v-13h-4.5v-5h4.5v-4c0-4.5 2.9-7 7-7 1.3 0 2.7 0.2 4 0.4v4.6h-2.3c-2.2 0-2.7 1.1-2.7 2.5v3.5h4.8l-0.8 5h-4v13c-0.036 0.0072-0.072 0.0087-0.11 0.016l0.11 0.086c8.5-1.5 15-8.9 15-18 0-9.9-8.1-18-18-18z"
+          />
+        </svg>
+      </a>
+      <a
+        href="https://www.linkedin.com/in/bntlyd"
+        target="_blank"
+        class="bd-social-icon"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 48 48"
+          preserveAspectRatio="xMinYMin meet"
+          fill-rule="evenodd"
+        >
+          <path
+            d="M0 4.01A4.01 4.01 0 014.01 0h39.98A4.01 4.01 0 0148 4.01v39.98A4.01 4.01 0 0143.99 48H4.01A4.01 4.01 0 010 43.99V4.01zM19 18.3h6.5v3.266C26.437 19.688 28.838 18 32.445 18 39.359 18 41 21.738 41 28.597V41.3h-7V30.159c0-3.906-.937-6.109-3.32-6.109-3.305 0-4.68 2.375-4.68 6.109V41.3h-7v-23zM7 41h7V18H7v23zm8-30.5a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"
+          ></path>
+        </svg>
+      </a>
+      <a
+        href="https://github.com/BentleyDavis"
+        target="_blank"
+        class="bd-social-icon"
+      >
+        <svg
+          class="octicon octicon-mark-github v-align-middle"
+          viewBox="0 0 16 16"
+          version="1.1"
+        >
+          <path
             fill-rule="evenodd"
-          >
-            <path d="M0 4.01A4.01 4.01 0 014.01 0h39.98A4.01 4.01 0 0148 4.01v39.98A4.01 4.01 0 0143.99 48H4.01A4.01 4.01 0 010 43.99V4.01zM19 18.3h6.5v3.266C26.437 19.688 28.838 18 32.445 18 39.359 18 41 21.738 41 28.597V41.3h-7V30.159c0-3.906-.937-6.109-3.32-6.109-3.305 0-4.68 2.375-4.68 6.109V41.3h-7v-23zM7 41h7V18H7v23zm8-30.5a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"></path>
-          </svg>
-        </a>
-        <a href='https://github.com/BentleyDavis' target='_blank' class="bd-social-icon">
-          <svg class="octicon octicon-mark-github v-align-middle" viewBox="0 0 16 16" version="1.1" >
-            <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-            </svg>
-        </a>
-      </span><br>
-        <a href='https://www.youtube.com/user/BentleyD' target='_blank' class="bd-social-icon">
-          <svg viewBox="0 2 29 20" preserveAspectRatio="xMidYMid meet">
-            <path d="m14 2.2s-8.8 1.3e-5 -11 0.59c-1.2 0.32-2.2 1.3-2.5 2.5-0.4 2.2-0.6 4.5-0.59 6.8-0.0098 2.3 0.19 4.5 0.59 6.8 0.32 1.2 1.3 2.2 2.5 2.5 2.2 0.59 11 0.59 11 0.59s8.8-1.3e-5 11-0.59c1.2-0.31 2.2-1.3 2.5-2.5 0.4-2.2 0.6-4.5 0.59-6.8 0.0098-2.3-0.19-4.5-0.59-6.8-0.33-1.2-1.3-2.2-2.5-2.5-2.2-0.59-11-0.59-11-0.59zm-2.8 5.6 7.3 4.2-7.3 4.2v-8.4z"></path>
-          </svg>
-        </a>
-        <a href='https://www.kickstarter.com/profile/bentleydavis' target='_blank' class="bd-social-icon">
-            <svg viewBox="0 0 60 60">
-            <path fill-rule="nonzero" d="M43.34 29.838l4.31-4.304c4.467-4.46 4.467-11.72 0-16.18-4.466-4.458-11.74-4.458-16.207 0l-1.57 1.568C27.793 7.942 24.367 6 20.453 6 14.13 6 9 11.12 9 17.433V42.22c0 6.313 5.13 11.434 11.454 11.434 3.913 0 7.34-1.943 9.42-4.922l1.57 1.567c4.465 4.457 11.74 4.457 16.206 0 4.467-4.46 4.467-11.72 0-16.18l-4.31-4.282z"></path>
-          </svg>
-        </a>
- -           <a href="https://www.quora.com/Bentley-Davis">Quora</a>
- -           <a href="http://www.reddit.com/user/BentleyDavis/">Reddit</a>
-      <h1>Personality</h1>
-      <b>Myers-Briggs personality type</b>:
-      <a href="http://en.wikipedia.org/wiki/INTJ" target="_blank">INTJ</a>
-      <br />
-      <b>Clifton Strengths</b>:
-      <a href="/strategic-futuristic-relator-learner-ideation"
-        >Strategic, Futuristic, Relator, Learner, Ideation</a
-      >
-      <br />
-      <b>Fascination Advantage Assessment</b>:
-      <a title="I am a Maverick leader" href="/maverick-leader"
-        >Maverick Leader</a
-      >
-      <br /><br /><br />
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+          ></path>
+        </svg>
+      </a> </span
+    ><br />
+    <a
+      href="https://www.youtube.com/user/BentleyD"
+      target="_blank"
+      class="bd-social-icon"
+    >
+      <svg viewBox="0 2 29 20" preserveAspectRatio="xMidYMid meet">
+        <path
+          d="m14 2.2s-8.8 1.3e-5 -11 0.59c-1.2 0.32-2.2 1.3-2.5 2.5-0.4 2.2-0.6 4.5-0.59 6.8-0.0098 2.3 0.19 4.5 0.59 6.8 0.32 1.2 1.3 2.2 2.5 2.5 2.2 0.59 11 0.59 11 0.59s8.8-1.3e-5 11-0.59c1.2-0.31 2.2-1.3 2.5-2.5 0.4-2.2 0.6-4.5 0.59-6.8 0.0098-2.3-0.19-4.5-0.59-6.8-0.33-1.2-1.3-2.2-2.5-2.5-2.2-0.59-11-0.59-11-0.59zm-2.8 5.6 7.3 4.2-7.3 4.2v-8.4z"
+        ></path>
+      </svg>
+    </a>
+    <a
+      href="https://www.kickstarter.com/profile/bentleydavis"
+      target="_blank"
+      class="bd-social-icon"
+    >
+      <svg viewBox="0 0 60 60">
+        <path
+          fill-rule="nonzero"
+          d="M43.34 29.838l4.31-4.304c4.467-4.46 4.467-11.72 0-16.18-4.466-4.458-11.74-4.458-16.207 0l-1.57 1.568C27.793 7.942 24.367 6 20.453 6 14.13 6 9 11.12 9 17.433V42.22c0 6.313 5.13 11.434 11.454 11.434 3.913 0 7.34-1.943 9.42-4.922l1.57 1.567c4.465 4.457 11.74 4.457 16.206 0 4.467-4.46 4.467-11.72 0-16.18l-4.31-4.282z"
+        ></path>
+      </svg>
+    </a>
+    - <a href="https://www.quora.com/Bentley-Davis">Quora</a> -
+    <a href="http://www.reddit.com/user/BentleyDavis/">Reddit</a>
+    </section>
+    <section>
+<div class="content">
+  <h1>Skills</h1>
+  <div class="grid-current-skills "> 
+    
+    
+      <div class="cell-current-skill light-background">
+        
+        
+        <h2>Product Management</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+        
+        <h2>Project Management</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+        
+        <h2>Scrum</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+        
+        <h2>Agile</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+        
+        <h2>Customer Service</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+        
+        <div class="url-icon"> 
+          <amp-img class="contain" layout="fill" src="\img\external\React\logo.png" alt="React logo"></amp-img>
+        </div>
+        
+        <h2>React</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+        
+        <div class="url-icon"> 
+          <amp-img class="contain" layout="fill" src="\img\external\Node\logo.png" alt="Node logo"></amp-img>
+        </div>
+        
+        <h2>Node</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+        
+        <div class="url-icon"> 
+          <amp-img class="contain" layout="fill" src="\img\external\Eleventy\logo.png" alt="Eleventy logo"></amp-img>
+        </div>
+        
+        <h2>Eleventy</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+        
+        <div class="url-icon"> 
+          <amp-img class="contain" layout="fill" src="\img\external\Ionic\logo.png" alt="Ionic logo"></amp-img>
+        </div>
+        
+        <h2>Ionic</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+        
+        <div class="url-icon"> 
+          <amp-img class="contain" layout="fill" src="\img\external\Firebase\logo.png" alt="Firebase logo"></amp-img>
+        </div>
+        
+        <h2>Firebase</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+          <div class="new-icon">New</div>
+        
+        
+        <h2>UX - User Experience</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+          <div class="new-icon">New</div>
+        
+        
+        <h2>SEO</h2>
+      </div>
+    
+    
+    
+      <div class="cell-current-skill light-background">
+        
+          <div class="new-icon">New</div>
+        
+        
+        <h2>Growth Hacking</h2>
+      </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  <br>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    Microsoft Access
+    
+    
+    
+     | 
+    MS SQL
+    
+    
+    
+     | 
+    C#
+    
+    
+    
+     | 
+    Visual Basic
+    
+    
+    
+     | 
+    VBA
+    
+    
+    
+     | 
+    Angular
+    
+    
+    
+     | 
+    Knockout
+    
+    
+    
+     | 
+    ASP.NET
+    
+    
+    
+     | 
+    VBA
+    
+    
+    
+     | 
+    Sybase
+    
+    
     </div>
-  </section>
+</section>
+  <section>
+  <div class="content">
+    <h1>Personality</h1>
+    <b>Myers-Briggs personality type</b>:
+    <a href="http://en.wikipedia.org/wiki/INTJ" target="_blank">INTJ</a>
+    <br />
+    <b>Clifton Strengths</b>:
+    <a href="/strategic-futuristic-relator-learner-ideation"
+      >Strategic, Futuristic, Relator, Learner, Ideation</a
+    >
+    <br />
+    <b>Fascination Advantage Assessment</b>:
+    <a title="I am a Maverick leader" href="/maverick-leader"
+      >Maverick Leader</a
+    >
+  </div>
+</section>
 
     <br>
     <amp-iframe width="480" height="320" src="https://bentleydavis.substack.com/embed"
