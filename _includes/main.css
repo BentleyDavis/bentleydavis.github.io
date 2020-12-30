@@ -7,6 +7,11 @@ body {
   color:hsl(212, 29%, 60%)
 }
 
+.light-background{
+  background: #ffffff;
+  color:hsl(212, 29%, 60%)
+}
+
 header {
   background: white;
   color: #ffffff;

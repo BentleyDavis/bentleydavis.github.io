@@ -10,7 +10,7 @@
     "deploy": "npm run deleteDist && eleventy && gh-pages -d dist -b master",
     "upgrade-all": "ncu -u --timeout 60000 && npm install",
     "deleteDist": "if exist dist (rmdir /s /q dist)",
-    "play": "node src/PlayGetExternalData.js"
+    "updateExternalData": "node src/updateExternalData.js"
   },
   "author": "Bentley Davis <Bentley@BentleyDavis.com> (http://BentleyDavis.com)",
   "license": "ISC",

@@ -7,10 +7,11 @@ const metascraper = require('metascraper')([
 ])
 const fs = require("fs");
 
-const checkUrlMetadata = async function (targetUrl, dataDestination, imageDestination) {
+const getUrlMetadata = async function (targetUrl, dataDestination, imageDestination) {
+  const imageFileDestination = Path.join('static-root',imageDestination);
   await fs.promises.mkdir(dataDestination, { recursive: true });
-  await fs.promises.mkdir(imageDestination, { recursive: true });
-  const metaDataFilePath = Path.join(dataDestination, 'meta.json');
+  await fs.promises.mkdir(imageFileDestination, { recursive: true });
+  const metaDataFilePath = Path.join(dataDestination, 'sourceMetaData.json');
   let oldMetaData;
   if (fs.existsSync(metaDataFilePath)){
     oldMetaData = await fs.promises.readFile(metaDataFilePath, 'utf8');
@@ -22,9 +23,11 @@ const checkUrlMetadata = async function (targetUrl, dataDestination, imageDestin
     await fs.promises.writeFile(metaDataFilePath, JSON.stringify(newMetadata));
     const extension = Path.extname(Url.parse(newMetadata.logo).pathname);
     got.stream(newMetadata.logo).pipe(fs.createWriteStream(
-      Path.join(imageDestination, `logo${extension}`)
+      Path.join(imageFileDestination, `logo${extension}`)
     ));
+    const newData = {logo: Path.join(`/`,imageDestination,`logo${extension}`)}
+    await fs.promises.writeFile(Path.join(dataDestination, 'data.json'), JSON.stringify(newData));
   }
 }
 
-exports.checkUrlMetadata = checkUrlMetadata;
+exports.getUrlMetadata = getUrlMetadata;

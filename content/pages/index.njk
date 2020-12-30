@@ -120,6 +120,39 @@
     </a>
     - <a href="https://www.quora.com/Bentley-Davis">Quora</a> -
     <a href="http://www.reddit.com/user/BentleyDavis/">Reddit</a>
+    </section>
+    <section>
+<div class="content">
+  <h1>Skills</h1>
+  <div class="grid-current-skills "> 
+    {% for item in skills %}
+    {% if (item.level == "Current") or (item.level == "New") %}
+      <div class="cell-current-skill light-background">
+        {% if item.level == "New" %}
+          <div class="new-icon">New</div>
+        {% endif %}
+        {% if external[item.id] %}
+        <div class="url-icon"> 
+          <amp-img class="contain" layout="fill" src="{{external[item.id].data.logo}}" alt="{{item.id}} logo"></amp-img>
+        </div>
+        {% endif %}
+        <h2>{{item.title}}</h2>
+      </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  <br>
+    {% set separator = joiner(" | ") %}
+    {% for item in skills %}
+    {% if item.level == "Old" %}
+    {{ separator() }}
+    {{item.title}}
+    {% endif %}
+    {% endfor %}
+    </div>
+</section>
+  <section>
+  <div class="content">
     <h1>Personality</h1>
     <b>Myers-Briggs personality type</b>:
     <a href="http://en.wikipedia.org/wiki/INTJ" target="_blank">INTJ</a>
@@ -133,7 +166,6 @@
     <a title="I am a Maverick leader" href="/maverick-leader"
       >Maverick Leader</a
     >
-    <br /><br /><br />
   </div>
 </section>
 {% endblock %}
@@ -284,6 +316,50 @@
       #bd-hero-dynamic {
         white-space: pre;
       }
+
+      /* Skills Section */
+.new-icon {
+    position: absolute;
+    top: -5px;
+    left: -10px;
+    background: yellow;
+    color: black;
+    transform: rotate(-30deg);
+    padding: 5px 10px;
+}
+
+.url-icon{
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin-right: 1rem;
+  }
+
+.grid-current-skills{
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1rem;
+}
+
+.cell-current-skill{
+  position: relative;
+  border: 1px solid hsl(212, 29%, 60%);
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.cell-current-skill h2{
+  padding:0;
+  margin:0;
+}
+amp-img.contain img {
+   object-fit: contain;
+ }
+/* End Skills Section */
     {% endblock %}
 </style>
 {% block head %}
