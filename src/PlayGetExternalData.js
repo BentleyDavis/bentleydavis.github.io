@@ -7,9 +7,10 @@ const metascraper = require('metascraper')([
 ])
 const fs = require("fs");
 
-const checkUrlMetadata = async function (targetUrl, destinationDir) {
-  await fs.promises.mkdir(destinationDir, { recursive: true });
-  const metaDataFilePath = Path.join(destinationDir, 'meta.json');
+const checkUrlMetadata = async function (targetUrl, dataDestination, imageDestination) {
+  await fs.promises.mkdir(dataDestination, { recursive: true });
+  await fs.promises.mkdir(imageDestination, { recursive: true });
+  const metaDataFilePath = Path.join(dataDestination, 'meta.json');
   let oldMetaData;
   if (fs.existsSync(metaDataFilePath)){
     oldMetaData = await fs.promises.readFile(metaDataFilePath, 'utf8');
@@ -21,12 +22,9 @@ const checkUrlMetadata = async function (targetUrl, destinationDir) {
     await fs.promises.writeFile(metaDataFilePath, JSON.stringify(newMetadata));
     const extension = Path.extname(Url.parse(newMetadata.logo).pathname);
     got.stream(newMetadata.logo).pipe(fs.createWriteStream(
-      Path.join(destinationDir, `logo${extension}`)
+      Path.join(imageDestination, `logo${extension}`)
     ));
   }
 }
 
-checkUrlMetadata(
-  'https://reactjs.org/',
-  '_data/_external/react'
-);
+exports.checkUrlMetadata = checkUrlMetadata;

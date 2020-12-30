@@ -1,10 +1,13 @@
-module.exports =
-    [
-        { "ID":"React", "Title":"React", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
-        { "ID":"Node", "Title":"Node", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
-        { "ID":"Eleventy (11ty)", "Title":"Eleventy (11ty)", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
-        { "ID":"Ionic", "Title":"Ionic", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
-        { "ID":"Firebase", "Title":"Firebase", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
+module.exports = async function () {
+
+    const checkUrlMetadata = require('../src/PlayGetExternalData.js');
+
+    let skills = [
+        { "ID":"React", "Title":"React", "URL":"https://reactjs.org/", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Node", "Title":"Node", "URL":"https://nodejs.org", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Eleventy", "Title":"Eleventy (11ty)", "URL":"https://www.11ty.dev/", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Ionic", "Title":"Ionic", "URL":"https://ionicframework.com", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
+        { "ID":"Firebase", "Title":"Firebase", "URL":"https://firebase.google.com", "Type":"Technology", "New":"FALSE", "Old":"FALSE"},
         { "ID":"Project Management", "Title":"Project Management", "Type":"Management", "New":"FALSE", "Old":"FALSE"},
         { "ID":"Product Management", "Title":"Product Management", "Type":"Management", "New":"FALSE", "Old":"FALSE"},
         { "ID":"Scrum", "Title":"Scrum", "Type":"Management", "New":"FALSE", "Old":"FALSE"},
@@ -20,9 +23,28 @@ module.exports =
         { "ID":"C#", "Title":"C#", "Type":"Language", "New":"FALSE", "Old":"TRUE"},
         { "ID":"Visual Basic", "Title":"Visual Basic", "Type":"Language", "New":"FALSE", "Old":"TRUE"},
         { "ID":"VBA", "Title":"VBA", "Type":"Language", "New":"FALSE", "Old":"TRUE"},
-        { "ID":"Angular", "Title":"Angular", "Type":"Technology", "New":"FALSE", "Old":"TRUE"},
+        { "ID":"Angular", "Title":"Angular", "URL":"https://angularjs.org/", "Type":"Technology", "New":"FALSE", "Old":"TRUE"},
         { "ID":"Knockout", "Title":"Knockout", "Type":"Technology", "New":"FALSE", "Old":"TRUE"},
         { "ID":"ASP.NET", "Title":"ASP.NET", "Type":"Technology", "New":"FALSE", "Old":"TRUE"},
         { "ID":"VBA", "Title":"VBA", "Type":"Language", "New":"FALSE", "Old":"TRUE"},
-        { "ID":"Sybase", "Title":"Sybase", "Type":"Tool", "New":"FALSE", "Old":"TRUE"}
-    ];
+        { "ID":"Sybase", "Title":"Sybase", "Type":"Tool", "New":"FALSE", "Old":"TRUE"},
+    ]
+
+    for (skill of skills) {
+        if (skill.URL) {
+            await checkUrlMetadata.checkUrlMetadata(
+                skill.URL,
+                `_data/_external/${skill.ID}`,
+                `static-root/img/external/${skill.ID}`
+            );
+            skill.logo = `/img/external/${skill.ID}/logo.png`;
+        }
+    }
+    await checkUrlMetadata.checkUrlMetadata(
+        'https://reactjs.org/',
+        '_data/_external/react',
+        'static-root/img/external/react'
+    );
+
+    return skills
+};

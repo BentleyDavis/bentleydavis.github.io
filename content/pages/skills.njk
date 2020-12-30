@@ -1,6 +1,12 @@
 
 {% block content %}
   {%- for item in skills -%}
+
+    {% if item.logo %}
+    <img src="{{item.logo}}">
+    {% endif %}
+
+
     {% if item.New == "TRUE" %}
       {{item.Title}} (NEW!)
     {% elif item.Old == "TRUE" %}
