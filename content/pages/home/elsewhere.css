@@ -1,0 +1,13 @@
+.bd-elsewhere-icons {
+  font-size: 50px;
+}
+
+.bd-social-icon {
+  width: fit-content;
+  display: inline-block;
+  fill: currentColor;
+}
+
+.bd-social-icon svg {
+  height: 0.8em;
+}
