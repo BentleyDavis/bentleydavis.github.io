@@ -1,0 +1,45 @@
+.new-icon {
+    position: absolute;
+    top: -5px;
+    left: -10px;
+    background: yellow;
+    color: black;
+    transform: rotate(-30deg);
+    padding: 5px 10px;
+}
+
+.recommendation-icon{
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin-right: 1rem;
+  float: left;
+  border-radius: 50%;
+  overflow: hidden;
+  }
+
+.grid-recommendations{
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-gap: 1rem;
+}
+
+.grid-recommendations h1{
+  
+}
+
+.cell-recommendation{
+  border: 1px solid hsl(212, 29%, 60%);
+  padding: 5px;
+  max-height: 150px;
+  overflow: auto;
+}
+.cell-current-skill h2{
+  padding:0;
+  margin:0;
+}
+amp-img.contain img {
+   object-fit: contain;
+ }
