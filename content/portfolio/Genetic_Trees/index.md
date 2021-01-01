@@ -1,6 +1,6 @@
 ---
 title: "Drawing Genetic Family Trees"
-date: 2020-17-09 12:00:00
+date: 2017-09-17
 description: "I created an application to draw genetic family trees"
 img: /Genetic_Trees/Genetic_Tree_hero.gif
 img-height: 316
