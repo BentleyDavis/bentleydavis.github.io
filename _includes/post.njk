@@ -1,6 +1,4 @@
----
-layout: base.njk
----
+{% block content %}
 <div class="content">
     {% if img %}
         <div class="content-post-image">
@@ -16,5 +14,10 @@ layout: base.njk
         {% formatDate page.date %}
     </span>
     <h1>{{ title }}</h1>
-    {{ content | safe }}
+    {% block post %}
+      {{ content | safe }}
+    {% endblock %}
 </div>
+{% endblock %}
+
+{% extends "_includes/base.njk" %}

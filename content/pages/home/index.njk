@@ -1,18 +1,19 @@
 {% block content %}
-{% include './hero.fragment.html' %}
-{% include './about.fragment.html' %}
-{% include './portfolio.fragment.njk' %}
-{% include './skills.fragment.njk' %}
-{% include './elsewhere.fragment.html' %}
-{% include './personality.fragment.html' %}
- 
+  {% include './hero.fragment.html' %}
+  {% include './about.fragment.html' %}
+  {% include './portfolio.fragment.njk' %}
+  {% include './skills.fragment.njk' %}
+  {% include './elsewhere.fragment.html' %}
+  {% include './personality.fragment.html' %}
+ {% endblock %}
+
+{% block styles %}
+  {% include './hero.css' %}
+  {% include './elsewhere.css' %}
+  {% include './skills.css' %}
+  {% include './portfolio.css' %}
 {% endblock %}
-    {% block styles %}
-    {% include './hero.css' %}
-    {% include './elsewhere.css' %}
-    {% include './skills.css' %}
-    {% include './portfolio.css' %}
-{% endblock %}
+
 {% block head %}
   <script
     async="async"
@@ -25,4 +26,5 @@
     src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
   ></script>
 {% endblock %}
+
 {% extends "_includes/base.njk" %}

@@ -1,4 +1,4 @@
 {
-    "layout": "post.njk",
-    "tags": ["Portfolio"]
+    "tags": ["Portfolio"],
+    "layout": ""
 }
