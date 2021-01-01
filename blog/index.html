@@ -16,7 +16,7 @@
     <script async="async" custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     <script async="async" custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
     <script async="async" custom-element="amp-fx-collection" src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
-    <title>-Blog</title>
+    <title>Blog - Bentley Davis</title>
     <link rel="canonical" href="https://BentleyDavis.com/blog/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <script type="application/ld+json">
@@ -24,7 +24,7 @@
         "author.name": "Bentley Davis",
         "@context": "http://schema.org",
         "@type": "NewsArticle",
-        "headline": "-Blog",
+        "headline": "Blog - Bentley Davis",
         "datePublished": "",
         "image": ["https://BentleyDavis.com/img/bentley_wide_small.jpg"]
       }
@@ -32,13 +32,13 @@
     
     <meta property="og:url" content="https://BentleyDavis.com/blog/"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:title" content="-Blog"/>
+    <meta property="og:title" content="Blog - Bentley Davis"/>
     <meta property="og:description" content=""/>
     <meta property="og:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg"/>
     
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@bntlyd">
-    <meta name="twitter:title" content="-Blog">
+    <meta name="twitter:title" content="Blog - Bentley Davis">
     <meta name="twitter:description" content="">
     <meta name="twitter:creator" content="@bntlyd">
     <meta name="twitter:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg">
@@ -247,20 +247,17 @@ amp-img.cover img {
 }
 
       
-.fixed-height-container {
+    .fixed-height-container {
   position: relative;
   width: 100%;
   height: 300px;
 }
 
 .card-deck {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1rem;
 }
 
 .card-deck .card {
@@ -280,20 +277,20 @@ amp-img.cover img {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, .125);
-  border-radius: .25rem;
-  max-width: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  /* max-width: 200px; */
 }
 
 amp-img.card-img-top {
-  width: 200px;
+  /* width: 200px; */
   height: 200px;
 }
 
 amp-img.card-img-top img {
   width: 100%;
-  border-top-left-radius: calc(.25rem - 1px);
-  border-top-right-radius: calc(.25rem - 1px);
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
   object-fit: cover;
 }
 
@@ -303,23 +300,23 @@ img {
 }
 
 .card-body {
-  -webkit-box-flex: 1;
+  /* -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
+  flex: 1 1 auto; */
   padding: 1.25rem;
   padding: 0 1.25rem;
   height: 100px;
 }
 
 .card-title {
-  margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
 }
 
 .card-text:last-child {
   margin-bottom: 0;
 }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .card-deck {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -344,7 +341,7 @@ img {
     flex-direction: column;
     margin: 10px;
   }
-}
+} */
 
 .bigtext {
   height: 200px;
@@ -354,6 +351,7 @@ img {
   vertical-align: middle;
   text-align: center;
 }
+
 
     </style>
     
@@ -402,118 +400,173 @@ img {
     <h1>Blog</h1>
 
     
-
-    <div class="card-deck"><a href="/before_i_build_your_app/">
+    <div class="card-deck">
+        
+            <a href="/before_i_build_your_app/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/bentley_wide_small.jpg" alt="Before I Build Your App" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/bentley_wide_small.jpg" alt="Before I Build Your App" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Before I Build Your App</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/wanted-pit-bull-research-volunteers/">
+            </a>
+        
+        
+            <a href="/wanted-pit-bull-research-volunteers/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/blog/pit-bull-comparison.jpg" alt="Wanted: Pit Bull Research Volunteers" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/blog/pit-bull-comparison.jpg" alt="Wanted: Pit Bull Research Volunteers" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Wanted: Pit Bull Research Volunteers</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/reason_score_live_demo_release/">
+            </a>
+        
+        
+            <a href="/reason_score_live_demo_release/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/blog/reason_score_20200430.gif" alt="Reason Score Live Demo Release" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/blog/reason_score_20200430.gif" alt="Reason Score Live Demo Release" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Reason Score Live Demo Release</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/manifesto/">
+            </a>
+        
+        
+            <a href="/manifesto/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/blog/manifesto2.jpg" alt="Satisfaction manifesto" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/blog/manifesto2.jpg" alt="Satisfaction manifesto" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Satisfaction manifesto</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/free-experts-for-your-bootstrap-startup.html">
+            </a>
+        
+        
+            <a href="/free-experts-for-your-bootstrap-startup.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/countMoney.gif" alt="Free Experts for your Bootstrap Startup" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/countMoney.gif" alt="Free Experts for your Bootstrap Startup" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Free Experts for your Bootstrap Startup</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/dallas-givecamp-2014-kids-u-codeitforward.html">
+            </a>
+        
+        
+            <a href="/dallas-givecamp-2014-kids-u-codeitforward.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/kids-u.png" alt="Dallas GiveCamp 2014 Kids-U" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/kids-u.png" alt="Dallas GiveCamp 2014 Kids-U" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Dallas GiveCamp 2014 Kids-U</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/dep-civic-hackathon-ii.html">
+            </a>
+        
+        
+            <a href="/dep-civic-hackathon-ii.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/dep.jpg" alt="Civic Hackathon" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/dep.jpg" alt="Civic Hackathon" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Civic Hackathon</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/why-i-quit-my-job-and-whats-next.html">
+            </a>
+        
+        
+            <a href="/why-i-quit-my-job-and-whats-next.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/iquit.jpg" alt="Why I Quit My Job" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/iquit.jpg" alt="Why I Quit My Job" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Why I Quit My Job</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/all-angles.html">
+            </a>
+        
+        
+            <a href="/all-angles.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/allangles.jpg" alt="All Angles" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/allangles.jpg" alt="All Angles" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">All Angles</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/truth-by-any-other-name.html">
+            </a>
+        
+        
+            <a href="/truth-by-any-other-name.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/TruthScaleLogo.jpg" alt="Truth by Any Other Name" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/TruthScaleLogo.jpg" alt="Truth by Any Other Name" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Truth by Any Other Name</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a><a href="/the-history-of-rhetoric.html">
+            </a>
+        
+        
+            <a href="/the-history-of-rhetoric.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/athens.jpg" alt="The History of Rhetoric" layout="responsive" height="200" width="200" ></amp-img>
+                        <amp-img class="card-img-top" src="/img/athens.jpg" alt="The History of Rhetoric" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">The History of Rhetoric</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-            </a></div>
+            </a>
+        </div>
+
   </div>
 
     <br>
@@ -527,3 +580,4 @@ img {
     <br>
   </body>
 </html>
+

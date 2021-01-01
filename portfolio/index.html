@@ -16,7 +16,7 @@
     <script async="async" custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     <script async="async" custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
     <script async="async" custom-element="amp-fx-collection" src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
-    <title>-Portfolio</title>
+    <title>Portfolio - Bentley Davis</title>
     <link rel="canonical" href="https://BentleyDavis.com/portfolio/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <script type="application/ld+json">
@@ -24,7 +24,7 @@
         "author.name": "Bentley Davis",
         "@context": "http://schema.org",
         "@type": "NewsArticle",
-        "headline": "-Portfolio",
+        "headline": "Portfolio - Bentley Davis",
         "datePublished": "",
         "image": ["https://BentleyDavis.com/img/bentley_wide_small.jpg"]
       }
@@ -32,13 +32,13 @@
     
     <meta property="og:url" content="https://BentleyDavis.com/portfolio/"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:title" content="-Portfolio"/>
+    <meta property="og:title" content="Portfolio - Bentley Davis"/>
     <meta property="og:description" content=""/>
     <meta property="og:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg"/>
     
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@bntlyd">
-    <meta name="twitter:title" content="-Portfolio">
+    <meta name="twitter:title" content="Portfolio - Bentley Davis">
     <meta name="twitter:description" content="">
     <meta name="twitter:creator" content="@bntlyd">
     <meta name="twitter:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg">
@@ -247,20 +247,17 @@ amp-img.cover img {
 }
 
       
-.fixed-height-container {
+    .fixed-height-container {
   position: relative;
   width: 100%;
   height: 300px;
 }
 
 .card-deck {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1rem;
 }
 
 .card-deck .card {
@@ -280,20 +277,20 @@ amp-img.cover img {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, .125);
-  border-radius: .25rem;
-  max-width: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  /* max-width: 200px; */
 }
 
 amp-img.card-img-top {
-  width: 200px;
+  /* width: 200px; */
   height: 200px;
 }
 
 amp-img.card-img-top img {
   width: 100%;
-  border-top-left-radius: calc(.25rem - 1px);
-  border-top-right-radius: calc(.25rem - 1px);
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
   object-fit: cover;
 }
 
@@ -303,23 +300,23 @@ img {
 }
 
 .card-body {
-  -webkit-box-flex: 1;
+  /* -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
+  flex: 1 1 auto; */
   padding: 1.25rem;
   padding: 0 1.25rem;
   height: 100px;
 }
 
 .card-title {
-  margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
 }
 
 .card-text:last-child {
   margin-bottom: 0;
 }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .card-deck {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -344,7 +341,7 @@ img {
     flex-direction: column;
     margin: 10px;
   }
-}
+} */
 
 .bigtext {
   height: 200px;
@@ -354,6 +351,7 @@ img {
   vertical-align: middle;
   text-align: center;
 }
+
 
     </style>
     
@@ -402,28 +400,39 @@ img {
     <h1>Portfolio</h1>
 
     
+    <div class="card-deck">
+        
+        
+            <a href="/Interactive_Textbooks/">
+                <div class="card">
+                    
+                        <amp-img class="card-img-top" src="/Interactive_Textbooks/Touchstone_Galileo_Portrait_Light_Mode.gif" alt="Interactive Textbooks" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">Interactive Textbooks</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </a>
+        
+        
+            <a href="/Genetic_Trees/">
+                <div class="card">
+                    
+                        <amp-img class="card-img-top" src="/Genetic_Trees/Genetic_Tree_hero.gif" alt="Drawing Genetic Family Trees" layout="responsive" height="200" width="200" 
+                            
+                        ></amp-img>
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">Drawing Genetic Family Trees</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </a>
+        </div>
 
-    <div class="card-deck"><a href="/Genetic_Trees_2/">
-                <div class="card">
-                    
-                        <amp-img class="card-img-top" src="Genetic_Tree_small.png" alt="Drawing Genetic Family Trees" layout="responsive" height="200" width="200" ></amp-img>
-                    
-                    <div class="card-body">
-                        <h5 class="card-title">Drawing Genetic Family Trees</h5>
-                        <p class="card-text"></p>
-                    </div>
-                </div>
-            </a><a href="/Genetic-Trees/">
-                <div class="card">
-                    
-                        <amp-img class="card-img-top" src="/img/portfolio/Genetic-Trees/Genetic_Tree_small.png" alt="Drawing Genetic Family Trees" layout="responsive" height="200" width="200" ></amp-img>
-                    
-                    <div class="card-body">
-                        <h5 class="card-title">Drawing Genetic Family Trees</h5>
-                        <p class="card-text"></p>
-                    </div>
-                </div>
-            </a></div>
   </div>
 
     <br>
@@ -437,3 +446,4 @@ img {
     <br>
   </body>
 </html>
+
