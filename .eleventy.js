@@ -6,10 +6,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setWatchThrottleWaitTime(1000);
   eleventyConfig.addPassthroughCopy({ "static-root": "/" });
 
-  eleventyConfig.on('beforeBuild', () => {
-    console.log("before Build");
-  });
-
   eleventyConfig.addShortcode("formatDate", function (date) {
     return "" + date.toLocaleDateString(
       "en-US",
