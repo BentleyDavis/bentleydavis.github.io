@@ -10,13 +10,13 @@
 
 .recommendation-icon{
   position: relative;
-  display: inline-block;
   width: 50px;
   height: 50px;
   margin-right: 1rem;
   float: left;
   border-radius: 50%;
   overflow: hidden;
+  border: 1px solid grey;
   }
 
 .grid-recommendations{
@@ -26,14 +26,10 @@
   grid-gap: 1rem;
 }
 
-.grid-recommendations h1{
-  
-}
-
 .cell-recommendation{
   border: 1px solid hsl(212, 29%, 60%);
   padding: 5px;
-  max-height: 150px;
+  max-height: 100px;
   overflow: auto;
 }
 .cell-current-skill h2{

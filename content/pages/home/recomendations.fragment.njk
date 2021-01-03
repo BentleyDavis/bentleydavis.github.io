@@ -4,11 +4,9 @@
         <div class="grid-recommendations">
             {% for item in recommendations %}
                 <div class="cell-recommendation light-background">
-                    {% if external[item.id] %}
-                        <div class="recommendation-icon">
-                            <amp-img class="contain" layout="fill" src="{{external[item.id].data.logo}}" alt="{{item.id}} logo"></amp-img>
-                        </div>
-                    {% endif %}
+                    <div class="recommendation-icon">
+                        <amp-img class="contain" layout="fill" src="/img/recommendations/{{item.id}}.jpg" alt="{{item.id}} logo"></amp-img>
+                    </div>
                     <h3>{{ item.name }}</h3>
                     {{ item.recommendation }}
                 </div>
