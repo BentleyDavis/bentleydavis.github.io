@@ -3,7 +3,9 @@
         <h1>Recommendations</h1>
         <div class="grid-recommendations">
             {% for item in recommendations %}
-                <div class="cell-recommendation light-background">
+                <div [class]="'cell-recommendation light-background ' + (recExpanded{{ item.id }} ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpanded{{ item.id }}: !recExpanded{{ item.id }}})"
+                    class="cell-recommendation light-background">
                     <div class="recommendation-icon">
                         <amp-img class="contain" layout="fill" src="/img/recommendations/{{item.id}}.jpg" alt="{{item.id}} logo"></amp-img>
                     </div>
