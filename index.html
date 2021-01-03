@@ -650,12 +650,25 @@ img {
   grid-gap: 1rem;
 }
 
+@media (max-width: 449px) {
+  .grid-recommendations{
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  } 
+}
+
 .cell-recommendation{
   border: 1px solid hsl(212, 29%, 60%);
   padding: 5px;
   max-height: 100px;
-  overflow: auto;
+  overflow: hidden;
+  transition: .5s;
 }
+
+.cell-recommendation.expand{
+  max-height: 1000px;
+}
+
+
 .cell-current-skill h2{
   padding:0;
   margin:0;
@@ -676,6 +689,7 @@ amp-img.contain img {
     custom-element="amp-social-share"
     src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
   ></script>
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 
   </head>
   <body>
@@ -745,7 +759,7 @@ amp-img.contain img {
 </div>
   <section>
   <div class="content">
-    <h1>About</h1>
+    
     <h2>Hi, I’m Bentley Davis, a Fractional CTO and Full Stack Engineer </h2>
     I solve big problems with small experiments and use code when necessary. I have been creating software for over 30 years, managing teams for over 20 years, and mentoring startups for over 5 years. I was chief technology officer of a successful startup exit. I collaborate to build innovative web and mobile experiences.
   </div>
@@ -1041,7 +1055,9 @@ amp-img.contain img {
         <h1>Recommendations</h1>
         <div class="grid-recommendations">
             
-                <div class="cell-recommendation light-background">
+                <div [class]="'cell-recommendation light-background ' + (recExpandedMichael_Reed ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedMichael_Reed: !recExpandedMichael_Reed})"
+                    class="cell-recommendation light-background">
                     <div class="recommendation-icon">
                         <amp-img class="contain" layout="fill" src="/img/recommendations/Michael_Reed.jpg" alt="Michael_Reed logo"></amp-img>
                     </div>
@@ -1049,7 +1065,9 @@ amp-img.contain img {
                     I highly recommend Bentley Davis without reservation. Bentley was contracted to make upgrades to existing, proprietary software. He showed imagination and self-motivation to demonstrate how the system could be improved—without changing the original intent and overall function of the software. At every turn, he has gone above and beyond my expectations. Bentley works hard, honors his commitments in time and budget, and (most importantly) delivers. I got to know Bentley personally. I found him to be honest, open, and easy to communicate with.
                 </div>
             
-                <div class="cell-recommendation light-background">
+                <div [class]="'cell-recommendation light-background ' + (recExpandedDebby_Kruzic ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedDebby_Kruzic: !recExpandedDebby_Kruzic})"
+                    class="cell-recommendation light-background">
                     <div class="recommendation-icon">
                         <amp-img class="contain" layout="fill" src="/img/recommendations/Debby_Kruzic.jpg" alt="Debby_Kruzic logo"></amp-img>
                     </div>
@@ -1057,7 +1075,9 @@ amp-img.contain img {
                     Bentley provided invaluable feedback with our startup. He took the time to learn about us first and came prepared with questions and suggestions for improvements. Very thoughtful feedback and organized. I look forward to working with him in the future.
                 </div>
             
-                <div class="cell-recommendation light-background">
+                <div [class]="'cell-recommendation light-background ' + (recExpandedRoderick_Turner ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedRoderick_Turner: !recExpandedRoderick_Turner})"
+                    class="cell-recommendation light-background">
                     <div class="recommendation-icon">
                         <amp-img class="contain" layout="fill" src="/img/recommendations/Roderick_Turner.jpg" alt="Roderick_Turner logo"></amp-img>
                     </div>
@@ -1065,7 +1085,9 @@ amp-img.contain img {
                     Bentley was vital in helping TOPit onboard a new development team. Also, he gave insight on what metrics and objectives to measure for success in this business unit. We really appreciate that help. TOPit Team
                 </div>
             
-                <div class="cell-recommendation light-background">
+                <div [class]="'cell-recommendation light-background ' + (recExpandedKusha_Gharahi ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedKusha_Gharahi: !recExpandedKusha_Gharahi})"
+                    class="cell-recommendation light-background">
                     <div class="recommendation-icon">
                         <amp-img class="contain" layout="fill" src="/img/recommendations/Kusha_Gharahi.jpg" alt="Kusha_Gharahi logo"></amp-img>
                     </div>
@@ -1073,7 +1095,9 @@ amp-img.contain img {
                     Few people have the opportunity to report to a CTO/boss who is also a coach and mentor. Bentley is one of those unicorns I&#39;ve had the pleasure of reporting to these past few years. I worked with Bentley from the inception of CancerGene Connect until we were acquired by Invitae (plus some). Not only did he help shape me into the developer I am today, but he provided lots of mentoring and guidance on my personal side projects outside of work. To quote him, &quot;Yep, life is a team sport&quot;. Working with Bentley, every mistake was a learning opportunity. Any employee or company would be lucky to have Bentley call the shots.
                 </div>
             
-                <div class="cell-recommendation light-background">
+                <div [class]="'cell-recommendation light-background ' + (recExpandedJama_Terry_Ball ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedJama_Terry_Ball: !recExpandedJama_Terry_Ball})"
+                    class="cell-recommendation light-background">
                     <div class="recommendation-icon">
                         <amp-img class="contain" layout="fill" src="/img/recommendations/Jama_Terry_Ball.jpg" alt="Jama_Terry_Ball logo"></amp-img>
                     </div>
@@ -1081,7 +1105,9 @@ amp-img.contain img {
                     Bentley Davis is a fearless innovator. In the years that we worked together, he consistently rose to the challenge of developing technology in an ever changing environment. He is not afraid to suggest options or express his opinion. He receives constructive feedback well, and learns to adapt quickly as the need arises, both as a leader and a colleague. For the &quot;techie&quot; that he truly is, his team members and colleagues, along with myself, have benefited from the &quot;heart&quot; in his leadership style.. He has an unflagging spirit and determination to see things through that will serve him well in any professional path he chooses. It would be both my pleasure and privilege to work with him again.
                 </div>
             
-                <div class="cell-recommendation light-background">
+                <div [class]="'cell-recommendation light-background ' + (recExpandedCheryl_Robertson ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedCheryl_Robertson: !recExpandedCheryl_Robertson})"
+                    class="cell-recommendation light-background">
                     <div class="recommendation-icon">
                         <amp-img class="contain" layout="fill" src="/img/recommendations/Cheryl_Robertson.jpg" alt="Cheryl_Robertson logo"></amp-img>
                     </div>
