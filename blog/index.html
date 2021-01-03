@@ -279,19 +279,21 @@ amp-img.cover img {
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
-  /* max-width: 200px; */
 }
 
-amp-img.card-img-top {
-  /* width: 200px; */
+.card-img-top {
   height: 200px;
 }
 
-amp-img.card-img-top img {
+.card-img-top img {
   width: 100%;
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
   object-fit: cover;
+}
+
+.card-img-top.position-bottom img {
+  object-position: bottom;
 }
 
 img {
@@ -299,10 +301,9 @@ img {
   border-style: none;
 }
 
+
+
 .card-body {
-  /* -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto; */
   padding: 1.25rem;
   padding: 0 1.25rem;
   height: 100px;
@@ -315,33 +316,6 @@ img {
 .card-text:last-child {
   margin-bottom: 0;
 }
-
-/* @media (min-width: 576px) {
-  .card-deck {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    margin: -15px;
-    margin-left: -15px;
-  }
-}
-
-@media (min-width: 576px) {
-  .card-deck .card {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-flex: 1;
-    -ms-flex: 1 0 0%;
-    flex: 1 0 0%;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    margin: 10px;
-  }
-} */
 
 .bigtext {
   height: 200px;
@@ -405,9 +379,7 @@ img {
             <a href="/before_i_build_your_app/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/bentley_wide_small.jpg" alt="Before I Build Your App" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Before I Build Your App" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Before I Build Your App</h5>
@@ -420,9 +392,7 @@ img {
             <a href="/wanted-pit-bull-research-volunteers/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/blog/pit-bull-comparison.jpg" alt="Wanted: Pit Bull Research Volunteers" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/blog/pit-bull-comparison.jpg" alt="Wanted: Pit Bull Research Volunteers" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Wanted: Pit Bull Research Volunteers</h5>
@@ -435,9 +405,7 @@ img {
             <a href="/reason_score_live_demo_release/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/blog/reason_score_20200430.gif" alt="Reason Score Live Demo Release" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/blog/reason_score_20200430.gif" alt="Reason Score Live Demo Release" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Reason Score Live Demo Release</h5>
@@ -450,9 +418,7 @@ img {
             <a href="/manifesto/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/blog/manifesto2.jpg" alt="Satisfaction manifesto" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/blog/manifesto2.jpg" alt="Satisfaction manifesto" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Satisfaction manifesto</h5>
@@ -465,9 +431,7 @@ img {
             <a href="/free-experts-for-your-bootstrap-startup.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/countMoney.gif" alt="Free Experts for your Bootstrap Startup" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/countMoney.gif" alt="Free Experts for your Bootstrap Startup" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Free Experts for your Bootstrap Startup</h5>
@@ -480,9 +444,7 @@ img {
             <a href="/dallas-givecamp-2014-kids-u-codeitforward.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/kids-u.png" alt="Dallas GiveCamp 2014 Kids-U" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/kids-u.png" alt="Dallas GiveCamp 2014 Kids-U" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Dallas GiveCamp 2014 Kids-U</h5>
@@ -495,9 +457,7 @@ img {
             <a href="/dep-civic-hackathon-ii.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/dep.jpg" alt="Civic Hackathon" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/dep.jpg" alt="Civic Hackathon" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Civic Hackathon</h5>
@@ -510,9 +470,7 @@ img {
             <a href="/why-i-quit-my-job-and-whats-next.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/iquit.jpg" alt="Why I Quit My Job" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/iquit.jpg" alt="Why I Quit My Job" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Why I Quit My Job</h5>
@@ -525,9 +483,7 @@ img {
             <a href="/all-angles.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/allangles.jpg" alt="All Angles" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/allangles.jpg" alt="All Angles" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">All Angles</h5>
@@ -540,9 +496,7 @@ img {
             <a href="/truth-by-any-other-name.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/TruthScaleLogo.jpg" alt="Truth by Any Other Name" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/TruthScaleLogo.jpg" alt="Truth by Any Other Name" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Truth by Any Other Name</h5>
@@ -555,9 +509,7 @@ img {
             <a href="/the-history-of-rhetoric.html">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/img/athens.jpg" alt="The History of Rhetoric" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/img/athens.jpg" alt="The History of Rhetoric" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">The History of Rhetoric</h5>

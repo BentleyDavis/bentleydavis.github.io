@@ -279,19 +279,21 @@ amp-img.cover img {
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
-  /* max-width: 200px; */
 }
 
-amp-img.card-img-top {
-  /* width: 200px; */
+.card-img-top {
   height: 200px;
 }
 
-amp-img.card-img-top img {
+.card-img-top img {
   width: 100%;
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
   object-fit: cover;
+}
+
+.card-img-top.position-bottom img {
+  object-position: bottom;
 }
 
 img {
@@ -299,10 +301,9 @@ img {
   border-style: none;
 }
 
+
+
 .card-body {
-  /* -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto; */
   padding: 1.25rem;
   padding: 0 1.25rem;
   height: 100px;
@@ -315,33 +316,6 @@ img {
 .card-text:last-child {
   margin-bottom: 0;
 }
-
-/* @media (min-width: 576px) {
-  .card-deck {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    margin: -15px;
-    margin-left: -15px;
-  }
-}
-
-@media (min-width: 576px) {
-  .card-deck .card {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-flex: 1;
-    -ms-flex: 1 0 0%;
-    flex: 1 0 0%;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    margin: 10px;
-  }
-} */
 
 .bigtext {
   height: 200px;
@@ -407,9 +381,7 @@ img {
             <a href="/Interactive_Textbooks/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/Interactive_Textbooks/Touchstone_Galileo_Square_Light_Mode.gif" alt="Interactive Textbooks" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top position-bottom" src="/Interactive_Textbooks/Touchstone_Galileo_Square_Light_Mode.gif" alt="Interactive Textbooks" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Interactive Textbooks</h5>
@@ -422,9 +394,7 @@ img {
             <a href="/Better_Group_Decisions/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/Better_Group_Decisions/index.png" alt="Beter Group Decisions" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/Better_Group_Decisions/index.png" alt="Beter Group Decisions" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Beter Group Decisions</h5>
@@ -437,9 +407,7 @@ img {
             <a href="/Genetic_Trees/">
                 <div class="card">
                     
-                        <amp-img class="card-img-top" src="/Genetic_Trees/Genetic_Tree_hero.gif" alt="Drawing Genetic Family Trees" layout="responsive" height="200" width="200" 
-                            
-                        ></amp-img>
+                        <amp-img class="card-img-top " src="/Genetic_Trees/Genetic_Tree_hero.gif" alt="Drawing Genetic Family Trees" layout="responsive" height="200" width="200"></amp-img>
                     
                     <div class="card-body">
                         <h5 class="card-title">Drawing Genetic Family Trees</h5>
