@@ -1,12 +1,10 @@
 const fs = require("fs");
-const Path = require("path");
 const getUrlMetadata = require('../src/getUrlMetadata.js');
+const getAirtable = require('./getDataAirTable');
 
 (async () => {
-    // recomendations = JSON.parse(await fs.promises.readFile('_data/recomendations.json', 'utf8'));
-    // await processUrls(recomendations, "linkedIn")
-    //  //Linked in is blocking requests
-
+    await getAirtable('skills');
+    await getAirtable('recommendations');
     skills = JSON.parse(await fs.promises.readFile('_data/skills.json', 'utf8'));
     await processUrls(skills)
 })();
