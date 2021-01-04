@@ -4,15 +4,17 @@
   {% include './portfolio.fragment.njk' %}
   {% include './skills.fragment.njk' %}
   {% include './recomendations.fragment.njk' %}
+  {% include './volunteer.fragment.njk' %}
   {% include './personality.fragment.html' %}
   {% include './elsewhere.fragment.html' %}
  {% endblock %}
 
 {% block styles %}
+  {% include 'grid.css' %}
+
   {% include './hero.css' %}
   {% include './elsewhere.css' %}
   {% include './skills.css' %}
-  {% include './portfolio.css' %}
   {% include './recomendations.css' %}
 {% endblock %}
 
