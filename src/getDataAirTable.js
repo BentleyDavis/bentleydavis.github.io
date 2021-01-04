@@ -19,11 +19,10 @@ module.exports = async function (tableName) {
         data2.push(newItem);
         if (newItem.image) {
             const imgUrl = newItem.image[0].url;
-            const extension = Path.extname(Url.parse(imgUrl).pathname);
+            const newUrl = Path.join(`static-root\\img\\${tableName}\\${newItem.id}${Path.extname(Url.parse(imgUrl).pathname)}`);
             got.stream(imgUrl)
-                .pipe(fs.createWriteStream(
-                    Path.join(`static-root\\img\\${tableName}\\${newItem.id}${extension}`)
-                ));
+                .pipe(fs.createWriteStream(newUrl));
+            delete newItem.image;
         }
     }
 
