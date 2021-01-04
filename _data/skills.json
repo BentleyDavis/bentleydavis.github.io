@@ -6,7 +6,7 @@
     {"id":"Scrum", "title":"Scrum", "url":"https://www.scrum.org/", "autoUpdate":true, "level":"Current", "type":"Management"},
     {"id":"React", "title":"React", "url":"https://reactjs.org/", "autoUpdate":true, "level":"Current", "type":"Technology"},
     {"id":"Node", "title":"Node", "url":"https://nodejs.org", "autoUpdate":true, "level":"Current", "type":"Technology"},
-    {"id":"Eleventy", "title":"Eleventy (11ty)", "url":"https://www.11ty.dev/", "autoUpdate":true, "level":"Current", "type":"Technology"},
+    {"id":"Eleventy", "title":"Eleventy", "url":"https://www.11ty.dev/", "autoUpdate":true, "level":"Current", "type":"Technology"},
     {"id":"Ionic", "title":"Ionic", "url":"https://ionicframework.com", "autoUpdate":true, "level":"Current", "type":"Technology"},
     {"id":"Firebase", "title":"Firebase", "url":"https://firebase.google.com", "autoUpdate":true, "level":"Current", "type":"Technology"},
     {"id":"UX", "title":"UX", "level":"New", "type":"Technical"},
