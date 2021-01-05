@@ -1,23 +1,19 @@
-const fs = require("fs");
-const getUrlMetadata = require('../src/getUrlMetadata.js');
+const fs = require("fs").promises;
 const getAirtable = require('./getDataAirTable');
+const { processUrls } = require("./processUrls");
+const downloadAirtableImages = require("./downloadAirtableImages");
 
 (async () => {
-    await getAirtable('skills');
-    await getAirtable('recommendations');
-    skills = JSON.parse(await fs.promises.readFile('_data/skills.json', 'utf8'));
-    await processUrls(skills)
-})();
 
-async function processUrls(items, urlProperty = "url") {
-    for (item of items) {
-        if (item.autoUpdate) {
-            await getUrlMetadata.getUrlMetadata(
-                item[urlProperty],
-                `_data/external/${item.id}`,
-                `img/external/${item.id}`
-            );
-        }
-    }
-}
+    // Skills
+    const skills = await getAirtable('skills');
+    await processUrls(skills)
+    await fs.writeFile(`./_data/skills.json`, JSON.stringify(skills));
+
+    // Recommendations
+    const recommendations = await getAirtable('recommendations');
+    await downloadAirtableImages(recommendations,'recommendations')
+    await fs.writeFile(`./_data/recommendations.json`, JSON.stringify(recommendations));
+    
+})();
 

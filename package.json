@@ -20,7 +20,7 @@
     "npm-check-updates": "^10.2.5"
   },
   "dependencies": {
-    "airtable-plus": "^1.0.4",
+    "airtable": "^0.10.1",
     "metascraper": "^5.16.0",
     "metascraper-logo-favicon": "^5.16.3"
   }
