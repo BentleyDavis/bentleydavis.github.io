@@ -1,0 +1,22 @@
+---
+pagination:
+    data: data.Content
+    size: 1
+    alias: item
+    addAllPagesToCollections: true
+permalink: "/test/{{ item.id | slug }}/"
+tags: ["Portfolio"]
+eleventyComputed:
+  title: "{{ item.title}}"
+  img: "/test/{{ item.id | slug }}/{{item.thumbnail}}"
+---
+{% block post %}
+  {% copyAirtableImages page, item.Images %}
+  {{ item.Content | safe }}
+ {% endblock %}
+
+{% block styles %}
+  
+{% endblock %}
+
+{% extends "_includes/post.njk" %}
