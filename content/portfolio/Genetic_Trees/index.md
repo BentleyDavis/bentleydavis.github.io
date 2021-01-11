@@ -5,6 +5,8 @@ description: "I created an application to draw genetic family trees"
 img: /Genetic_Trees/Genetic_Tree_hero.gif
 img-height: 316
 layout: post.njk
+tags: ["Portfolio"]
+permalink: "{{ page.fileSlug }}/"
 ---
 
 <table>
