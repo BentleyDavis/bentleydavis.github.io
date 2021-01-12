@@ -4,13 +4,14 @@
   "description": "Bentley Davis",
   "main": "index.js",
   "scripts": {
-    "start": "npm run deleteDist && eleventy --serve --watch",
-    "build": "npm run deleteDist && eleventy",
-    "debug": "npm run deleteDist && @powershell -Command $env:DEBUG='*'; eleventy",
-    "deploy": "npm run deleteDist && eleventy && gh-pages -d dist -b master",
+    "start": "npm run delete-dist && eleventy --serve --watch",
+    "build": "npm run delete-dist && eleventy",
+    "debug": "npm run delete-dist && @powershell -Command $env:DEBUG='*'; eleventy",
+    "deploy": "npm run delete-dist && eleventy && gh-pages -d dist -b master",
     "upgrade-all": "ncu -u --timeout 60000 && npm install",
-    "deleteDist": "if exist dist (rmdir /s /q dist)",
-    "updateExternalData": "node src/updateExternalData.js"
+    "delete-dist": "if exist dist (rmdir /s /q dist)",
+    "get-content-data": "tsc && node _built/getData.js",
+    "update-url-data": "node src/updateExternalData.js"
   },
   "author": "Bentley Davis <Bentley@BentleyDavis.com> (http://BentleyDavis.com)",
   "license": "ISC",
@@ -20,7 +21,9 @@
     "npm-check-updates": "^10.2.5",
     "airtable": "^0.10.1",
     "metascraper": "^5.16.0",
-    "metascraper-logo-favicon": "^5.16.3"
+    "metascraper-logo-favicon": "^5.16.3",
+    "got": "^11.8.1",
+    "typescript": "^4.1.3"
   },
   "dependencies": {
   }
