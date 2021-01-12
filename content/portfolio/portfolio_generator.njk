@@ -5,13 +5,11 @@ pagination:
     alias: item
     addAllPagesToCollections: true
 permalink: "/test/{{ item.id | slug }}/"
-tags: ["Portfolio"]
-eleventyComputed:
-  title: "{{ item.title}}"
-  img: "/test/{{ item.id | slug }}/{{item.thumbnail}}"
+layout: ""
+tags: ["Portfolio","Blog"] # All tags must be included here or 11ty will not generate a collection
 ---
 {% block post %}
-  {% copyAirtableImages page, item.Images %}
+  {% copyAirtableImages page, item.Images, tags %}
   {{ item.Content | safe }}
  {% endblock %}
 
@@ -20,3 +18,10 @@ eleventyComputed:
 {% endblock %}
 
 {% extends "_includes/post.njk" %}
+
+
+
+
+
+  title: "{{ item.title }}"
+  img: "/test/{{ item.id | slug }}/{{item.thumbnail}}"

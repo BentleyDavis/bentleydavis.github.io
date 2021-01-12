@@ -32,7 +32,6 @@ module.exports = function (eleventyConfig) {
     return ""
   });
 
-  //copyAirtableImages page, item.Images
   eleventyConfig.addShortcode("copyAirtableImages", function (page, images) {
     for (image of images) {
       fs.mkdirSync(Path.dirname(page.outputPath), { recursive: true });
