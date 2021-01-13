@@ -251,6 +251,36 @@ amp-img.cover img {
 }
 
       
+.hero-container {
+    box-sizing: border-box;
+}
+
+.hero-image {
+    position: relative;
+    min-height: 400px;
+}
+
+@media (min-width: 800px){
+    .hero-container {
+        display: flex;
+        flex-direction: row-reverse;
+        min-height: 500px;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .hero-image {
+        flex: 1;
+    }
+
+    .hero-description {
+        flex: 1;
+        width: 50%;
+        margin: auto;
+        padding: 50px;
+    }
+}
+
     </style>
     
   </head>
@@ -294,21 +324,32 @@ amp-img.cover img {
     </amp-sidebar>
     
 <div class="content">
-    
-        <div class="content-post-image">
-            <amp-img
-                class="contain"
-                layout="fill"
-                src="/drawing_genetic_family_trees/hero.gif"
-                alt="Drawing Genetic Family Trees"
-            ></amp-img>
-        </div>
-    
-    <span style="font-size: x-small;">
-        Friday, January 8, 2021
-    </span>
-    <h1>Drawing Genetic Family Trees</h1>
-    
+  <div class="hero-container">
+    <div class="hero-image">
+      <amp-img class="contain" layout="fill" src="/drawing_genetic_family_trees/hero.gif" alt="Drawing Genetic Family Trees"></amp-img>
+    </div>
+    <div class="hero-description">
+      <h1>Drawing Genetic Family Trees</h1>
+      <p>
+        
+        
+    SAAS, 
+    Feature
+      </p>
+      <p>
+        <b>Skills: </b>
+        
+        
+    Angular, 
+    ASP_NET, 
+    Agile, 
+    Scrum, 
+    Product_Management
+      </p>
+      <p></p>
+    </div>
+  </div>
+  
        <p>
   While working for <a href="http://cagene.com" target="_blank">CancerGene Connect</a> I created software to draw family trees.
   The requirement was to follow a subset of specific industry standards which
@@ -318,11 +359,12 @@ amp-img.cover img {
   development.
 </p>
 <h2>Specifications Example</h2>
-<img width="982" height="872" src="Genetic_Tree_Standards.gif">
+<amp-img layout="intrinsic" width="982" height="872" src="Genetic_Tree_Standards.gif"></amp-img>
 <h2>Example Output</h2>
-<img src="Genetic_Tree_Example.png">
+<amp-img layout="intrinsic" width="1355" height="1014" src="Genetic_Tree_Example.png"></amp-img>
   
 </div>
+
 
     <hr>
     <amp-iframe width="320" height="320" src="https://bentleydavis.substack.com/embed"

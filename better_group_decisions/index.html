@@ -251,6 +251,36 @@ amp-img.cover img {
 }
 
       
+.hero-container {
+    box-sizing: border-box;
+}
+
+.hero-image {
+    position: relative;
+    min-height: 400px;
+}
+
+@media (min-width: 800px){
+    .hero-container {
+        display: flex;
+        flex-direction: row-reverse;
+        min-height: 500px;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .hero-image {
+        flex: 1;
+    }
+
+    .hero-description {
+        flex: 1;
+        width: 50%;
+        margin: auto;
+        padding: 50px;
+    }
+}
+
     </style>
     
   </head>
@@ -294,26 +324,35 @@ amp-img.cover img {
     </amp-sidebar>
     
 <div class="content">
-    
-        <div class="content-post-image">
-            <amp-img
-                class="contain"
-                layout="fill"
-                src="/better_group_decisions/hero.png"
-                alt="Better Group Decisions"
-            ></amp-img>
-        </div>
-    
-    <span style="font-size: x-small;">
-        Friday, January 8, 2021
-    </span>
-    <h1>Better Group Decisions</h1>
-    
+  <div class="hero-container">
+    <div class="hero-image">
+      <amp-img class="contain" layout="fill" src="/better_group_decisions/hero.png" alt="Better Group Decisions"></amp-img>
+    </div>
+    <div class="hero-description">
+      <h1>Better Group Decisions</h1>
+      <p>
+        
+        
+    SAAS, 
+    Feature
+      </p>
+      <p>
+        <b>Skills: </b>
+        
+        
+    React, 
+    TypeScript
+      </p>
+      <p></p>
+    </div>
+  </div>
+  
        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/38pBtfDG_J8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br>
 <a href="https://ReasonScore.com/edit/?i=fictional-city">play with the example</a>
   
 </div>
+
 
     <hr>
     <amp-iframe width="320" height="320" src="https://bentleydavis.substack.com/embed"
