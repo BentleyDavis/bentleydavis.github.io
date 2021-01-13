@@ -1,0 +1,29 @@
+.hero-container {
+    box-sizing: border-box;
+}
+
+.hero-image {
+    position: relative;
+    min-height: 400px;
+}
+
+@media (min-width: 800px){
+    .hero-container {
+        display: flex;
+        flex-direction: row-reverse;
+        min-height: 500px;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .hero-image {
+        flex: 1;
+    }
+
+    .hero-description {
+        flex: 1;
+        width: 50%;
+        margin: auto;
+        padding: 50px;
+    }
+}

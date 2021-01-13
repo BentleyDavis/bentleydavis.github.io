@@ -2,17 +2,20 @@
     {%- for item in items | reverse -%}
         {% set regExp = r/fragment/g %}
         {% if regExp.test(item.inputPath) == false and item.data.draft != true %}
-            <a href="{{item.url}}">
-                <div class="card">
-                    {% if item.data.img %}
-                        <amp-img class="card-img-top {{ item.data.imgPosition if item.data.imgPosition }}" src="{{item.data.img}}" alt="{{ item.data.title }}" layout="responsive" height="200" width="200"></amp-img>
-                    {% else %}
-                        <div class="bigtext" >{{ item.data.title }}</div>
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.data.title }}</h5>
-                        <p class="card-text"></p>
-                    </div>
+            <a class="card" href="{{item.url}}">
+                {% if item.data.img %}
+                    <amp-img class="card-img-top {{ item.data.imgPosition if item.data.imgPosition }}" src="{{item.data.img}}" alt="{{ item.data.title }}" layout="responsive" height="200" width="200"></amp-img>
+                {% else %}
+                    <div class="bigtext" >{{ item.data.title }}</div>
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="card-title">{{ item.data.title }}</h3>
+                    <p class="card-text">
+                        {% set stringItems = item.data.item.categories %}
+                        {% include 'stringItems.njk' %}{{", " if item.data.item.categories and item.data.item.skillNames}}
+                        {% set stringItems = item.data.item.skillNames %}
+                        {% include 'stringItems.njk' %}
+                    </p>
                 </div>
             </a>
         {% endif %}

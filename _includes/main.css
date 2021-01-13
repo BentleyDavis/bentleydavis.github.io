@@ -36,6 +36,10 @@ header {
   padding: 0 10px 0 0;
 }
 
+hr {
+  border-top: 2px solid hsl(212, 29%, 60%);
+}
+
 a {
   color: currentColor;
 }

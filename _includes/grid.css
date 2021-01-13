@@ -56,17 +56,19 @@ img {
 
 
 .card-body {
-  padding: 1.25rem;
   padding: 0 1.25rem;
-  height: 100px;
 }
 
 .card-title {
   margin-bottom: 0.75rem;
 }
 
-.card-text:last-child {
-  margin-bottom: 0;
+a.card {
+  text-decoration: none;
+}
+
+.card-text {
+  font-size: small;
 }
 
 .bigtext {

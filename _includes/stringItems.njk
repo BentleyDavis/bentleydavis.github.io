@@ -1,0 +1,5 @@
+{% set separator = joiner(", ") %}
+{%- for stringItem in stringItems -%}
+    {{ separator() }}
+    {{ stringItem }}
+{%- endfor -%}

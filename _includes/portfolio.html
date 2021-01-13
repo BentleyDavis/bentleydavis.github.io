@@ -1,0 +1,32 @@
+{% block content %}
+<div class="content">
+  <div class="hero-container">
+    <div class="hero-image">
+      <amp-img class="contain" layout="fill" src="{{ img }}" alt="{{ title }}"></amp-img>
+    </div>
+    <div class="hero-description">
+      <h1>{{item.title}}</h1>
+      <p>
+        {% set stringItems = item.categories %}
+        {% include 'stringItems.njk' %}
+      </p>
+      <p>
+        <b>Skills: </b>
+        {% set stringItems = item.skillNames %}
+        {% include 'stringItems.njk' %}
+      </p>
+      <p>{{ item.Summary }}</p>
+    </div>
+  </div>
+  {% block post %}
+  {{ content | safe }}
+  {% endblock %}
+</div>
+
+{% endblock %}
+
+{% block styles %}
+{% include "portfolio.css"%}
+{% endblock %}
+
+{% extends "_includes/base.njk" %}

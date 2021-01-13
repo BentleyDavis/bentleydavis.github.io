@@ -4,24 +4,18 @@ pagination:
     size: 1
     alias: item
     addAllPagesToCollections: true
-permalink: "/test/{{ item.id | slug }}/"
-layout: ""
+permalink: "/{{ item.id | slug }}/"
 tags: ["Portfolio","Blog"] # All tags must be included here or 11ty will not generate a collection
+layout: # you can't dynamically set templates in 11ty so using Nunjucks below
 ---
-{% block post %}
   {% copyAirtableImages page, item.Images, tags %}
-  {{ item.Content | safe }}
- {% endblock %}
 
-{% block styles %}
-  
-{% endblock %}
+  {% block post %}
+       {{ item.Content | safe }}
+  {% endblock %}
 
-{% extends "_includes/post.njk" %}
-
-
-
-
-
-  title: "{{ item.title }}"
-  img: "/test/{{ item.id | slug }}/{{item.thumbnail}}"
+{% if item.Template %}
+  {% extends "_includes/" + item.Template + ".html"  %}
+{% else %}
+  {% extends "_includes/post.njk"  %}
+{% endif %}
