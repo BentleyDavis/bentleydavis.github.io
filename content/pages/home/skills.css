@@ -11,11 +11,11 @@
 .url-icon{
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 50px;
-  margin-right: 1rem;
-  border-radius: 5px;
+  height: 1.1em;
+  width: 1.1em;
+  border-radius: 15%;
   overflow: hidden;
+  vertical-align: bottom;
   }
 
 .grid-current-skills{
@@ -28,11 +28,12 @@
 .cell-current-skill{
   position: relative;
   border: 1px solid hsl(212, 29%, 60%);
-  height: 100px;
+  /* height: 100px; */
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 10px;
 }
 .cell-current-skill h2{
   padding:0;

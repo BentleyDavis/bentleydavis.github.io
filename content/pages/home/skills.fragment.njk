@@ -9,12 +9,14 @@
                         {% if item.level == "New" %}
                             <div class="new-icon">New</div>
                         {% endif %}
-                        {% if external[item.id] %}
-                            <div class="url-icon">
-                                <amp-img class="contain" layout="fill" src="{{external[item.id].data.logo}}" alt="{{item.id}} logo"></amp-img>
-                            </div>
-                        {% endif %}
-                        <h2>{{ item.title }}</h2>
+                        <h2>
+                            {% if external[item.id] %}
+                                <div class="url-icon">
+                                    <amp-img class="contain" layout="fill" src="{{external[item.id].data.logo}}" alt="{{item.id}} logo"></amp-img>
+                                </div>
+                            {% endif %}
+                            {{ item.title }}
+                        </h2>
                     </div>
                 {% endif %}
             {% endfor %}
