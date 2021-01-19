@@ -11,16 +11,18 @@
                 <div class="card-body">
                     <h3 class="card-title">{{ item.data.title }}</h3>
                     <p class="card-text">
-                        {% set stringItems = item.data.item.categories %}
-                        {% include 'stringItems.njk' %}{{", " if item.data.item.categories and item.data.item.skillNames}}
+                        {%- set stringItems = item.data.item.categories -%}
+                        {%- include 'stringItems.njk' -%}{{", " if item.data.item.categories and item.data.item.skillNames}}
+                        {%- set separator = joiner(", ") -%}
                         {%- for skillId in item.data.item.skillIds -%}
-                        {% if external[skillId] %}
-                            <span class="url-icon">
-                                <amp-img class="contain" layout="fill" src="{{external[skillId].data.logo}}" alt="{{item.id}} logo"></amp-img>
-                            </span>
-                        {% else %}
-{{dict[skillId].title}}
-                        {% endif %}
+                            {{- separator() -}}
+                            {%- if external[skillId] -%}
+                                <span class="url-icon">
+                                    <amp-img class="contain" layout="fill" src="{{external[skillId].data.logo}}" alt="{{item.id}} logo"></amp-img>
+                                </span>
+                            {%- else -%}
+                                {{dict[skillId].title}}
+                            {%- endif -%}
                         {%- endfor -%}
                     </p>
                 </div>

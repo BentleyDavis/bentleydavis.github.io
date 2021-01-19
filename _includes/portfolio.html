@@ -12,8 +12,16 @@
       </p>
       <p>
         <b>Skills: </b>
-        {% set stringItems = item.skillNames %}
-        {% include 'stringItems.njk' %}
+        {% set separator = joiner(", ") %}
+        {%- for skillId in item.skillIds -%}
+        {{ separator() }}
+        {% if external[skillId] %}
+            <span class="url-icon">
+                <amp-img class="contain" layout="fill" src="{{external[skillId].data.logo}}" alt="{{item.id}} logo"></amp-img>
+            </span>
+        {% endif %}
+        {{dict[skillId].title}}
+    {%- endfor -%}
       </p>
       <p>{{ item.Summary }}</p>
     </div>
