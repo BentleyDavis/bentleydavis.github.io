@@ -6,6 +6,7 @@
     color: black;
     transform: rotate(-30deg);
     padding: 5px 10px;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.4);
 }
 
 .grid-current-skills{
