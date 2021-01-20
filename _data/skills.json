@@ -89,6 +89,14 @@
         "level": "Current"
     },
     {
+        "id": "AMP",
+        "title": "AMP",
+        "url": "https://amp.dev",
+        "autoUpdate": true,
+        "level": "Current",
+        "type": "Technology"
+    },
+    {
         "id": "UX",
         "title": "UX",
         "level": "New"
