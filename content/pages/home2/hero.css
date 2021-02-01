@@ -1,0 +1,131 @@
+.bd-hero-main {
+  background-color: #dbddd8;
+}
+
+.bd-hero {
+  background-image: url("/img/hero2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  margin: auto;
+  max-height: 90vh;
+  perspective-origin: 0 8%;
+
+  perspective: 1500px;
+  width: 1000px;
+  height: 829.5px;
+  font-size: 70px;
+}
+
+@media (max-width: 1000px) {
+  .bd-hero {
+    perspective: 1500px;
+    width: 1000px;
+    height: 829.5px;
+    font-size: 75px;
+  }
+}
+
+@media (max-width: 850px) {
+  .bd-hero {
+    perspective: 1275px;
+    width: 850px;
+    height: 705.075px;
+    font-size: 63.75px;
+  }
+}
+
+@media (max-width: 750px) {
+  .bd-hero {
+    perspective: 1125px;
+    width: 750px;
+    height: 622.125px;
+    font-size: 56.25px;
+  }
+}
+
+@media (max-width: 650px) {
+  .bd-hero {
+    perspective: 975px;
+    width: 650px;
+    height: 539.175px;
+    font-size: 48.75px;
+  }
+}
+
+@media (max-width: 550px) {
+  .bd-hero {
+    perspective: 825px;
+    width: 550px;
+    height: 456.225px;
+    font-size: 41.25px;
+  }
+}
+
+@media (max-width: 450px) {
+  .bd-hero {
+    perspective: 675px;
+    width: 450px;
+    height: 373.275px;
+    font-size: 33.75px;
+  }
+}
+
+@media (max-width: 350px) {
+  .bd-hero {
+    perspective: 525px;
+    width: 350px;
+    height: 290.325px;
+    font-size: 26.25px;
+  }
+}
+
+.bd-hero .bd-inner {
+  width: 245%;
+  transform-origin: left top;
+  position: relative;
+  transform: rotate3d(0, 1, 0, 37deg);
+  top: -5%;
+}
+
+#hero-content {
+  margin: 0;
+  line-height: 1;
+}
+
+.bd-inner2 {
+  opacity: 1;
+  color: #00000033;
+  padding-left: 2%;
+}
+.bd-hero-title {
+  font-size: 300%;
+  color: #00000077;
+}
+.bd-hero-icon {
+  fill: #00000077;
+  width: 1.2em;
+  display: inline-block;
+  vertical-align: bottom;
+}
+.bd-fadeout {
+  background: linear-gradient(
+    90deg,
+    #dbddd8 0%,
+    rgba(0, 0, 0, 0) 5%,
+    rgba(0, 0, 0, 0) 63%,
+    #dbddd8 100%
+  );
+  position: absolute;
+  top: 0;
+}
+.bd-hero-background {
+  background-image: url("/img/hero2.png");
+  position: absolute;
+  top: 0;
+}
+/* #bd-hero-dynamic {
+  white-space: pre;
+} */

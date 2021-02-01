@@ -1,0 +1,44 @@
+.recommendation-icon{
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin-right: 1rem;
+  float: left;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid grey;
+  }
+
+.grid-recommendations{
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-gap: 1rem;
+}
+
+@media (max-width: 449px) {
+  .grid-recommendations{
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  } 
+}
+
+.cell-recommendation{
+  border: 1px solid hsl(212, 29%, 60%);
+  padding: 5px;
+  max-height: 100px;
+  overflow: hidden;
+  transition: 1s;
+}
+
+.cell-recommendation.expand{
+  max-height: 1000px;
+}
+
+
+.cell-current-skill h2{
+  padding:0;
+  margin:0;
+}
+amp-img.contain img {
+   object-fit: contain;
+ }

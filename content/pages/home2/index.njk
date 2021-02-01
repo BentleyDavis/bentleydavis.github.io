@@ -1,0 +1,37 @@
+{% block content %}
+  {% include './hero.fragment.html' %}
+  {% include './about.fragment.html' %}
+  {% include './portfolio.fragment.njk' %}
+  {% include './skills.fragment.njk' %}
+  {% include './recomendations.fragment.njk' %}
+  {% include './volunteer.fragment.njk' %}
+  {% include './personality.fragment.html' %}
+  {% include './elsewhere.fragment.html' %}
+ {% endblock %}
+
+{% block styles %}
+  {% include 'grid.css' %}
+
+  {% include './hero.css' %}
+  {% include './elsewhere.css' %}
+  {% include './skills.css' %}
+  {% include './recomendations.css' %}
+{% endblock %}
+
+{% block head %}
+  <meta name="amp-script-src" content="sha384-Nh0brAk5T4gU-WREJ39zVxKI9baI-72rWETpHfsGt8z_QoQGSRvfV8WMxo2j0HmI">
+
+  <script
+    async="async"
+    custom-element="amp-script"
+    src="https://cdn.ampproject.org/v0/amp-script-0.1.js"
+  ></script>
+  <script
+    async
+    custom-element="amp-social-share"
+    src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
+  ></script>
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+{% endblock %}
+
+{% extends "_includes/base2.njk" %}

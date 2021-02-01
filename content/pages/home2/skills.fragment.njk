@@ -1,0 +1,34 @@
+<section>
+    <div class="content">
+        <h1>Skills</h1>
+        <div class="grid-current-skills">
+            {% for item in skills %}
+                {% if (item.level == "Current") 
+                    or(item.level == "New") %}
+                    <div class="cell-current-skill light-background">
+                        {% if item.level == "New" %}
+                            <div class="new-icon">New</div>
+                        {% endif %}
+                        <h2>
+                            {% if external[item.id] %}
+                                <div class="url-icon">
+                                    <amp-img class="contain" layout="fill" src="{{external[item.id].data.logo}}" alt="{{item.id}} logo"></amp-img>
+                                </div>
+                            {% endif %}
+                            {{ item.title }}
+                        </h2>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <br/>
+        {% set separator = joiner(" | ") %}
+        {% for item in skills %}
+            {% if
+            item.level == "Old" %}
+                {{ separator() }}
+                {{ item.title }}
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
