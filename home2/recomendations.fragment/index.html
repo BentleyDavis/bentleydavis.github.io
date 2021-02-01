@@ -16,29 +16,29 @@
     <script async="async" custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     <script async="async" custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
     <script async="async" custom-element="amp-fx-collection" src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
-    <title>Page - Bentley Davis</title>
-    <link rel="canonical" href="https://BentleyDavis.com/page/">
+    <title>Bentley Davis</title>
+    <link rel="canonical" href="https://BentleyDavis.com/home2/recomendations.fragment/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <script type="application/ld+json">
       {
         "author.name": "Bentley Davis",
         "@context": "http://schema.org",
         "@type": "NewsArticle",
-        "headline": "Page - Bentley Davis",
+        "headline": "Bentley Davis",
         "datePublished": "",
         "image": ["https://BentleyDavis.com/img/bentley_wide_small.jpg"]
       }
     </script>
     
-    <meta property="og:url" content="https://BentleyDavis.com/page/"/>
+    <meta property="og:url" content="https://BentleyDavis.com/home2/recomendations.fragment/"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:title" content="Page - Bentley Davis"/>
+    <meta property="og:title" content="Bentley Davis"/>
     <meta property="og:description" content=""/>
     <meta property="og:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg"/>
     
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@bntlyd">
-    <meta name="twitter:title" content="Page - Bentley Davis">
+    <meta name="twitter:title" content="Bentley Davis">
     <meta name="twitter:description" content="">
     <meta name="twitter:creator" content="@bntlyd">
     <meta name="twitter:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg">
@@ -261,85 +261,6 @@ amp-img.cover img {
 }
 
       
-    .fixed-height-container {
-  position: relative;
-  width: 100%;
-  height: 300px;
-}
-
-.card-deck {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 1rem;
-}
-
-.card-deck .card {
-  margin-bottom: 15px;
-}
-
-.card {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 200px;
-  word-wrap: break-word;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-}
-
-.card-img-top {
-  height: 200px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-
-}
-
-.card-img-top img {
-  width: 100%;
-  border-top-left-radius: calc(0.25rem - 1px);
-  border-top-right-radius: calc(0.25rem - 1px);
-  object-fit: cover;
-}
-
-.card-img-top.position-bottom img {
-  object-position: bottom;
-}
-
-img {
-  vertical-align: middle;
-  border-style: none;
-}
-
-
-
-.card-body {
-  padding: 0 1.25rem;
-}
-
-.card-title {
-  margin-bottom: 0.75rem;
-}
-
-a.card {
-  text-decoration: none;
-}
-
-.bigtext {
-  height: 200px;
-  width: 200px;
-  font-size: xxx-large;
-  overflow: hidden;
-  vertical-align: middle;
-  text-align: center;
-}
-
-
     </style>
     
   </head>
@@ -382,141 +303,90 @@ a.card {
       </ul>
     </amp-sidebar>
     
-  <div class="content">
+      <div class="content">
+    <section>
+    <div class="content">
+        <h1>Recommendations</h1>
+        <div class="grid-recommendations">
+            
+                <div [class]="'cell-recommendation light-background ' + (recExpandedMichael_Reed ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedMichael_Reed: !recExpandedMichael_Reed})"
+                    tabindex="0" role="button"
+                    class="cell-recommendation light-background">
+                    <div class="recommendation-icon">
+                        <amp-img class="contain" layout="fill" src="/img/recommendations/Michael_Reed.jpg" alt="Michael_Reed logo"></amp-img>
+                    </div>
+                    <h3>Michael Reed</h3>
+                    I highly recommend Bentley Davis without reservation. Bentley was contracted to make upgrades to existing, proprietary software. He showed imagination and self-motivation to demonstrate how the system could be improved—without changing the original intent and overall function of the software. At every turn, he has gone above and beyond my expectations. Bentley works hard, honors his commitments in time and budget, and (most importantly) delivers. I got to know Bentley personally. I found him to be honest, open, and easy to communicate with.
 
-    <h1>Page</h1>
+                </div>
+            
+                <div [class]="'cell-recommendation light-background ' + (recExpandedDebby_Kruzic ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedDebby_Kruzic: !recExpandedDebby_Kruzic})"
+                    tabindex="0" role="button"
+                    class="cell-recommendation light-background">
+                    <div class="recommendation-icon">
+                        <amp-img class="contain" layout="fill" src="/img/recommendations/Debby_Kruzic.jpg" alt="Debby_Kruzic logo"></amp-img>
+                    </div>
+                    <h3>Debby Kruzic</h3>
+                    Bentley provided invaluable feedback with our startup. He took the time to learn about us first and came prepared with questions and suggestions for improvements. Very thoughtful feedback and organized. I look forward to working with him in the future.
+
+                </div>
+            
+                <div [class]="'cell-recommendation light-background ' + (recExpandedRoderick_Turner ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedRoderick_Turner: !recExpandedRoderick_Turner})"
+                    tabindex="0" role="button"
+                    class="cell-recommendation light-background">
+                    <div class="recommendation-icon">
+                        <amp-img class="contain" layout="fill" src="/img/recommendations/Roderick_Turner.jpg" alt="Roderick_Turner logo"></amp-img>
+                    </div>
+                    <h3>Roderick Turner</h3>
+                    Bentley was vital in helping TOPit onboard a new development team. Also, he gave insight on what metrics and objectives to measure for success in this business unit. We really appreciate that help. TOPit Team
+
+                </div>
+            
+                <div [class]="'cell-recommendation light-background ' + (recExpandedKusha_Gharahi ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedKusha_Gharahi: !recExpandedKusha_Gharahi})"
+                    tabindex="0" role="button"
+                    class="cell-recommendation light-background">
+                    <div class="recommendation-icon">
+                        <amp-img class="contain" layout="fill" src="/img/recommendations/Kusha_Gharahi.jpg" alt="Kusha_Gharahi logo"></amp-img>
+                    </div>
+                    <h3>Kusha Gharahi</h3>
+                    Few people have the opportunity to report to a CTO/boss who is also a coach and mentor. Bentley is one of those unicorns I&#39;ve had the pleasure of reporting to these past few years. I worked with Bentley from the inception of CancerGene Connect until we were acquired by Invitae (plus some). Not only did he help shape me into the developer I am today, but he provided lots of mentoring and guidance on my personal side projects outside of work. To quote him, &quot;Yep, life is a team sport&quot;. Working with Bentley, every mistake was a learning opportunity. Any employee or company would be lucky to have Bentley call the shots.
+
+                </div>
+            
+                <div [class]="'cell-recommendation light-background ' + (recExpandedJama_Terry_Ball ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedJama_Terry_Ball: !recExpandedJama_Terry_Ball})"
+                    tabindex="0" role="button"
+                    class="cell-recommendation light-background">
+                    <div class="recommendation-icon">
+                        <amp-img class="contain" layout="fill" src="/img/recommendations/Jama_Terry_Ball.jpg" alt="Jama_Terry_Ball logo"></amp-img>
+                    </div>
+                    <h3>Jama Terry Ball</h3>
+                    Bentley Davis is a fearless innovator. In the years that we worked together, he consistently rose to the challenge of developing technology in an ever changing environment. He is not afraid to suggest options or express his opinion. He receives constructive feedback well, and learns to adapt quickly as the need arises, both as a leader and a colleague. For the &quot;techie&quot; that he truly is, his team members and colleagues, along with myself, have benefited from the &quot;heart&quot; in his leadership style.. He has an unflagging spirit and determination to see things through that will serve him well in any professional path he chooses. It would be both my pleasure and privilege to work with him again.
+
+                </div>
+            
+                <div [class]="'cell-recommendation light-background ' + (recExpandedCheryl_Robertson ? ' expand' : '')"
+                    on="tap:AMP.setState({recExpandedCheryl_Robertson: !recExpandedCheryl_Robertson})"
+                    tabindex="0" role="button"
+                    class="cell-recommendation light-background">
+                    <div class="recommendation-icon">
+                        <amp-img class="contain" layout="fill" src="/img/recommendations/Cheryl_Robertson.jpg" alt="Cheryl_Robertson logo"></amp-img>
+                    </div>
+                    <h3>Cheryl Robertson</h3>
+                    I originally worked with Bentley prior to reporting to him and found that he was very easy to work with. As a manager, he always wants his employees to excel and grow. I worked for Bentley for over 2 years, he gives his employees the freedom to work alone but he always makes himself available to them if they need help. Bentley is always in a learning mode himself, which always puts his employees in a learning mode.
+
+                </div>
+            
+        </div>
+    </div>
+</section>
+</div>
 
     
-    <div class="card-deck">
-        
-        
-        
-        
-        
-        
-            <a class="card" href="/2/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Bentley Davis" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Bentley Davis</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        
-        
-        
-        
-        
-            <a class="card" href="/test/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="test" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">test</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        
-        
-            <a class="card" href="/min/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Bentley&#39;s Minimalist Home Page" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Bentley&#39;s Minimalist Home Page</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-            <a class="card" href="/updates/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Updates" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Updates</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        
-        
-            <a class="card" href="/schedule/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Schedule a meeting with Bentley" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Schedule a meeting with Bentley</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        
-        
-            <a class="card" href="/now/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="What Bentley is Working on Now" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">What Bentley is Working on Now</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        
-        
-            <a class="card" href="/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Bentley Davis" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Bentley Davis</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        
-        
-            <a class="card" href="/contact/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Contact Bentley" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Contact Bentley</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        
-        
-            <a class="card" href="/calendar/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Bentley&#39;s Availability Calendar" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Bentley&#39;s Availability Calendar</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        
-        
-            <a class="card" href="/tpr/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Texas Positive Rate" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Texas Positive Rate</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        </div>
-
-  </div>
-
     <hr>
     <amp-iframe width="320" height="320" src="https://bentleydavis.substack.com/embed"
   sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals" frameborder="0" scrolling="no"
