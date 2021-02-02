@@ -12,20 +12,6 @@ body {
   color:hsl(212, 29%, 60%)
 }
 
-header {
-  background: white;
-  color: #ffffff;
-  padding: 0 5px;
-}
-
-.headerbar {
-  height: 50px;
-  top: 0;
-  width: 100%;
-  background-color: hsl(212, 29%, 60%);
-  padding-top: 5px;
-}
-
 .site-name {
   flex: 1;
   font-size: 1.5em;
@@ -33,7 +19,7 @@ header {
 
 .topnav {
   display: none;
-  padding: 0 10px 0 0;
+  padding: 0 1em 0 0;
 }
 
 hr {
@@ -50,6 +36,20 @@ a {
   }
   .hamburger {
     display: none;
+  }
+}
+
+.headerbar {
+  display: flex;
+  flex: auto;
+}
+
+@media (max-width: 600px) {
+  .headerbar {
+    flex-direction: column;
+  }
+  .call-to-action{
+    margin: 1em 0 0 0;
   }
 }
 
@@ -84,9 +84,9 @@ a {
   font-size: 1.25em;
 }
 
-.headerbar li a {
+/* .headerbar li a {
   color: rgba(255, 255, 255, .8);
-}
+} */
 
 .headerbar a, .sidebar a {
   text-decoration: none;
@@ -119,7 +119,7 @@ section {
   padding: 1em 0 4em 0;
 }
 
-section:nth-child(even) {
+section:nth-child(odd) {
   color: #ffffff;
   background:hsl(212, 29%, 60%)
 }
@@ -144,7 +144,7 @@ ul {
   border-radius: 15%;
   overflow: hidden;
   vertical-align: bottom;
-  }
+}
 
 amp-img.contain img {
   object-fit: contain;

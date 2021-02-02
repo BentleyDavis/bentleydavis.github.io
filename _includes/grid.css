@@ -13,6 +13,8 @@
 
 .card-deck .card {
   margin-bottom: 15px;
+  background-color: white;
+  color: hsl(212, 29%, 60%);;
 }
 
 .card {
@@ -52,8 +54,6 @@ img {
   vertical-align: middle;
   border-style: none;
 }
-
-
 
 .card-body {
   padding: 0 1.25rem;
