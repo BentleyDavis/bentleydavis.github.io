@@ -16,7 +16,7 @@
   perspective: 1500px;
   width: 1000px;
   height: 829.5px;
-  font-size: 75px;
+  font-size: 70px;
 }
 
 @media (max-width: 1000px) {
@@ -125,7 +125,4 @@
   background-image: url("/img/hero2.png");
   position: absolute;
   top: 0;
-}
-#bd-hero-dynamic {
-  white-space: pre;
 }
