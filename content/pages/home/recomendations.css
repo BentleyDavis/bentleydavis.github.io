@@ -28,6 +28,7 @@
   max-height: 100px;
   overflow: hidden;
   transition: 1s;
+  border-radius: 5px;
 }
 
 .cell-recommendation.expand{
