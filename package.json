@@ -20,10 +20,9 @@
     "airtable": "^0.10.1",
     "gh-pages": "^3.1.0",
     "got": "^11.8.2",
-    "metascraper": "^5.21.3",
-    "metascraper-logo-favicon": "^5.21.3",
-    "npm-check-updates": "^11.3.0",
-    "typescript": "^4.2.3"
-  },
-  "dependencies": {}
+    "metascraper": "^5.21.5",
+    "metascraper-logo-favicon": "^5.21.5",
+    "npm-check-updates": "^11.4.1",
+    "typescript": "^4.2.4"
+  }
 }
