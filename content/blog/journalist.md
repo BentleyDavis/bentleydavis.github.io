@@ -4,10 +4,10 @@ date: 2021-06-23 12:00:00
 author: "Bentley Davis"
 description: "I'm looking for a freelance journalist to help me with my Gulli Bot project."
 permalink: journalist/
-img: "journalist.jpg"
+img: "/img/blog/journalist.jpg"
 ---
 
-I'm looking for a freelance journalist to help me with my [Gulli Bot](https://GulliBot.com) project.
+I'm looking for a freelance journalist to help with my [Gulli Bot](https://GulliBot.com) project.
 
 ## If you are passionate about
 - Fighting misinformation
@@ -16,7 +16,7 @@ I'm looking for a freelance journalist to help me with my [Gulli Bot](https://Gu
 
 ## And you bring 
 - Excellent english writing skills
-- Internet research
+- Internet research skills
 - Logical thinking and reasoning
 
 ## And you are open to 
@@ -28,5 +28,5 @@ I'm looking for a freelance journalist to help me with my [Gulli Bot](https://Gu
 
 ## Then:
 - Contact me with your hourly rate and a link to your portfolio
-- If I approve, I will pay for 2 hours for you to look at some content and record a video of yourself suggestng improvements.
+- If I approve, I will pay for 2 hours for you to look at some content and record a video of yourself suggesting improvements.
 
