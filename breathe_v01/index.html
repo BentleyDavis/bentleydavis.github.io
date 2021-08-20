@@ -18,29 +18,29 @@
   <script async="async" custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
   <script async="async" custom-element="amp-fx-collection"
     src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
-  <title>Breathe</title>
-  <link rel="canonical" href="https://BentleyDavis.com/breathe/">
+  <title>Breathe version 1</title>
+  <link rel="canonical" href="https://BentleyDavis.com/breathe_v01/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script type="application/ld+json">
       {
         "author.name": "Bentley Davis",
         "@context": "http://schema.org",
         "@type": "NewsArticle",
-        "headline": "Breathe",
+        "headline": "Breathe version 1",
         "datePublished": "",
         "image": ["https://BentleyDavis.com/img/bentley_wide_small.jpg"]
       }
     </script>
   
-  <meta property="og:url" content="https://BentleyDavis.com/breathe/" />
+  <meta property="og:url" content="https://BentleyDavis.com/breathe_v01/" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Breathe" />
+  <meta property="og:title" content="Breathe version 1" />
   <meta property="og:description" content="An app to help you breathe in a costomizable rythm." />
   <meta property="og:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg" />
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@bntlyd">
-  <meta name="twitter:title" content="Breathe">
+  <meta name="twitter:title" content="Breathe version 1">
   <meta name="twitter:description" content="An app to help you breathe in a costomizable rythm.">
   <meta name="twitter:creator" content="@bntlyd">
   <meta name="twitter:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg">
@@ -344,7 +344,28 @@ amp-img.cover img {
         height: 100%;
     }
 </style>
-<style id="DynamicStyle"></style>
+<style id="DynamicStyle">
+    .animated {
+        animation-duration: 10s;
+    }
+
+    @keyframes breathe {
+        from {
+            max-width: min(20vw, 20vh);
+            max-height: min(20vw, 20vh);
+        }
+
+        40% {
+            max-width: min(80vw, 80vh);
+            max-height: min(80vw, 80vh);
+        }
+
+        to {
+            max-width: min(20vw, 20vh);
+            max-height: min(20vw, 20vh);
+        }
+    }
+</style>
 <script>
     onChange = function () {
         let inDur = parseInt(document.getElementById("in").value);
@@ -369,15 +390,14 @@ amp-img.cover img {
             max-height: min(20vw, 20vh);
         }
     }
-    
     `
     }
 </script>
+in:<input onchange="onChange()" id="in" type="range" name="In" id="In" min="1" max="10" step="1" value="4">
+Out:<input onchange="onChange()" id="out" type="range" name="In" id="In" min="1" max="10" step="1" value="6">
 <div class="breath-container">
     <div class="animated"> </div>
-
-</div> in:<input onchange="onChange()" id="in" type="range" name="In" id="In" min="1" max="10" step="1" value="5">
-Out:<input onchange="onChange()" id="out" type="range" name="In" id="In" min="1" max="10" step="1" value="5">
+</div>
 </div>
 
   
