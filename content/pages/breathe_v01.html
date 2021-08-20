@@ -7,19 +7,20 @@ tags: ['Draft']
 ---
 <style>
     .breath-container {
-        height: 90vh;
+        height: 100vh;
         display: grid;
     }
 
     .animated {
         border-radius: 50%;
-        border: 5px solid black;
+        border: 5px solid hsl(212, 29%, 60%);
         justify-self: center;
         align-self: center;
         animation-name: breathe;
         animation-iteration-count: infinite;
         width: 100%;
         height: 100%;
+        background: radial-gradient(transparent, hsl(212, 29%, 60%));
     }
 </style>
 <style id="DynamicStyle">
@@ -71,6 +72,7 @@ tags: ['Draft']
     `
     }
 </script>
+<br/><br/>
 in:<input onchange="onChange()" id="in" type="range" name="In" id="In" min="1" max="10" step="1" value="4">
 Out:<input onchange="onChange()" id="out" type="range" name="In" id="In" min="1" max="10" step="1" value="6">
 <div class="breath-container">
