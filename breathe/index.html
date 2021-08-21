@@ -369,22 +369,26 @@ amp-img.cover img {
     <div class="animated"> </div>
     <div class="end"> </div>
     <script>
-        window["dynaimcStyle-" + "eyeball"] = function (percentage){ return  `
-            @keyframes breathe {
-                from {
-                    max-width: min(20vw, 20vh);
-                    max-height: min(20vw, 20vh);
+        onChange = function () {
+            const vars = getMainVariables();
+            document.getElementById("DynamicStyle").innerHTML = vars.mainStyles + `
+                @keyframes breathe {
+                    from {
+                        max-width: min(20vw, 20vh);
+                        max-height: min(20vw, 20vh);
+                    }
+                    ${vars.percentage}% {
+                        max-width: min(80vw, 80vh);
+                        max-height: min(80vw, 80vh);
+                    }
+                    to {
+                        max-width: min(20vw, 20vh);
+                        max-height: min(20vw, 20vh);
+                    }
                 }
-                ${percentage}% {
-                    max-width: min(80vw, 80vh);
-                    max-height: min(80vw, 80vh);
-                }
-                to {
-                    max-width: min(20vw, 20vh);
-                    max-height: min(20vw, 20vh);
-                }
-            }`
+            `;
         }
+        onChange();
     </script>
 </template>
 
@@ -403,52 +407,61 @@ amp-img.cover img {
     </style>
     <div class="animated"> </div>
     <script>
-        window["dynaimcStyle-" + "circle"] = function (percentage){ return  `
-            @keyframes breathe {
-                from {
-                    max-width: min(20vw, 20vh);
-                    max-height: min(20vw, 20vh);
+        onChange = function () {
+            const vars = getMainVariables();
+            document.getElementById("DynamicStyle").innerHTML = vars.mainStyles + `
+                @keyframes breathe {
+                    from {
+                        max-width: min(20vw, 20vh);
+                        max-height: min(20vw, 20vh);
+                    }
+                    ${vars.percentage}% {
+                        max-width: min(80vw, 80vh);
+                        max-height: min(80vw, 80vh);
+                    }
+                    to {
+                        max-width: min(20vw, 20vh);
+                        max-height: min(20vw, 20vh);
+                    }
                 }
-                ${percentage}% {
-                    max-width: min(80vw, 80vh);
-                    max-height: min(80vw, 80vh);
-                }
-                to {
-                    max-width: min(20vw, 20vh);
-                    max-height: min(20vw, 20vh);
-                }
-            }`
+            `;
         }
+        onChange();
     </script>
+
 </template>
 
 <template id="column">
     <style>
         .animated {
             justify-self: center;
-            align-self:flex-end;
+            align-self: flex-end;
             animation-name: breathe;
             animation-iteration-count: infinite;
             width: 100%;
             height: 100%;
-            background-color: hsl(212, 29%, 60%) ;
+            background-color: hsl(212, 29%, 60%);
         }
     </style>
     <div class="animated"> </div>
     <script>
-        window["dynaimcStyle-" + "column"] = function (percentage){ return  `
-            @keyframes breathe {
-                from {
-                    max-height: 0vh;
+        onChange = function () {
+            const vars = getMainVariables();
+            document.getElementById("DynamicStyle").innerHTML = vars.mainStyles + `
+                @keyframes breathe {
+                    from {
+                        max-height: 0vh;
+                    }
+                    ${vars.percentage}% {
+                        max-height: 100vh;
+                    }
+                    to {
+                        max-height: 0vh;
+                    }
                 }
-                ${percentage}% {
-                    max-height: 100vh;
-                }
-                to {
-                    max-height: 0vh;
-                }
-            }`
+            `;
         }
+        onChange();
     </script>
 </template>
 
@@ -457,6 +470,13 @@ amp-img.cover img {
         height: 100vh;
         display: grid;
         position: relative;
+    }
+    label {
+        display: inline-block;
+        min-width: 6rem;
+    }
+    input, select{
+        min-width: 6rem;
     }
 </style>
 <style id="DynamicStyle"></style>
@@ -475,35 +495,43 @@ amp-img.cover img {
         }
     }
 
-    onChange = function () {
+    document.addEventListener('DOMContentLoaded', () => {
+        onChangeTemplate();
+    })
+
+    let percentage = 50;
+    let totalDuration = 10;
+
+    getMainVariables = function () {
         let inDur = parseFloat(get("in"));
         let outDur = parseFloat(get("out"));
         let movement = get("movement");
-        let styleElement = document.getElementById("DynamicStyle");
-        const templateName = get("template");
-        styleElement.innerHTML = 
-`            .animated {
-                animation-duration: ${inDur + outDur}s;
+        if (!isNaN(inDur) && !isNaN(outDur)) {
+            totalDuration = inDur + outDur;
+            percentage = ((inDur / (inDur + outDur)) * 100).toFixed(4);
+        }
+        // let styleElement = document.getElementById("DynamicStyle");
+        let mainStyles =
+            `.animated {
+                animation-duration: ${totalDuration}s;
                 animation-timing-function: ${movement};
-            }`
-        + window["dynaimcStyle-" + templateName](((inDur / (inDur + outDur)) * 100).toFixed(4));
+                }`;
+        return {
+            percentage: percentage,
+            mainStyles: mainStyles
+        };
     }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        onChangeTemplate();
-        onChange();
-    })
 </script>
 
 <div style="padding-top:10px; display: grid;grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
     <div>
-        in: <input type="number" id="in" value="4" onchange="onChange()" style="width: 5rem;">
+        <label>seconds in:</label> <input type="number" id="in" value="4" oninput="onChange()" style="width: 5rem;">
     </div>
     <div>
-        out: <input type="number" id="out" value="6" onchange="onChange()" style="width: 5rem;">
+        <label>seconds out:</label> <input type="number" id="out" value="6" oninput="onChange()" style="width: 5rem;">
     </div>
     <div>
-        movement: <select id='movement' onchange="onChange()">
+    <label>movement:</label> <select id='movement' onchange="onChange()">
             <option value="ease" selected>ease</option>
             <option value="linear">linear</option>
             <option value="ease-in">start slow</option>
@@ -511,7 +539,7 @@ amp-img.cover img {
         </select>
     </div>
     <div>
-        style: <select id='template' onchange="onChangeTemplate()">
+    <label>style:</label> <select id='template' onchange="onChangeTemplate()">
             <option value="circle" selected>circle</option>
             <option value="eyeball">eveyball</option>
             <option value="column">column</option>
