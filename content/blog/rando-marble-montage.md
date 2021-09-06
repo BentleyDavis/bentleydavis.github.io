@@ -4,7 +4,8 @@ date: 2021-09-16 12:00:00
 author: "Bentley Davis"
 description: "Watch an epic marble montage from a random start point"
 layout: base.njk
-tags: []
+tags: ["Blog"]
+img: "/img/blog/marble_montage.webp"
 ---
 <div class="content">
     <h1>Random Marble Montage</h1>
