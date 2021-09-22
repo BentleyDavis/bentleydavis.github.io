@@ -375,8 +375,8 @@ amp-img.cover img {
         const group = document.getElementById("ogmMosaicGroup");
         const maxTurn = 45;
         group.style.transform = `
-            rotateX(${-1*((maxTurn * (e.y / e.target.width)) - (maxTurn / 2))}deg)
-            rotateY(${((maxTurn * (e.x / e.target.height)) - (maxTurn / 2))}deg)
+            rotateX(${-1*((maxTurn * (e.offsetY / e.target.width)) - (maxTurn / 2))}deg)
+            rotateY(${((maxTurn * (e.offsetX / e.target.height)) - (maxTurn / 2))}deg)
         `;
 
     }, false);
