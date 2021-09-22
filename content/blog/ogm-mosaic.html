@@ -1,0 +1,86 @@
+---
+title: "OGM Mosaic Version 0.1"
+subtitle: "A proposal of the Open Global Mind's Mosaic by Jerry Michalski"
+date: 2021-09-22 12:00:00
+author: "Bentley Davis"
+permalink: ogm-mosaic/
+layout: page
+---
+<h1>Open Global Mind Mosaic version 0.1</h1>
+<br><br><br>
+<div class="layer-container" id="ogmMosaicContainer">
+    <div class="layer-group" id="ogmMosaicGroup">
+        <img id="entities" src="/img/blog/ogm-mosaic/OGM Mosaic - Entities.gif" 
+            style="transform: translateZ(0px)">
+        <!-- <img id="infrastructure" src="/img/blog/ogm-mosaic/OGM Mosaic - Infrastructure.gif"> -->
+        <img id="organization" src="/img/blog/ogm-mosaic/OGM Mosaic - Organization.gif"
+            style="transform: translateZ(50px)">
+        <img id="participants" src="/img/blog/ogm-mosaic/OGM Mosaic - Participants.gif"
+            style="transform: translateZ(100px)">
+        <img id="projects" src="/img/blog/ogm-mosaic/OGM Mosaic - Projects.gif" style="transform: translateZ(150px)">
+    </div>
+</div>
+<br><br><br>
+<label>
+    <input type="checkbox" checked="true" onclick="visibilityClicked('entities')" /> Entities
+</label>
+<label>
+    <input type="checkbox" checked="true" onclick="visibilityClicked('organization')" /> Organization
+</label>
+<label>
+    <input type="checkbox" checked="true" onclick="visibilityClicked('participants')" /> Participants
+</label>
+<label>
+    <input type="checkbox" checked="true" onclick="visibilityClicked('projects')" /> Projects
+</label>
+
+<script>
+    function visibilityClicked(id) {
+        const element = document.getElementById(id);
+        if (element.style.opacity !== "0") {
+            if (!window.myOpacity) {
+                window.myOpacity = element.style.opacity;
+            }
+            element.style.opacity = "0";
+        } else {
+            element.style.opacity = window.myOpacity;
+        }
+    }
+
+    function onHover(e) {
+    }
+
+    document.getElementById("ogmMosaicContainer").addEventListener("mousemove", function (e) {
+        const group = document.getElementById("ogmMosaicGroup");
+        const maxTurn = 45;
+        group.style.transform = `
+            rotateX(${-1*((maxTurn * (e.y / e.target.width)) - (maxTurn / 2))}deg)
+            rotateY(${((maxTurn * (e.x / e.target.height)) - (maxTurn / 2))}deg)
+        `;
+
+    }, false);
+
+</script>
+
+<style>
+    .layer-container {
+        width: 100%;
+        position: relative;
+        aspect-ratio: 1 / .8;
+    }
+
+    .layer-group {
+        position: relative;
+        height: 100%;
+        transform-style: preserve-3d;
+    }
+
+    .layer-container img {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        opacity: .5;
+        border: 1px solid black;
+        transition: all 1s;
+    }
+</style>
