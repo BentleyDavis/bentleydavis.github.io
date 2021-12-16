@@ -1,0 +1,320 @@
+---
+title: "Video Weaver Concept"
+subtitle: "An open tool for communities to weave cideo clips together"
+date: 2021-12-15 12:00:00
+author: "Bentley Davis"
+layout: base.njk
+img: "/img/blog/video-weaving-idea.png"
+---
+<div class="content">
+    <h1>Video Weaver Concept</h1>
+    <p>Here is an idea I'd like to crowdfund. A place where you could weave together video segments and create a
+        playlist
+        including running them at the same time next to each other. Click the "Start" button below to see an example.
+    </p>
+    <button onClick="play();"> Start </button><br><br>
+</div>
+
+<style>
+    #theater {
+        aspect-ratio: 16/9;
+        background-color: black;
+    }
+
+     #stage {
+        aspect-ratio: 16/9;
+        width: 100%;
+    }
+/*
+    .container {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        transition: all 2s;
+        overflow: hidden;
+    }
+*/
+    .player {
+        transition: all 2s;
+        width: 100%;
+        height: unset;
+        aspect-ratio: 16/9;
+    }
+</style>
+
+<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+<div id="theater">
+    <!-- <div id="stage">
+    </div> -->
+</div>
+<div id='out'></div>
+<div id='time'></div>
+
+
+<script>
+    //This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+</script>
+
+<!-- 
+    {
+    description: 'repositon main video to show screen share',
+    timeKey: '',
+    timeStart: 0,
+    functionStart: async () =>{ 
+
+    }
+},{
+     -->
+
+<script>
+    // this is the main list of events. They muct be listed in reverse cronological order. Later events on top.
+    const events = [
+        //     {
+        //     timeStart:100,
+        //     description: 'repositon main video back to normal',
+        //     functionStart: async () => {
+        //         onStage['player1_container'].style.height = "180px";
+        //         onStage['player1_element'].style.top = "-105px";
+        //     }
+        // }, {
+        //     timeStart: 39,
+        //     description: 'repositon main video to show screen share',
+        //     functionStart: async () => {
+        //         onStage['player1_container'].style.height = "480px";
+        //         onStage['player1_element'].style.top = "0px";
+        //     }
+        // },
+        {
+            description: 'remove Title Card',
+            timeStart: 7,
+            functionStart: async () => {
+                onStage['Title Card'].parentNode.removeChild(onStage['Title Card']);
+                delete onStage['Title Card'];
+            }
+        },
+        {
+            timeStart: 5,
+            description: 'Start the main video.',
+            functionStart: async () => {
+                const onReady = (event) => {
+                    event.target.seekTo('5', true);
+                    event.target.playVideo();
+                    //onStage['player1_container'].style.opacity = "1";
+                }
+                const playerId = 'player1';
+                // const stage = document.getElementById('stage');
+                const playerElement = document.createElement('div');
+                // const ytElement = document.createElement('div');
+                playerElement.className = 'player';
+                playerElement.id = playerId;
+                // const containerDiv = document.createElement('div');
+                // containerDiv.className = "container";
+                // containerDiv.appendChild(playerElement)
+                // playerElement.appendChild(ytElement);
+                // stage.appendChild(containerDiv);
+                //theater.appendChild(playerElement)
+                theater.insertBefore(containerDiv, theater.childNodes[0] || null)
+                const player = new YT.Player(playerId, {
+                    height: '390',
+                    width: '640',
+                    videoId: 'pW1WxTrakFU',
+                    playerVars: { ...playerVars, },
+                    events: { 'onReady': onReady, }
+                });
+
+                onStage[playerId] = player;
+                onStage[playerId + '_element'] = playerElement;
+                // onStage[playerId + '_container'] = containerDiv;
+
+                onStage['player1_container'].style.opacity = "0";
+                // onStage['player1_container'].style.top = "0px";
+                // onStage['player1_container'].style.height = "180px";
+                // onStage['player1_element'].style.top = "-105px";
+
+            }
+        }, {
+            timeStart: 0,
+            description: 'Title Card',
+            functionStart: async () => {
+                const el = document.createElement('div');
+                el.innerHTML = `
+            <h1>Jesse Engle</h1>
+            <h2>How did the <a href="https://www.cryptovenetians.com/" target="_blank">Crypto Venetians</a> start?</h2>
+            <i>Crypto Venetians:</i> Early <a hef="https://en.wikipedia.org/wiki/Non-fungible_token"target="_blank">NFT</a> Art.
+            `;
+                el.style.padding = '10px'
+                el.style.textAlign = 'center'
+                onStage['Title Card'] = el;
+                theater.appendChild(el);
+            }
+        }]
+
+    const onStage = {}
+
+    function seconds(seconds) {
+        return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+    }
+
+    function timeStamp() {
+        return Math.floor(new Date().valueOf() / 1000);
+    }
+
+    const playerVars = {
+        'playsinline': 1,
+        'controls': 0,
+        'modestbranding': 1,
+        'autoplay': 1,
+    };
+
+    async function play() {
+
+        const theater = document.getElementById("theater");
+        // const stage = document.getElementById("stage");
+        // stage.style.transform = `scale(${theater.getBoundingClientRect().width /
+        //     stage.getBoundingClientRect().width
+        //     })`;
+
+        const timeDiv = document.getElementById('time');
+        let startTime = timeStamp();
+        let lastTime = startTime;
+        let remainingEvents = events;
+        let nextEvent = remainingEvents.pop();
+        console.log(nextEvent);
+        let timerLoop = setInterval(async () => {
+            const nowStamp = timeStamp();
+            const now = nowStamp - startTime;
+            timeDiv.innerHTML = `Since Start: ${nowStamp - startTime} :`;
+
+            if (nextEvent && nextEvent.timeStart <= now) {
+                console.log(nextEvent.description);
+                const currentEvent = nextEvent;
+                nextEvent = remainingEvents.pop();
+                currentEvent.functionStart();
+            }
+            lastTime = nowStamp;
+        }, 500)
+
+        // const player1 = new YT.Player('player1', {
+        //     height: '390',
+        //     width: '640',
+        //     videoId: 'hfg2t79ZVZo',
+        //     playerVars: playerVars,
+        //     start: 3,
+        //     events: {
+        //         'onReady': onPlayerReady,
+        //         'start': 3,
+        //         // 'onStateChange': onPlayerStateChange
+        //     }
+        // });
+
+        // const player2 = new YT.Player('player2', {
+        //     height: '390',
+        //     width: '640',
+        //     videoId: 'pW1WxTrakFU',
+        //     playerVars: playerVars,
+        //     events: {
+        //         'onReady': onPlayerReady,
+        //         // 'onStateChange': onPlayerStateChange
+        //     }
+        // });
+
+        // player3 = new YT.Player('player3', {
+        //     height: '390',
+        //     width: '640',
+        //     videoId: 'pW1WxTrakFU',
+        //     playerVars: playerVars,
+        //     events: {
+        //         'onReady': onPlayerReady,
+        //         // 'onStateChange': onPlayerStateChange
+        //     }
+        // });
+
+        // function onPlayerReady(event) {
+        //     event.target.mute();
+        // }
+        // const theater = document.getElementById("theater");
+        // const stage = document.getElementById("stage");
+
+        // const container1 = document.getElementById("container1");
+        // const container2 = document.getElementById("container2");
+        // const container3 = document.getElementById("container3");
+
+        // await seconds(2);
+        // stage.style.transform = `scale(${theater.getBoundingClientRect().width /
+        //     stage.getBoundingClientRect().width
+        //     })`;
+        // const frame1 = document.getElementById("player1");
+        // const frame2 = document.getElementById("player2");
+        // const frame3 = document.getElementById("player3");
+
+        // player1.loadVideoById({
+        //     'videoId': 'hfg2t79ZVZo',
+        //     'startSeconds': 4,
+        //     'endSeconds': 14
+        // });
+
+        // player2.loadVideoById({
+        //     'videoId': 'pW1WxTrakFU',
+        //     'startSeconds': 98,
+        //     'endSeconds': 138
+        // });
+        // player3.loadVideoById({
+        //     'videoId': 'pW1WxTrakFU',
+        //     'startSeconds': 98,
+        //     'endSeconds': 138
+        // });
+
+        // container1.style.opacity = 1;
+        // container2.style.opacity = 1;
+        // container3.style.opacity = 1;
+
+
+        // container1.style.width = "390px";
+        // container1.style.left = "200px";
+        // frame1.style.left = "-125px"
+
+        // container3.style.top = "210px";
+        // container3.style.height = "180px";
+        // container3.style.width = "200px";
+        // frame3.style.top = "-105px";
+        // frame3.style.left = "-65px"
+
+        // container2.style.top = "0px";
+        // container2.style.left = "590px";
+        // container2.style.height = "180px";
+        // container2.style.width = "200px";
+        // frame2.style.top = "-105px";
+        // frame2.style.left = "-380px"
+
+        // //player1.pauseVideo();
+        // await seconds(4);
+        // container2.style.top = "210px";
+        // container3.style.top = "0px";
+        // await seconds(2);
+        // player1.loadVideoById({
+        //     'videoId': 'pW1WxTrakFU',
+        //     'startSeconds': 466,
+        //     'endSeconds': 500
+        // });
+        // await seconds(6);
+        // player1.loadVideoById({
+        //     'videoId': 'hfg2t79ZVZo',
+        //     'startSeconds': 138,
+        //     'endSeconds': 200
+        // });
+        // await seconds(4);
+        // container3.style.top = "210px";
+        // container2.style.top = "0px";
+        // await seconds(2);
+        // container1.style.opacity = 0;
+        // await seconds(1);
+        // container2.style.opacity = 0;
+        // await seconds(1);
+        // container3.style.opacity = 0;
+
+    }
+</script>
