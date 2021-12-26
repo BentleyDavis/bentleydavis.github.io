@@ -5,6 +5,7 @@ date: 2021-12-15 12:00:00
 author: "Bentley Davis"
 layout: base.njk
 img: "/img/blog/video-weaving-idea.png"
+draft: true
 ---
 <div class="content">
     <h1>Video Weaver Concept</h1>
@@ -21,19 +22,20 @@ img: "/img/blog/video-weaving-idea.png"
         background-color: black;
     }
 
-     #stage {
+    #stage {
         aspect-ratio: 16/9;
         width: 100%;
     }
-/*
-    .container {
-        position: absolute;
-        top: 0%;
-        left: 0%;
-        transition: all 2s;
-        overflow: hidden;
+
+    #noteStream {
+        padding: 10px;
     }
-*/
+
+    .note {
+        padding: 10px;
+        max-height: 0;
+    }
+
     .player {
         transition: all 2s;
         width: 100%;
@@ -46,6 +48,7 @@ img: "/img/blog/video-weaving-idea.png"
 <div id="theater">
     <!-- <div id="stage">
     </div> -->
+    <div id="noteStream"></div>
 </div>
 <div id='out'></div>
 <div id='time'></div>
@@ -71,8 +74,55 @@ img: "/img/blog/video-weaving-idea.png"
      -->
 
 <script>
-    // this is the main list of events. They muct be listed in reverse cronological order. Later events on top.
+    // this is the main list of events. They must be listed in reverse cronological order. Later events on top.
     const events = [
+        {
+            title: 'Start Main Video',
+            type: 'video',
+            id: 'video1',
+            timing: {
+                keeperId: 'main',
+                start: 10,
+                length: 100,
+                isTimer: true,
+            },
+            typeData: {
+                autoStart: true,
+                seek: 4,
+            },
+            functions: {
+                preStart: async (event) => {
+                    const playerElement = document.createElement('div')
+                    playerElement.className = 'player';
+                    playerElement.id = event.id;
+                    event.state = {
+                        element: playerElement
+                    }
+                    theater.insertBefore(playerElement, theater.childNodes[0] || null)
+                    const player = new YT.Player(event.id, {
+                        height: '390',
+                        width: '640',
+                        videoId: 'pW1WxTrakFU',
+                        playerVars: { ...playerVars, },
+                        events: {
+                            'onReady': (readyEvent) => {
+                                if (event.typeData.seek) {
+                                    event.target.seekTo(event.typeData.seek, true);
+                                }
+                                if (event.typeData.autoStart) {
+                                    event.target.playVideo();
+                                }
+                            }
+                        }
+                    });
+                },
+                postEnd: async (event) => {
+                    event.state.element.parentNode.removeChild(event.state.element);
+                }
+            }
+        }
+    ]
+    const events_old = [
         //     {
         //     timeStart:100,
         //     description: 'repositon main video back to normal',
@@ -117,7 +167,7 @@ img: "/img/blog/video-weaving-idea.png"
                 // playerElement.appendChild(ytElement);
                 // stage.appendChild(containerDiv);
                 //theater.appendChild(playerElement)
-                theater.insertBefore(containerDiv, theater.childNodes[0] || null)
+                theater.insertBefore(playerElement, theater.childNodes[0] || null)
                 const player = new YT.Player(playerId, {
                     height: '390',
                     width: '640',
