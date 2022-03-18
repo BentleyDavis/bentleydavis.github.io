@@ -6,7 +6,7 @@ async function processUrls(items, urlProperty = "url") {
         if (item.autoUpdate) {
             await getUrlMetadata.getUrlMetadata(
                 item[urlProperty],
-                `_data/external/${item.id}`,
+                `data/external/${item.id}`,
                 `img/external/${item.id}`
             );
         }

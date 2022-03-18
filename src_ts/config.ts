@@ -1,5 +1,5 @@
 
 export default {
-    dataDir: "./_data/content/",
+    dataDir: "./data/content/",
 }
 
