@@ -1,0 +1,193 @@
+[
+    {
+        "id": "Project_Management",
+        "title": "Project Management",
+        "level": "Current"
+    },
+    {
+        "portfolio": [
+            "recNk2YMmEJAFna6w"
+        ],
+        "id": "Product_Management",
+        "title": "Product Management",
+        "level": "Current"
+    },
+    {
+        "id": "Customer_Service",
+        "title": "Customer Service",
+        "level": "Current"
+    },
+    {
+        "portfolio": [
+            "recNk2YMmEJAFna6w"
+        ],
+        "id": "Agile",
+        "title": "Agile",
+        "level": "Current"
+    },
+    {
+        "url": "https://www.scrum.org/",
+        "portfolio": [
+            "recNk2YMmEJAFna6w"
+        ],
+        "id": "Scrum",
+        "autoUpdate": true,
+        "title": "Scrum",
+        "level": "Current"
+    },
+    {
+        "url": "https://www.typescriptlang.org/",
+        "portfolio": [
+            "recSRJRJJlw84ireq",
+            "recaCq974VdnujuIO"
+        ],
+        "id": "TypeScript",
+        "autoUpdate": true,
+        "title": "TypeScript",
+        "level": "Current"
+    },
+    {
+        "url": "https://reactjs.org/",
+        "portfolio": [
+            "recSRJRJJlw84ireq",
+            "recaCq974VdnujuIO"
+        ],
+        "id": "React",
+        "autoUpdate": true,
+        "title": "React",
+        "level": "Current"
+    },
+    {
+        "url": "https://nodejs.org",
+        "id": "Node",
+        "autoUpdate": true,
+        "title": "Node",
+        "level": "Current"
+    },
+    {
+        "url": "https://www.11ty.dev/",
+        "id": "Eleventy",
+        "autoUpdate": true,
+        "title": "Eleventy",
+        "level": "Current"
+    },
+    {
+        "url": "https://ionicframework.com",
+        "portfolio": [
+            "recSRJRJJlw84ireq"
+        ],
+        "id": "Ionic",
+        "autoUpdate": true,
+        "title": "Ionic",
+        "level": "Current"
+    },
+    {
+        "url": "https://firebase.google.com",
+        "id": "Firebase",
+        "autoUpdate": true,
+        "title": "Firebase",
+        "level": "Current"
+    },
+    {
+        "id": "AMP",
+        "title": "AMP",
+        "url": "https://amp.dev",
+        "autoUpdate": true,
+        "level": "Current",
+        "type": "Technology"
+    },
+    {
+        "id": "UX",
+        "title": "UX",
+        "level": "New"
+    },
+    {
+        "id": "SEO",
+        "title": "SEO",
+        "level": "New"
+    },
+    {
+        "id": "Growth_Hacking",
+        "title": "Growth Hacking",
+        "level": "New"
+    },
+    {
+        "id": "Webflow",
+        "title": "Webflow",
+        "url": "https://webflow.com/",
+        "autoUpdate": true,
+        "level": "New"
+    },
+    {
+        "url": "https://airtable.com/",
+        "id": "Airtable",
+        "autoUpdate": true,
+        "title": "Airtable",
+        "level": "New"
+    },
+    {
+        "url": "https://deno.land",
+        "id": "Deno",
+        "autoUpdate": true,
+        "title": "Deno",
+        "level": "New"
+    },
+    {
+        "id": "Microsoft_Access",
+        "title": "Microsoft Access",
+        "level": "Old"
+    },
+    {
+        "id": "MS_SQL",
+        "title": "MS SQL",
+        "level": "Old"
+    },
+    {
+        "id": "C_",
+        "title": "C#",
+        "level": "Old"
+    },
+    {
+        "id": "Visual_Basic",
+        "title": "Visual Basic",
+        "level": "Old"
+    },
+    {
+        "id": "VBA",
+        "title": "VBA",
+        "level": "Old"
+    },
+    {
+        "url": "https://angularjs.org/",
+        "portfolio": [
+            "recNk2YMmEJAFna6w"
+        ],
+        "id": "Angular",
+        "autoUpdate": true,
+        "title": "Angular",
+        "level": "Old"
+    },
+    {
+        "id": "Knockout",
+        "title": "Knockout",
+        "level": "Old"
+    },
+    {
+        "portfolio": [
+            "recNk2YMmEJAFna6w"
+        ],
+        "id": "ASP_NET",
+        "title": "ASP.NET",
+        "level": "Old"
+    },
+    {
+        "id": "VBA",
+        "title": "VBA",
+        "level": "Old"
+    },
+    {
+        "id": "Sybase",
+        "title": "Sybase",
+        "level": "Old"
+    }
+]
