@@ -5,6 +5,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addWatchTarget("./content")
   eleventyConfig.setWatchThrottleWaitTime(1000);
   eleventyConfig.addPassthroughCopy({ "static-root": "/" });
+  eleventyConfig.addPassthroughCopy({ "_data": "_data" });
 
   eleventyConfig.addShortcode("formatDate", function (date) {
     return "" + date.toLocaleDateString(

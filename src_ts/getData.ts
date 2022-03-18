@@ -1,7 +1,7 @@
 const airTables = [
     { name: "Content", attachmentFields: ["Images"] },
     { name: "Skills" },
-    { name: "Recommendations" }
+    { name: "Recommendations", attachmentFields: ["image"]  }
 ]
 
 import Config from './config'

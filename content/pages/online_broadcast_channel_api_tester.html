@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Broadcast Channel API tester</title>
+    <script>
+        const bc = new BroadcastChannel('test_channel');
+        window.onmessage = function (event) {
+            bc.postMessage('This is a test message.');
+            const out = window.document.getElementById("out");
+            out.textContent = out.textContent + `${event.origin}: ${event.data}` +'/n'
+        };
+        bc.onmessage = event => {
+            const out = window.document.getElementById("out");
+            out.textContent = out.textContent + `${event.origin}: ${event.data}` +'/n'
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Send a message form an iFrame</h1>
+    <pre id="out"></pre>
+</body>
+
+</html>
