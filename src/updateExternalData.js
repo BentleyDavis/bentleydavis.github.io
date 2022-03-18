@@ -7,15 +7,9 @@ const { processUrls } = require("./processUrls");
 
     // Skills
     //const skills = await getAirtable('skills');
-    const skills = JSON.parse(await fs.readFile(`./data/skills.json`,'utf8'));
+    const skills = (JSON.parse( await fsp.readFile('data/content/data.json', 'utf8'))).Skills;
 
     await processUrls(skills)
-    //await fs.writeFile(`./data/skills.json`, JSON.stringify(skills));
-
-    // Recommendations
-    //const recommendations = await getAirtable('recommendations');
-    // await downloadAirtableImages(recommendations,'recommendations')
-    // await fs.writeFile(`./data/recommendations.json`, JSON.stringify(recommendations));
     
 })();
 

@@ -2,7 +2,7 @@
     <div class="content">
         <h1>Skills</h1>
         <div class="grid-current-skills">
-            {% for item in skills %}
+            {% for item in content.data.Skills %}
                 {% if (item.level == "Current") 
                     or(item.level == "New") %}
                     <div class="cell-current-skill light-background">
@@ -23,7 +23,7 @@
         </div>
         <br/>
         {% set separator = joiner(" | ") %}
-        {% for item in skills %}
+        {% for item in content.data.Skills %}
             {% if
             item.level == "Old" %}
                 {{ separator() }}
