@@ -1,14 +1,14 @@
 const typeText = [
-    { id: "ht-01", text: "I increase your" },
-    { id: "ht-02", text: "profit" },
-    { id: "ht-03", text: "and" },
-    { id: "ht-04", text: "time" },
-    { id: "ht-05", text: "through technology" },
-    { id: "ht-06", text: "and training." },
-    { id: "ht-07", text: "- Interactive Websites" },
-    { id: "ht-08", text: "- Mobile Apps" },
-    { id: "ht-09", text: "- Automation" },
-    { id: "ht-10", text: "- Fractional CTO" },
+    { id: "ht-01", text: "more satisfaction for more people though technology" },
+    { id: "ht-02", text: "think visually to work brilliantly" },
+    { id: "ht-03", text: "solve big problems with small experiments" },
+    { id: "ht-04", text: "interactive websites, mobile apps" },
+    { id: "ht-05", text: "training you to use technology" },
+    { id: "ht-06", text: "automating your boring work" },
+    { id: "ht-07", text: "30 years creating software" },
+    { id: "ht-08", text: "20 years managng teams" },
+    { id: "ht-09", text: "5 years mentoring startups" },
+    { id: "ht-10", text: "CTO of a successful startup exit" },
 ]
 // const e = document.getElementById('bd-hero-dynamic');
 
