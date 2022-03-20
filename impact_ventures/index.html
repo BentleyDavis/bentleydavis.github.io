@@ -18,32 +18,32 @@
   <script async="async" custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
   <script async="async" custom-element="amp-fx-collection"
     src="https://cdn.ampproject.org/v0/amp-fx-collection-0.1.js"></script>
-  <title>Volunteer - Bentley Davis</title>
-  <link rel="canonical" href="https://BentleyDavis.com/volunteer/">
+  <title>Serving underestimated Founders</title>
+  <link rel="canonical" href="https://BentleyDavis.com/impact_ventures/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script type="application/ld+json">
       {
         "author.name": "Bentley Davis",
         "@context": "http://schema.org",
         "@type": "NewsArticle",
-        "headline": "Volunteer - Bentley Davis",
+        "headline": "Serving underestimated Founders",
         "datePublished": "",
-        "image": ["https://BentleyDavis.com/img/bentley_wide_small.jpg"]
+        "image": ["https://BentleyDavis.com/impact_ventures/impact-ventures.jpg"]
       }
     </script>
   
-  <meta property="og:url" content="https://BentleyDavis.com/volunteer/" />
+  <meta property="og:url" content="https://BentleyDavis.com/impact_ventures/" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Volunteer - Bentley Davis" />
+  <meta property="og:title" content="Serving underestimated Founders" />
   <meta property="og:description" content="" />
-  <meta property="og:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg" />
+  <meta property="og:image" content="https://BentleyDavis.com/impact_ventures/impact-ventures.jpg" />
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@bntlyd">
-  <meta name="twitter:title" content="Volunteer - Bentley Davis">
+  <meta name="twitter:title" content="Serving underestimated Founders">
   <meta name="twitter:description" content="">
   <meta name="twitter:creator" content="@bntlyd">
-  <meta name="twitter:image" content="https://BentleyDavis.com/img/bentley_wide_small.jpg">
+  <meta name="twitter:image" content="https://BentleyDavis.com/impact_ventures/impact-ventures.jpg">
   <meta name="twitter:domain" content="BentleyDavis.com">
   
   <style amp-boilerplate="amp-boilerplate">
@@ -273,84 +273,35 @@ amp-img.cover img {
 }
 
 
-    .fixed-height-container {
-  position: relative;
-  width: 100%;
-  height: 300px;
+.hero-container {
+    box-sizing: border-box;
 }
 
-.card-deck {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 1rem;
+.hero-image {
+    position: relative;
+    min-height: 400px;
 }
 
-.card-deck .card {
-  margin-bottom: 15px;
-  background-color: white;
-  color: hsl(212, 29%, 60%);;
+@media (min-width: 800px){
+    .hero-container {
+        display: flex;
+        flex-direction: row-reverse;
+        min-height: 500px;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .hero-image {
+        flex: 1;
+    }
+
+    .hero-description {
+        flex: 1;
+        width: 50%;
+        margin: auto;
+        padding: 50px;
+    }
 }
-
-.card {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 200px;
-  word-wrap: break-word;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-}
-
-.card-img-top {
-  height: 200px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-
-}
-
-.card-img-top img {
-  width: 100%;
-  border-top-left-radius: calc(0.25rem - 1px);
-  border-top-right-radius: calc(0.25rem - 1px);
-  object-fit: cover;
-}
-
-.card-img-top.position-bottom img {
-  object-position: bottom;
-}
-
-img {
-  vertical-align: middle;
-  border-style: none;
-}
-
-.card-body {
-  padding: 0 1.25rem;
-}
-
-.card-title {
-  margin-bottom: 0.75rem;
-}
-
-a.card {
-  text-decoration: none;
-}
-
-.bigtext {
-  height: 200px;
-  width: 200px;
-  font-size: xxx-large;
-  overflow: hidden;
-  vertical-align: middle;
-  text-align: center;
-}
-
 
   </style>
   
@@ -404,47 +355,50 @@ a.card {
     </ul>
   </amp-sidebar>
   
-  <div class="content">
-
-    <h1>Volunteer</h1>
-
-    
-    <div class="card-deck">
-        
-            <a class="card" href="/impact_ventures/">
-                
-                    <amp-img class="card-img-top " src="/impact_ventures/impact-ventures.jpg" alt="Serving underestimated Founders" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Serving underestimated Founders</h3>
-                    <p class="card-text">SEO, Growth Hacking, Agile, Project Management, Customer Service, Product Management</p>
-                </div>
-            </a>
+<div class="content">
+  <div class="hero-container">
+    <div class="hero-image">
+      <amp-img class="contain" layout="fill" src="/impact_ventures/impact-ventures.jpg" alt="Serving underestimated Founders"></amp-img>
+    </div>
+    <div class="hero-description">
+      <h1>Serving underestimated Founders</h1>
+      <p>
         
         
-            <a class="card" href="/Hack_the_Culture_2020/">
-                
-                    <amp-img class="card-img-top " src="/img/blog/htc.png" alt="Hack the Culture 2020 Mentor" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Hack the Culture 2020 Mentor</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
+      </p>
+      <p>
+        <b>Skills: </b>
         
         
-            <a class="card" href="/dallas-givecamp-2014-kids-u-codeitforward.html">
-                
-                    <amp-img class="card-img-top " src="/img/kids-u.png" alt="Dallas GiveCamp 2014 Kids-U" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Dallas GiveCamp 2014 Kids-U</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        </div>
-
+        SEO, 
+        
+        Growth Hacking, 
+        
+        Agile, 
+        
+        Project Management, 
+        
+        Customer Service, 
+        
+        Product Management</p>
+      <p>I had the honor of volunteering with Impact Ventures for several cohorts serving BIPOC and Women enterprises</p>
+    </div>
   </div>
+  
+       <p><a href="https://impact-ventures.co/">Impact Venture</a>'s <a href="https://impact-ventures.co/inclusive-accelerator/">Inclusive Innovation Accelerator Program</a> is 12-week intensive technology and innovation focused program providing education, technical assistance, resources, mentorship, and access to capital for BIPOC and Women enterprises. Program runs twice a year in the Spring and Fall.</p>
+<p>I have been able to participate in three cohorts so far including the first cohort. I was a: </p>
+<ul><li>
+Subject Matter Expert in technology: I was on call to founders that needed technology advice.</li>
+<li>
+Adviser Mentor: Each cohort I was assigned a founder to mentor and support weekly during the accelerator.</li>
+<li>
+Product Definition and Roadmap Workshop Mentor:  We heard several startups pitches and gave them feedback to improve.</li>
+<li>
+Speaker - Product Development: I was asked to be a guest speaker in one class about product development I went over several product development techniques and how to choose which one to use depending on where their company is in the Viral Assessment. Here are my <a href="https://docs.google.com/presentation/d/1zGo4Gw-Y0x_uMTDEfYH3yyAp3PaP4MruOlhlDgP2S2U/edit?usp=sharing">slides</a>. </li>
+<//ul>
+  
+</div>
+
 
   <hr>
   <amp-iframe width="320" height="320" src="https://bentleydavis.substack.com/embed"
