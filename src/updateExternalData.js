@@ -7,9 +7,9 @@ const { processUrls } = require("./processUrls");
 
     // Skills
     //const skills = await getAirtable('skills');
-    const skills = (JSON.parse( await fsp.readFile('data/content/data.json', 'utf8'))).Skills;
+    const skills = (JSON.parse(await fs.readFile('data/content/data.json', 'utf8'))).Skills;
 
     await processUrls(skills)
-    
+
 })();
 
