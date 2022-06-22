@@ -19,7 +19,7 @@
     "@11ty/eleventy": "^0.12.1",
     "airtable": "^0.10.1",
     "gh-pages": "^3.1.0",
-    "got": "^11.8.2",
+    "got": "^11.8.5",
     "metascraper": "^5.21.5",
     "metascraper-logo-favicon": "^5.21.5",
     "npm-check-updates": "^11.4.1",
