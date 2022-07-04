@@ -471,16 +471,38 @@ amp-img.cover img {
         display: grid;
         position: relative;
     }
+
     label {
         display: inline-block;
         min-width: 6rem;
     }
-    input, select{
+
+    input,
+    select {
         min-width: 6rem;
     }
 </style>
 <style id="DynamicStyle"></style>
 <script>
+    const canWakeLock = () => 'wakeLock' in navigator;
+    let wakelock;
+    async function lockWakeState() {
+        if (!canWakeLock()) return;
+        try {
+            wakelock = await navigator.wakeLock.request();
+            wakelock.addEventListener('release', () => {
+                alert('Screen Wake State Locked:', !wakelock.released);
+            });
+            alert('Screen Wake State Locked:', !wakelock.released);
+        } catch (e) {
+            alert('Failed to lock wake state with reason:', e.message);
+        }
+    }
+
+    OnClickLockScreen = async function () {
+        await lockWakeState();
+    }
+
     get = function (name) {
         return document.getElementById(name).value
     }
@@ -531,7 +553,7 @@ amp-img.cover img {
         <label>seconds out:</label> <input type="number" id="out" value="6" oninput="onChange()" style="width: 5rem;">
     </div>
     <div>
-    <label>movement:</label> <select id='movement' onchange="onChange()">
+        <label>movement:</label> <select id='movement' onchange="onChange()">
             <option value="ease" selected>ease</option>
             <option value="linear">linear</option>
             <option value="ease-in">start slow</option>
@@ -539,12 +561,13 @@ amp-img.cover img {
         </select>
     </div>
     <div>
-    <label>style:</label> <select id='template' onchange="onChangeTemplate()">
+        <label>style:</label> <select id='template' onchange="onChangeTemplate()">
             <option value="circle" selected>circle</option>
             <option value="eyeball">eveyball</option>
             <option value="column">column</option>
         </select>
     </div>
+    <button onclick="OnClickLockScreen()">lock screen</button>
 </div>
 <div id="dynamicContent" class="breath-container">
 </div>
