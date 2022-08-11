@@ -18,8 +18,10 @@ export async function getAttachments(table, attributeName: string, destDirPath: 
 }
 function getAttachment(attachment: any, destDirPath: string) {
     const oldUrl = attachment.url;
-    const newFilePath = oldUrl.replace('https://dl.airtable.com/', destDirPath).replace("/.attachments/","/attachments/");
+    let newFilePath = oldUrl.replace('https://dl.airtable.com/', destDirPath).replace("/.attachments/", "/attachments/");
+    newFilePath = newFilePath.split("?")[0];
     attachment.newFilePath = newFilePath;
+    console.log("newFilePath", newFilePath)
     fs.mkdirSync(Path.dirname(newFilePath), { recursive: true });
     got.stream(oldUrl).pipe(
         fs.createWriteStream(newFilePath)
