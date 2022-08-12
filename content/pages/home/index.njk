@@ -1,13 +1,15 @@
 {% block content %}
   {% include './hero.fragment.html' %}
-  {% include './about.fragment.html' %}
-  {% include './passion.fragment.html' %}
-  {% include './portfolio.fragment.njk' %}
-  {% include './skills.fragment.njk' %}
-  {% include './recomendations.fragment.njk' %}
-  {% include './volunteer.fragment.njk' %}
-  {% include './personality.fragment.html' %}
-  {% include './elsewhere.fragment.html' %}
+  <div>
+    {% include './about.fragment.html' %}
+    {% include './passion.fragment.html' %}
+    {% include './portfolio.fragment.njk' %}
+    {% include './skills.fragment.njk' %}
+    {% include './recomendations.fragment.njk' %}
+    {% include './volunteer.fragment.njk' %}
+    {% include './personality.fragment.html' %}
+    {% include './elsewhere.fragment.html' %}
+  </div>
  {% endblock %}
 
 {% block styles %}
