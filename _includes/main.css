@@ -117,11 +117,12 @@ a {
   height: 400px;
 }
 
-section {
+.bd-section {
   padding: 1em 0 4em 0;
 }
 
-section:nth-child(even) {
+.header-section,
+.bd-section:nth-child(even) {
   color: #ffffff;
   background: hsl(212, 29%, 60%);
 }
