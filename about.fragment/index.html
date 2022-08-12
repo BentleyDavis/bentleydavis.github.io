@@ -235,11 +235,12 @@ a {
   height: 400px;
 }
 
-section {
+.bd-section {
   padding: 1em 0 4em 0;
 }
 
-section:nth-child(even) {
+.header-section,
+.bd-section:nth-child(even) {
   color: #ffffff;
   background: hsl(212, 29%, 60%);
 }
@@ -282,7 +283,7 @@ amp-img.cover img {
 </head>
 
 <body>
-  <section style="padding: 1em 0 1em 0;">
+  <section class="header-section" style="padding: 1em 0 1em 0;">
     <div class="content">
       <header class="headerbar">
         <div style="display: flex; flex: auto;">
@@ -330,18 +331,20 @@ amp-img.cover img {
   </amp-sidebar>
   
   <div class="content">
-    <section>
+    <section class="bd-section">
   <div class="content">
     <h2>Hi, I’m Bentley Davis, I enjoy:
       <ul>
         <li>enabling more satisfaction for more people though technology</li>
-        <li>helping you think visually to work brilliantly at <a href="https://www.visualthinking.tools/">Refractive Strategy</a></li>
+        <li>helping you think visually to work brilliantly at <a href="https://www.visualthinking.tools/">Refractive
+            Strategy</a></li>
         <li>solving big problems with small experiments and use code when necessary</li>
         <li>creating interactive websites, mobile apps </li>
         <li>training you to use technology to the fullest</li>
         <li>automating your boring work.</li>
       </ul>
-      <p></p>I have been creating software for over 30 years, managing teams for over 20 years, and mentoring startups for over
+      <p></p>I have been creating software for over 30 years, managing teams for over 20 years, and mentoring startups
+      for over
       5 years. I was chief technology officer of a successful startup exit.
   </div>
 </section>

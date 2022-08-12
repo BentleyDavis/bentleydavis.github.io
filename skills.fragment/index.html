@@ -235,11 +235,12 @@ a {
   height: 400px;
 }
 
-section {
+.bd-section {
   padding: 1em 0 4em 0;
 }
 
-section:nth-child(even) {
+.header-section,
+.bd-section:nth-child(even) {
   color: #ffffff;
   background: hsl(212, 29%, 60%);
 }
@@ -282,7 +283,7 @@ amp-img.cover img {
 </head>
 
 <body>
-  <section style="padding: 1em 0 1em 0;">
+  <section class="header-section" style="padding: 1em 0 1em 0;">
     <div class="content">
       <header class="headerbar">
         <div style="display: flex; flex: auto;">
@@ -330,7 +331,7 @@ amp-img.cover img {
   </amp-sidebar>
   
   <div class="content">
-    <section>
+    <section class="bd-section">
     <div class="content">
         <h1>Skills</h1>
         <div class="grid-current-skills">

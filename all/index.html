@@ -235,11 +235,12 @@ a {
   height: 400px;
 }
 
-section {
+.bd-section {
   padding: 1em 0 4em 0;
 }
 
-section:nth-child(even) {
+.header-section,
+.bd-section:nth-child(even) {
   color: #ffffff;
   background: hsl(212, 29%, 60%);
 }
@@ -360,7 +361,7 @@ a.card {
 </head>
 
 <body>
-  <section style="padding: 1em 0 1em 0;">
+  <section class="header-section" style="padding: 1em 0 1em 0;">
     <div class="content">
       <header class="headerbar">
         <div style="display: flex; flex: auto;">
@@ -547,17 +548,6 @@ a.card {
             </a>
         
         
-            <a class="card" href="/page/">
-                
-                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Page - Bentley Davis" layout="responsive" height="200" width="200"></amp-img>
-                
-                <div class="card-body">
-                    <h3 class="card-title">Page - Bentley Davis</h3>
-                    <p class="card-text"></p>
-                </div>
-            </a>
-        
-        
             <a class="card" href="/draft/">
                 
                     <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Draft - Bentley Davis" layout="responsive" height="200" width="200"></amp-img>
@@ -641,6 +631,17 @@ a.card {
                 
                 <div class="card-body">
                     <h3 class="card-title">Blog - Bentley Davis</h3>
+                    <p class="card-text"></p>
+                </div>
+            </a>
+        
+        
+            <a class="card" href="/page/">
+                
+                    <amp-img class="card-img-top " src="/img/bentley_wide_small.jpg" alt="Page - Bentley Davis" layout="responsive" height="200" width="200"></amp-img>
+                
+                <div class="card-body">
+                    <h3 class="card-title">Page - Bentley Davis</h3>
                     <p class="card-text"></p>
                 </div>
             </a>
