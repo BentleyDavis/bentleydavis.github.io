@@ -1,3 +1,14 @@
+/* :root {
+  --primaryH:212,
+  --primaryS:29%,
+  --primaryL:60%,
+  --primaryColor: hsl(var(--primaryH), var(--primaryS), var(--primaryL));
+  --backgroundH:0,
+  --backgroundS:0,
+  --backgroundL:100%,
+  --primaryBackground: hsl(var(--backgroundH), var(--backgroundS), var(--backgroundL));
+} */
+
 body {
   width: auto;
   margin: 0;
