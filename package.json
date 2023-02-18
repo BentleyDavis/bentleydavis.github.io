@@ -7,7 +7,6 @@
     "start": "npm run delete-dist && eleventy --serve --watch",
     "build": "npm run delete-dist && eleventy",
     "debug": "npm run delete-dist && @powershell -Command $env:DEBUG='*'; eleventy",
-    "deploy": "npm run delete-dist && eleventy && gh-pages -d dist -b master",
     "upgrade-all": "ncu -u --timeout 60000 && npm install",
     "delete-dist": "if exist dist (rmdir /s /q dist)",
     "get-content-data": "tsc && node _built/getData.js",
