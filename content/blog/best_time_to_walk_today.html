@@ -4,7 +4,11 @@ subtitle: "In the next 24 hours"
 date: 2020-07-10 12:00:00
 author: "Bentley Davis"
 tags: ['draft']
+permalink: walk/
 ---
+
+<p>This is an experiment to make an app to tell you the best time to walk today. It is under development and currently
+    only works for the Dallas Tecas area.</p>
 
 <style>
     #hourly>table>tbody>tr>td {
@@ -28,6 +32,34 @@ tags: ['draft']
     // https://jpjustiniano.wordpress.com/2011/10/09/solar-irradiance-on-sunny-and-cloudy-days/
 
     (async (myVal) => {
+        //             {
+        //                 "number": 1,
+        //                 "name": "",
+        //                 "startTime": "2023-04-07T12:00:00-05:00",
+        //                 "endTime": "2023-04-07T13:00:00-05:00",
+        //                 "isDaytime": true,
+        //                 "temperature": 57,
+        //                 "temperatureUnit": "F",
+        //                 "temperatureTrend": null,
+        //                 "probabilityOfPrecipitation": {
+        //                     "unitCode": "wmoUnit:percent",
+        //                     "value": 5
+        //                 },
+        //                 "dewpoint": {
+        //                     "unitCode": "wmoUnit:degC",
+        //                     "value": 5
+        //                 },
+        //                 "relativeHumidity": {
+        //                     "unitCode": "wmoUnit:percent",
+        //                     "value": 55
+        //                 },
+        //                 "windSpeed": "10 mph",
+        //                 "windDirection": "NE",
+        //                 "icon": "https://api.weather.gov/icons/land/day/ovc,5?size=small",
+        //                 "shortForecast": "Cloudy",
+        //                 "detailedForecast": ""
+        //             }
+
         // hourlyData = {
         //     "@context": [
         //         "https://geojson.org/geojson-ld/geojson-context.jsonld",
@@ -4302,7 +4334,19 @@ tags: ['draft']
             hour: "numeric",
         })
 
-        let html = `<table class="hourly">`;
+        let html = `
+            <table class="hourly">
+                    <thead>
+                <tr>
+                    <th>Hour</th>
+                    <th>Temp</th>
+                    <th>Wind</th>
+                    <th>Sun</th>
+                    <th>Humidity</th>
+                    <th>Precip</th>
+                </tr>
+            </thead>
+            <tbody>`;
 
         for (const hourData of hourlyData.properties.periods) {
             const when = new Date(hourData.startTime)
@@ -4311,13 +4355,17 @@ tags: ['draft']
             if (hour >= 7 && hour <= 5 + 12) { //between 7 AM and 5 PM
                 html += `
             <tr>
-            <td>${dateFormatter.format(when)}</td>
-            <td>${hourData.temperature}°</td>
+                <td>${dateFormatter.format(when)}</td>
+                <td>${hourData.temperature}°</td>
+                <td>${hourData.windSpeed.replaceAll(" mph", "")} ${hourData.windDirection}</td>
+                <td>${hourData.shortForecast}</td>
+                <td>${hourData.relativeHumidity.value} %</td>
+                <td>${hourData.probabilityOfPrecipitation.value} %</td>
             </tr>
             `;
             }
         }
-        html += "</table>"
+        html += "</tbody></table>"
         const out = document.getElementById("hourly")
         out.innerHTML = html;
     })()
