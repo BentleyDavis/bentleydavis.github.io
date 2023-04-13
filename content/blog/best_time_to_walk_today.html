@@ -7,7 +7,7 @@ tags: ['draft']
 permalink: walk/
 ---
 
-<script src="https://cdn.jsdelivr.net/npm/weather-formulas@1.0.2/temperature.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/weather-formulas@1.0.2/temperature.min.js"></script> -->
 
 <p>This is an experiment to make an app to tell you the best time to walk today. It is under development and currently
     only works for the Dallas Tecas area.</p>
@@ -4331,6 +4331,35 @@ permalink: walk/
         //     }
         // }
 
+
+        /**
+         * 
+         * @param {number} temperature Temperature in celsius
+         * @param {number} humidity Humidity in RH (Relative Humidity)
+         * @param {number} windSpeed Windspeed in M/S (meter per second)
+         * @returns {number} Apparent Temperature in celsius
+         */
+        function australianApparentTemperature(temperature, humidity, windspeed) {
+            // https://github.com/oyve/weather-formulas/blob/160cc4a80deeda394ecc0f684c7ecc06b4d5044c/temperature.js#L101
+            // https://en.wikipedia.org/wiki/Wind_chill#Australian_apparent_temperature
+            let Ta = temperature;
+            let v = windspeed;
+
+            let e = (humidity / 100) * 6.015 * Math.exp((17.27 * Ta) / (237.7 + Ta));
+            let AT = Ta + (0.33 * e) - (0.7 * v) - 4.00;
+
+            return AT;
+        }
+
+        function farenheightToCelsius(farenheight) {
+            return (farenheight - 32) * (5 / 9)
+            //return (apparentTemperatureC * (9 / 5)) + 32
+        }
+
+        function celsiusToFarenheight(celsius) {
+            return (celsius * (9 / 5)) + 32
+        }
+
         const response = await fetch("https://api.weather.gov/gridpoints/FWD/86,114/forecast/hourly");
         hourlyData = await response.json();
 
@@ -4340,7 +4369,7 @@ permalink: walk/
 
         const TEMPERATURE = 300, HUMIDITY = 60, WINDSPEED = 10; //300 Kelvin, 60% Relative Humidity, 10 M/S
 
-        let apparentTemperature = australianAapparentTemperature(TEMPERATURE, HUMIDITY, WINDSPEED);
+        let apparentTemperature = australianApparentTemperature(TEMPERATURE, HUMIDITY, WINDSPEED);
         console.log(apparentTemperature);
 
 
@@ -4360,13 +4389,14 @@ permalink: walk/
             <tbody>`;
 
         for (const hourData of hourlyData.properties.periods) {
-            const temperatureC = (hourData.temperature - 32) * (5 / 9);
-            const temperatureK = temperatureC + 273.15
-            const windMPH = parseInt(hourData.windSpeed.replaceAll(" mph", ""));
-            const windMetersPerSecond = windMPH / 2.237;
-            const apparentTemperatureK = australianAapparentTemperature(temperatureK, hourData.relativeHumidity.value, windMetersPerSecond)
-            const apparentTemperatureC = apparentTemperatureK - 273.15
-            const apparentTemperatureF = (apparentTemperatureC * (9 / 5)) + 32
+            const windMilesPerHour = parseInt(hourData.windSpeed.replaceAll(" mph", ""));
+            const apparentTemperatureF = celsiusToFarenheight(
+                australianApparentTemperature(
+                    farenheightToCelsius(hourData.temperature),
+                    hourData.relativeHumidity.value,
+                    windMilesPerHour / 2.237 // Convert to meters per second
+                )
+            ).toFixed(0);
             const when = new Date(hourData.startTime)
             if (when.getDay() !== (new Date()).getDay()) break; // Exit when not today
             const hour = when.getHours();
@@ -4380,7 +4410,7 @@ permalink: walk/
                 <td >${hourData.shortForecast}</td>
                 <td style="text-align:right;">${hourData.relativeHumidity.value} %</td>
                 <td style="text-align:right;">${hourData.probabilityOfPrecipitation.value} %</td>
-                <td style="text-align:right;">${apparentTemperatureF.toFixed(0)} °</td>
+                <td style="text-align:right;">${apparentTemperatureF} °</td>
             </tr>
             `;
             }
