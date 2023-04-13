@@ -7,6 +7,8 @@ tags: ['draft']
 permalink: walk/
 ---
 
+<script src="https://cdn.jsdelivr.net/npm/weather-formulas@1.0.2/temperature.min.js"></script>
+
 <p>This is an experiment to make an app to tell you the best time to walk today. It is under development and currently
     only works for the Dallas Tecas area.</p>
 
@@ -26,6 +28,9 @@ permalink: walk/
 </div>
 
 <script>
+    // https://www.npmjs.com/package/weather-formulas
+
+
     // try
     // https://planetcalc.com/2089/ Aparent Temperature formula
     // https://jpjustiniano.wordpress.com/2011/10/09/solar-irradiance-on-sunny-and-cloudy-days/
@@ -4333,6 +4338,12 @@ permalink: walk/
             hour: "numeric",
         })
 
+        const TEMPERATURE = 300, HUMIDITY = 60, WINDSPEED = 10; //300 Kelvin, 60% Relative Humidity, 10 M/S
+
+        let apparentTemperature = australianAapparentTemperature(TEMPERATURE, HUMIDITY, WINDSPEED);
+        console.log(apparentTemperature);
+
+
         let html = `
             <table class="hourly">
                     <thead>
@@ -4343,11 +4354,19 @@ permalink: walk/
                     <th>Sun</th>
                     <th>Humidity</th>
                     <th>Precip</th>
+                    <th>Feels<br/>Shade</th>
                 </tr>
             </thead>
             <tbody>`;
 
         for (const hourData of hourlyData.properties.periods) {
+            const temperatureC = (hourData.temperature - 32) * (5 / 9);
+            const temperatureK = temperatureC + 273.15
+            const windMPH = parseInt(hourData.windSpeed.replaceAll(" mph", ""));
+            const windMetersPerSecond = windMPH / 2.237;
+            const apparentTemperatureK = australianAapparentTemperature(temperatureK, hourData.relativeHumidity.value, windMetersPerSecond)
+            const apparentTemperatureC = apparentTemperatureK - 273.15
+            const apparentTemperatureF = (apparentTemperatureC * (9 / 5)) + 32
             const when = new Date(hourData.startTime)
             if (when.getDay() !== (new Date()).getDay()) break; // Exit when not today
             const hour = when.getHours();
@@ -4361,6 +4380,7 @@ permalink: walk/
                 <td >${hourData.shortForecast}</td>
                 <td style="text-align:right;">${hourData.relativeHumidity.value} %</td>
                 <td style="text-align:right;">${hourData.probabilityOfPrecipitation.value} %</td>
+                <td style="text-align:right;">${apparentTemperatureF.toFixed(0)} °</td>
             </tr>
             `;
             }
