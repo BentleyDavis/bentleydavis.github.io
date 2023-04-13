@@ -12,7 +12,6 @@ permalink: walk/
 
 <style>
     #hourly>table>tbody>tr>td {
-        text-align: right;
         padding: 1em;
         border: 1px solid #ddd;
     }
@@ -4340,7 +4339,7 @@ permalink: walk/
                 <tr>
                     <th>Hour</th>
                     <th>Temp</th>
-                    <th>Wind</th>
+                    <th colspan="2">Wind</th>
                     <th>Sun</th>
                     <th>Humidity</th>
                     <th>Precip</th>
@@ -4355,12 +4354,13 @@ permalink: walk/
             if (hour >= 7 && hour <= 5 + 12) { //between 7 AM and 5 PM
                 html += `
             <tr>
-                <td>${dateFormatter.format(when)}</td>
-                <td>${hourData.temperature}°</td>
-                <td>${hourData.windSpeed.replaceAll(" mph", "")} ${hourData.windDirection}</td>
-                <td>${hourData.shortForecast}</td>
-                <td>${hourData.relativeHumidity.value} %</td>
-                <td>${hourData.probabilityOfPrecipitation.value} %</td>
+                <td style="text-align:right;">${dateFormatter.format(when)}</td>
+                <td style="text-align:right;">${hourData.temperature} °</td>
+                <td style="text-align:right;border-right: none;;padding-right:.5em;">${hourData.windSpeed.replaceAll(" mph", "")}</td>
+                <td style="border-left: none;padding-left:0;">${hourData.windDirection}</td>
+                <td >${hourData.shortForecast}</td>
+                <td style="text-align:right;">${hourData.relativeHumidity.value} %</td>
+                <td style="text-align:right;">${hourData.probabilityOfPrecipitation.value} %</td>
             </tr>
             `;
             }
