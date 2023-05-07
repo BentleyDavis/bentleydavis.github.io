@@ -10,7 +10,7 @@ permalink: walk/
 <!-- <script src="https://cdn.jsdelivr.net/npm/weather-formulas@1.0.2/temperature.min.js"></script> -->
 
 <p>This is an experiment to make an app to tell you the best time to walk today. It is under development and currently
-    only works for the Dallas Tecas area.</p>
+    only works for the Dallas Texas area.</p>
 
 <style>
     #hourly>table>tbody>tr>td {
@@ -4347,8 +4347,63 @@ permalink: walk/
 
             let e = (humidity / 100) * 6.015 * Math.exp((17.27 * Ta) / (237.7 + Ta));
             let AT = Ta + (0.33 * e) - (0.7 * v) - 4.00;
-
             return AT;
+        }
+
+        function apparentTemperature2(temperature, humidity, windspeed) {
+            // https://github.com/oyve/weather-formulas/blob/160cc4a80deeda394ecc0f684c7ecc06b4d5044c/temperature.js#L101
+            // https://en.wikipedia.org/wiki/Wind_chill#Australian_apparent_temperature
+            let Ta = temperature;
+            let v = windspeed;
+
+            let e = (humidity / 100) * 6.015 * Math.exp((17.27 * Ta) / (237.7 + Ta));
+            // below adapted from https://planetcalc.com/2089/
+
+            /** Asked ChatGPT 4: in full sunlight what is the Net radiation absorbed per unit area of body surface (W/m2)
+                Answer: The net radiation absorbed per unit area of body surface in full sunlight will depend on several factors, such as the angle of incidence of the sunlight, the reflectivity of the surface, and the temperature of the environment.
+
+                Assuming a human body as the surface, on average, the net radiation absorbed per unit area of body surface in full sunlight is approximately 800 to 1000 W/m2. However, this value can vary based on several factors such as the person's skin tone, the amount of exposed skin, and the angle of incidence of the sunlight.
+
+                It's important to note tat exposure to high levels of radiation can be harmful and lead to skin damage and other health issues. It's recommended to protect the skin by wearing appropriate clothing, using sunscreen, and avoiding prolonged exposure to direct sunlight during peak hours. 
+                **/
+            const q = 800
+
+            // let AT = Ta + (0.33 * e) - (0.7 * v) - 4.00;
+            console.log(
+                Ta.toFixed(0),
+                (Ta + (0.33 * e)).toFixed(0),
+                (0.7 * v).toFixed(0),
+                q,
+                v.toFixed(0),
+                (0.7 * (q / (v + 10))).toFixed(0)
+            )
+
+            let AT = Ta + (0.348 * e) - (0.7 * v) + (0.7 * (q / (v + 10))) - 4.25;
+            return AT;
+        }
+
+        /**
+         * 
+         * @param {number} temperature Temperature in celsius
+         * @param {number} windSpeed Windspeed in M/S (meter per second)
+         * @returns {number} Wind Chill Index in celsius
+         */
+        function windChillIndex(temperature, windSpeed) {
+
+
+            let v = windSpeed * 3.6
+
+            // Wind Chill only calculates per below 10 deg celsius and wind speed over 4.8 KPS
+            if (temperature >= 10 || windSpeed < 4.8) {
+                return temperature
+            }
+
+            // https://github.com/oyve/weather-formulas/blob/160cc4a80deeda394ecc0f684c7ecc06b4d5044c/temperature.js#L85
+            // https://www.weather.gov/safety/cold-wind-chill-chart
+            let v_exp = (v ** 0.16);
+            let Ta = temperature;
+            let Twc = 13.12 + (0.6215 * Ta) - (11.37 * v_exp) + (0.3965 * Ta * v_exp);
+            return Twc;
         }
 
         function farenheightToCelsius(farenheight) {
@@ -4367,12 +4422,6 @@ permalink: walk/
             hour: "numeric",
         })
 
-        const TEMPERATURE = 300, HUMIDITY = 60, WINDSPEED = 10; //300 Kelvin, 60% Relative Humidity, 10 M/S
-
-        let apparentTemperature = australianApparentTemperature(TEMPERATURE, HUMIDITY, WINDSPEED);
-        console.log(apparentTemperature);
-
-
         let html = `
             <table class="hourly">
                     <thead>
@@ -4383,13 +4432,17 @@ permalink: walk/
                     <th>Sun</th>
                     <th>Humidity</th>
                     <th>Precip</th>
-                    <th>Feels<br/>Shade</th>
+                    <th>wind chill</th>
+                    <th>Feels<br/>in shade</th>
+                    <th>Feels<br/>in sun</th>
+
                 </tr>
             </thead>
             <tbody>`;
 
         for (const hourData of hourlyData.properties.periods) {
             const windMilesPerHour = parseInt(hourData.windSpeed.replaceAll(" mph", ""));
+
             const apparentTemperatureF = celsiusToFarenheight(
                 australianApparentTemperature(
                     farenheightToCelsius(hourData.temperature),
@@ -4397,10 +4450,28 @@ permalink: walk/
                     windMilesPerHour / 2.237 // Convert to meters per second
                 )
             ).toFixed(0);
+
+            const apparentTemperatureF2 = celsiusToFarenheight(
+                apparentTemperature2(
+                    farenheightToCelsius(hourData.temperature),
+                    hourData.relativeHumidity.value,
+                    windMilesPerHour / 2.237 // Convert to meters per second
+                )
+            ).toFixed(0);
+
+            const windChill = celsiusToFarenheight(
+                windChillIndex(
+                    farenheightToCelsius(hourData.temperature),
+                    windMilesPerHour / 2.237 // Convert to meters per second
+                )
+            ).toFixed(0);
+
             const when = new Date(hourData.startTime)
             if (when.getDay() !== (new Date()).getDay()) break; // Exit when not today
             const hour = when.getHours();
-            if (hour >= 7 && hour <= 5 + 12) { //between 7 AM and 5 PM
+            //if (hour >= 7 && hour <= 5 + 12) { //between 7 AM and 5 PM
+            if (hour >= 7) { //after 7 AM for testing
+
                 html += `
             <tr>
                 <td style="text-align:right;">${dateFormatter.format(when)}</td>
@@ -4410,7 +4481,9 @@ permalink: walk/
                 <td >${hourData.shortForecast}</td>
                 <td style="text-align:right;">${hourData.relativeHumidity.value} %</td>
                 <td style="text-align:right;">${hourData.probabilityOfPrecipitation.value} %</td>
+                <td style="text-align:right;">${windChill}</td>
                 <td style="text-align:right;">${apparentTemperatureF} °</td>
+                <td style="text-align:right;">${apparentTemperatureF2} °</td>
             </tr>
             `;
             }
