@@ -1,6 +1,6 @@
 const typeText = [
     { id: "ht-01", text: "more satisfaction for" },
-    { id: "ht-015", text: "more people though technology" },
+    { id: "ht-015", text: "more people through technology" },
     { id: "ht-02", text: "think visually to work brilliantly" },
     { id: "ht-03", text: "solve big problems with small experiments" },
     { id: "ht-04", text: "interactive websites, mobile apps" },
@@ -22,7 +22,7 @@ const nIntervId = setInterval(function () {
         if (sectionCounter >= typeText.length) {
             clearInterval(nIntervId)
         } else {
-        characterCounter = 0
+            characterCounter = 0
             currentElement = document.getElementById(typeText[sectionCounter].id)
         }
     }
