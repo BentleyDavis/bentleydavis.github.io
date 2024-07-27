@@ -15,13 +15,13 @@
   "author": "Bentley Davis <Bentley@BentleyDavis.com> (http://BentleyDavis.com)",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^0.12.1",
-    "airtable": "^0.10.1",
-    "gh-pages": "^3.1.0",
-    "got": "^11.8.2",
-    "metascraper": "^5.21.5",
-    "metascraper-logo-favicon": "^5.21.5",
-    "npm-check-updates": "^11.4.1",
-    "typescript": "^4.2.4"
+    "@11ty/eleventy": "^2.0.1",
+    "airtable": "^0.12.2",
+    "gh-pages": "^6.1.1",
+    "got": "^14.4.2",
+    "metascraper": "^5.45.22",
+    "metascraper-logo-favicon": "^5.45.22",
+    "npm-check-updates": "^16.14.20",
+    "typescript": "^5.5.4"
   }
 }
