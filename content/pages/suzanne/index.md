@@ -9,6 +9,6 @@ layout: blank.njk
 
 ## Suzanne's
 
-- [Food](food/)
-- [Care](care/)
-- [Routine](routine/)
+- [Care](../r1/)
+- [Food](../r2/)
+- [Routine](../r3/)

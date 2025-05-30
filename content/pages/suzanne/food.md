@@ -3,7 +3,7 @@ title: "redireting..."
 subtitle: "redireting..."
 date: 2020-07-10 12:00:00
 author: "Bentley Davis"
-permalink: suzanne/food/index.html
+permalink: r2/index.html
 layout: blank.njk
 ---
 

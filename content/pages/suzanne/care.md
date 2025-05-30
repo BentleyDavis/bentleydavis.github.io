@@ -3,7 +3,7 @@ title: "redireting..."
 subtitle: "redireting..."
 date: 2020-07-10 12:00:00
 author: "Bentley Davis"
-permalink: suzanne/care/index.html
+permalink: r1/index.html
 layout: blank.njk
 ---
 
