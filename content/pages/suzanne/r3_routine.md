@@ -8,5 +8,7 @@ layout: blank.njk
 ---
 
 <script>
-    window.location.href = "https://docs.google.com/document/d/e/2PACX-1vR5WJhuGebgBwlt34aiXZ6Y0WYY6N59KoDcEUdxxrcFDvgMWo_rgkatFeOUV3J5hI8hDCCP9XQ6CRNN/pub";
+    // window.location.href = "https://docs.google.com/document/d/e/2PACX-1vR5WJhuGebgBwlt34aiXZ6Y0WYY6N59KoDcEUdxxrcFDvgMWo_rgkatFeOUV3J5hI8hDCCP9XQ6CRNN/pub";
+
+    window.location.href = "https://docs.google.com/viewer?url=https://docs.google.com/document/d/17sks3RVvKNNTFsGWT7AzBlcEKBGHYS8pI9sg__0hJrw/export?format=pdf";
 </script>
