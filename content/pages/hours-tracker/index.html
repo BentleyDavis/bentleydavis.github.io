@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Hours Tracker</title>
+    <link rel="stylesheet" href="/hours-tracker/style.css">
+</head>
+
+<body>
+    <main class="hours-tracker">
+        <h1>Work Hours Tracker</h1>
+
+        <section class="card" id="folder-section">
+            <h2>Settings</h2>
+            <p id="folder-status" class="muted">No folder selected. Choose a folder to load and save your settings.</p>
+            <button id="choose-folder-btn" type="button">Choose Data Folder</button>
+
+            <label class="field">
+                Default monthly hours goal (used for new months)
+                <input id="default-monthly-goal-input" type="number" min="0" step="1">
+            </label>
+        </section>
+
+        <section class="card" id="this-month-section">
+            <h2 id="this-month-title">This Month</h2>
+            <dl class="stats">
+                <div><dt>Business days in month</dt><dd id="this-month-total-days">-</dd></div>
+                <div><dt>Business days so far</dt><dd id="this-month-elapsed-days">-</dd></div>
+                <div><dt>Hours per business day</dt><dd id="this-month-rate">-</dd></div>
+                <div><dt>Hours you should have worked so far</dt><dd id="this-month-target" class="highlight">-</dd></div>
+                <div><dt>Monthly goal</dt><dd><input id="this-month-goal-input" type="number" min="0" step="1"></dd></div>
+            </dl>
+
+            <h3>Non-work days this month</h3>
+            <form id="this-month-nonwork-form" class="field-row">
+                <input id="this-month-nonwork-from" type="number" min="1" max="31" placeholder="Day" required>
+                <span class="muted">through (optional)</span>
+                <input id="this-month-nonwork-to" type="number" min="1" max="31" placeholder="Day">
+                <button type="submit">Add</button>
+            </form>
+            <ul id="this-month-nonwork-list" class="date-list"></ul>
+        </section>
+
+        <section class="card" id="last-month-section">
+            <h2 id="last-month-title">Last Month</h2>
+            <dl class="stats">
+                <div><dt>Business days in month</dt><dd id="last-month-total-days">-</dd></div>
+                <div><dt>Hours per business day</dt><dd id="last-month-rate">-</dd></div>
+                <div><dt>Monthly goal</dt><dd><input id="last-month-goal-input" type="number" min="0" step="1"></dd></div>
+            </dl>
+
+            <h3>Non-work days last month</h3>
+            <form id="last-month-nonwork-form" class="field-row">
+                <input id="last-month-nonwork-from" type="number" min="1" max="31" placeholder="Day" required>
+                <span class="muted">through (optional)</span>
+                <input id="last-month-nonwork-to" type="number" min="1" max="31" placeholder="Day">
+                <button type="submit">Add</button>
+            </form>
+            <ul id="last-month-nonwork-list" class="date-list"></ul>
+        </section>
+    </main>
+
+    <script src="/hours-tracker/script.js"></script>
+</body>
+
+</html>
