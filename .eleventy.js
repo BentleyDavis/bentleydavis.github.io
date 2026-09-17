@@ -6,6 +6,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setWatchThrottleWaitTime(1000);
   eleventyConfig.addPassthroughCopy({ "static-root": "/" });
   eleventyConfig.addPassthroughCopy({ "data": "data" });
+  addPageAssets(eleventyConfig);
 
   eleventyConfig.addShortcode("formatDate", function (date) {
     return "" + date.toLocaleDateString(
@@ -52,4 +53,22 @@ module.exports = function (eleventyConfig) {
     }
   }
 };
+
+function addPageAssets(eleventyConfig) {
+  const pagesRoot = Path.resolve("content/pages");
+
+  function registerAssets(directory) {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const filePath = Path.join(directory, entry.name);
+      if (entry.isDirectory()) {
+        registerAssets(filePath);
+      } else if (entry.name.endsWith(".css") || entry.name.endsWith(".js")) {
+        const outputPath = Path.relative(pagesRoot, filePath);
+        eleventyConfig.addPassthroughCopy({ [filePath]: outputPath });
+      }
+    }
+  }
+
+  registerAssets(pagesRoot);
+}
 

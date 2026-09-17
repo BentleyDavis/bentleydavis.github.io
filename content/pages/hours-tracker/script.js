@@ -2,6 +2,7 @@
 const DEFAULT_MONTHLY_HOURS = 72;
 
 const DATA_FILE_NAME = "hours-tracker-data.json";
+const LOCAL_DATA_KEY = "hours-tracker-data";
 
 let directoryHandle = null;
 let fileHandle = null;
@@ -10,6 +11,7 @@ let pendingReconnectHandle = null;
 let data = {
     defaultMonthlyHours: DEFAULT_MONTHLY_HOURS,
     monthlyHoursOverrides: {},
+    monthlyHoursWorked: {},
     nonWorkDates: [],
 };
 
@@ -19,8 +21,9 @@ function migrateData() {
         data.defaultMonthlyHours = data.monthlyHours;
         delete data.monthlyHours;
     }
-    if (!data.defaultMonthlyHours) data.defaultMonthlyHours = DEFAULT_MONTHLY_HOURS;
+    if (!Number.isFinite(data.defaultMonthlyHours)) data.defaultMonthlyHours = DEFAULT_MONTHLY_HOURS;
     if (!data.monthlyHoursOverrides) data.monthlyHoursOverrides = {};
+    if (!data.monthlyHoursWorked) data.monthlyHoursWorked = {};
     if (!data.nonWorkDates) data.nonWorkDates = [];
 }
 
@@ -37,6 +40,23 @@ async function setMonthlyGoal(year, month, value) {
     data.monthlyHoursOverrides[monthKey(year, month)] = value;
     render();
     await saveData();
+}
+
+async function setMonthlyHoursWorked(year, month, value) {
+    data.monthlyHoursWorked[monthKey(year, month)] = value;
+    render();
+    await saveData();
+}
+
+function getMonthlyHoursWorked(year, month) {
+    return data.monthlyHoursWorked[monthKey(year, month)] || 0;
+}
+
+function getCarryover(year, month) {
+    const previousMonth = new Date(year, month - 1, 1);
+    const previousGoal = getMonthlyGoal(previousMonth.getFullYear(), previousMonth.getMonth());
+    const previousWorked = getMonthlyHoursWorked(previousMonth.getFullYear(), previousMonth.getMonth());
+    return previousWorked - previousGoal;
 }
 
 function toISODate(date) {
@@ -89,10 +109,14 @@ function render() {
 
     // This month
     const thisMonthGoal = getMonthlyGoal(thisYear, thisMonth);
+    const thisMonthWorked = getMonthlyHoursWorked(thisYear, thisMonth);
+    const thisMonthCarryover = getCarryover(thisYear, thisMonth);
+    const thisMonthAdjustedGoal = thisMonthGoal - thisMonthCarryover;
     const thisMonthTotalDays = countBusinessDays(thisYear, thisMonth);
     const thisMonthElapsedDays = countBusinessDays(thisYear, thisMonth, today.getDate());
-    const thisMonthRate = thisMonthTotalDays > 0 ? thisMonthGoal / thisMonthTotalDays : 0;
+    const thisMonthRate = thisMonthTotalDays > 0 ? thisMonthAdjustedGoal / thisMonthTotalDays : 0;
     const thisMonthTarget = thisMonthElapsedDays * thisMonthRate;
+    const thisMonthRemaining = Math.max(0, thisMonthTarget - thisMonthWorked);
 
     document.getElementById("this-month-title").textContent = `This Month (${monthLabel(thisYear, thisMonth)})`;
     document.getElementById("this-month-total-days").textContent = thisMonthTotalDays;
@@ -100,6 +124,10 @@ function render() {
     document.getElementById("this-month-rate").textContent = formatHours(thisMonthRate);
     document.getElementById("this-month-target").textContent = formatHours(thisMonthTarget);
     document.getElementById("this-month-goal-input").value = thisMonthGoal;
+    document.getElementById("this-month-worked-input").value = thisMonthWorked;
+    document.getElementById("this-month-carryover").textContent = formatHours(thisMonthCarryover);
+    document.getElementById("this-month-adjusted-goal").textContent = formatHours(thisMonthAdjustedGoal);
+    document.getElementById("this-month-remaining").textContent = formatHours(thisMonthRemaining);
     renderNonWorkDaysForMonth(thisYear, thisMonth, "this-month-nonwork-list");
 
     // Last month
@@ -111,6 +139,7 @@ function render() {
     document.getElementById("last-month-total-days").textContent = lastMonthTotalDays;
     document.getElementById("last-month-rate").textContent = formatHours(lastMonthRate);
     document.getElementById("last-month-goal-input").value = lastMonthGoal;
+    document.getElementById("last-month-worked-input").value = getMonthlyHoursWorked(lastYear, lastMonth);
     renderNonWorkDaysForMonth(lastYear, lastMonth, "last-month-nonwork-list");
 }
 
@@ -156,10 +185,27 @@ async function removeNonWorkDay(year, month, day) {
 }
 
 async function saveData() {
+    const serializedData = JSON.stringify(data, null, 2);
+    try {
+        localStorage.setItem(LOCAL_DATA_KEY, serializedData);
+    } catch (err) {
+        console.error("Could not save the local data copy.", err);
+    }
     if (!fileHandle) return;
     const writable = await fileHandle.createWritable();
-    await writable.write(JSON.stringify(data, null, 2));
+    await writable.write(serializedData);
     await writable.close();
+}
+
+function loadLocalData() {
+    try {
+        const savedData = localStorage.getItem(LOCAL_DATA_KEY);
+        if (!savedData) return;
+        data = JSON.parse(savedData);
+        migrateData();
+    } catch (err) {
+        console.error("Could not load the local data copy.", err);
+    }
 }
 
 const HANDLE_DB_NAME = "hours-tracker-db";
@@ -204,6 +250,7 @@ async function connectToDirectory(handle) {
         const text = await file.text();
         data = JSON.parse(text);
         migrateData();
+        await saveData();
     } else {
         await saveData();
     }
@@ -292,6 +339,21 @@ function setupEventListeners() {
         await setMonthlyGoal(lastMonthDate.getFullYear(), lastMonthDate.getMonth(), value);
     });
 
+    document.getElementById("this-month-worked-input").addEventListener("change", async (event) => {
+        const value = parseFloat(event.target.value);
+        if (!Number.isFinite(value) || value < 0) return;
+        const today = new Date();
+        await setMonthlyHoursWorked(today.getFullYear(), today.getMonth(), value);
+    });
+
+    document.getElementById("last-month-worked-input").addEventListener("change", async (event) => {
+        const value = parseFloat(event.target.value);
+        if (!Number.isFinite(value) || value < 0) return;
+        const lastMonthDate = new Date();
+        lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);
+        await setMonthlyHoursWorked(lastMonthDate.getFullYear(), lastMonthDate.getMonth(), value);
+    });
+
     setupNonWorkForm("this-month-nonwork-form", "this-month-nonwork-from", "this-month-nonwork-to", () => {
         const today = new Date();
         return [today.getFullYear(), today.getMonth()];
@@ -319,6 +381,7 @@ function setupNonWorkForm(formId, fromId, toId, getYearMonth) {
     });
 }
 
+loadLocalData();
 setupEventListeners();
 render();
 tryReconnect().catch((err) => console.error(err));
