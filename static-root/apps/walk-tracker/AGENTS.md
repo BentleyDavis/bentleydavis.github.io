@@ -2,7 +2,7 @@
 
 PLAN — not built yet on this site. Build an interval walk timer with
 server-side walk history here, from the reference code in
-`sample-code/` (copied from the Muse artifact `walk-tracker`). The
+`sample-code/`. The
 sample code is a fullstack TypeScript/Bun app with a SQLite database —
 it will NOT run as static files. Rebuild it as a static site on
 Firebase, keeping its behavior.
@@ -30,5 +30,5 @@ Data and backend (plan):
   shared code from `../shared/` only. No credentials in the repo.
 - Once this app exists and works, do a FINAL DATA SYNC: export the
   data from the Muse artifact and import it into Firestore, then verify
-  counts match before the old artifact is retired. That sync has not
-  happened yet. Never copy the artifact's `app.db` into the repo.
+  counts match before the Muse artifact is retired. Never copy the
+  artifact's `app.db` into the repo.
