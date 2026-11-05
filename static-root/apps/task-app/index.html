@@ -51,7 +51,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { getFirestore, collection, getDocs, doc, getDoc, setDoc, updateDoc, deleteDoc, writeBatch, query, orderBy } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBz7SUuyhiNKtCUWetJ051xFdqzc5l4NKE",
@@ -80,8 +80,10 @@ const appEl = document.getElementById("app");
 function setStatus(msg) { statusEl.textContent = msg; }
 
 async function loadTasks() {
-  const snap = await getDocs(query(tasksCol, orderBy("priority"), orderBy("order")));
+  // One call for the whole collection — small app, sort client-side.
+  const snap = await getDocs(tasksCol);
   tasks = snap.docs.map(d => ({ docId: d.id, ...d.data() }));
+  tasks.sort((a, b) => a.priority.localeCompare(b.priority) || (a.order - b.order));
   render();
 }
 
