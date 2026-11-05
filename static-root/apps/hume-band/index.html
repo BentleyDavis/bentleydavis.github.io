@@ -300,11 +300,6 @@
         <p>Reading doesn’t consume anything: the band’s history sits in ring buffers until new data overwrites it. The START frame carries a date, but the band ignores it and returns its whole buffer — so this page and the Hume app each get everything, and dedupe happens here on the band’s timestamps (metric + timestamp + value for samples, date for daily totals, segment start for sleep). No erase command exists in this page’s code. When a sync ends, this page disconnects on purpose — Bluetooth allows one connection at a time.</p>
       </details>
       <details>
-        <summary>Hosting at BentleyDavis.com, and the AGENTS files</summary>
-        <p>Web Bluetooth needs Chrome on Android or desktop, on an HTTPS page. This page is a single static file — the identical file is hosted at <span class="mono">bentleydavis.com/hume-band/</span>, with the same protocol code, storage format, and JSON download. Stored data belongs to the browser and origin it was synced on, so sync from the address you plan to keep using, or move the JSON across with the download / open buttons.</p>
-        <p>Agent instructions live with the site code so any agent picking this up cold has the full context: <code>apps/AGENTS.md</code> (shared rules for all the BentleyDavis.com apps — shared code knows nothing about any app, one Firestore database per app, deny-by-default rules, no build step), one <code>AGENTS.md</code> per app (exercise-tracker, walk-tracker, supplement-tracker, task-app), and <code>hume-band/AGENTS.md</code> at this app’s existing location, carrying the protocol specifics: read-only BLE, dedupe on band timestamp, release the connection after each sync, the forensic labels above, and database <code>hume</code> for the deferred Firestore sync.</p>
-      </details>
-      <details>
         <summary>Troubleshooting</summary>
         <ul>
           <li>Band not in Chrome’s list: wake it, keep it close, and make sure the Hume app isn’t holding the connection.</li>
