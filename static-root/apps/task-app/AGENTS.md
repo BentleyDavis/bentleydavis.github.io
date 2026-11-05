@@ -1,11 +1,12 @@
-# AGENTS.md — Task App
+# AGENTS.md — Task App (plan)
 
-NOT BUILT YET. Do not start building it unasked.
+PLAN — NOT BUILT YET. Do not start building it unasked.
 
-Future replacement for Todoist + the Task List Google Sheet: the frontend
-on the Firestore SDK, with task data in Cloud Firestore. The migration
-itself is deferred until the task-app build.
+Plan: build the future replacement for Todoist + the Task List Google
+Sheet here: the frontend on the Firestore SDK, with task data in Cloud
+Firestore. The migration itself is deferred until the task-app build.
 
+Decisions already made:
 - Database: `tasks`. One Firebase Auth email/password login per AI, over
   the Firebase REST APIs. No repository/abstraction layer — portability
   via discipline instead: plain-JSON domain model with Bentley's own IDs,
@@ -20,3 +21,7 @@ itself is deferred until the task-app build.
 - When this app is built, the Firestore task-system decisions in
   `~/workspace/docs/firestore-architecture.md` are the spec. Shared code
   from `../shared/` only. No credentials in the repo.
+- Once this app exists and works, do a FINAL DATA SYNC: export the
+  tasks from Todoist + the Task List sheet and import them into
+  Firestore, then verify counts match before the old systems are
+  retired. That sync has not happened yet.
