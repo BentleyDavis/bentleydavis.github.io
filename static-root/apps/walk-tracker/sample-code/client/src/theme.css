@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+@import "tailwindcss-safe-area";
+
+@theme {
+  --text-xs: 12px;
+  --text-xs--line-height: 16px;
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
+  --text-base: 16px;
+  --text-base--line-height: 24px;
+  --text-lg: 18px;
+  --text-lg--line-height: 28px;
+  --text-xl: 20px;
+  --text-xl--line-height: 28px;
+  --text-2xl: 24px;
+  --text-2xl--line-height: 32px;
+  --text-3xl: 30px;
+  --text-3xl--line-height: 36px;
+  --text-4xl: 36px;
+  --text-4xl--line-height: 40px;
+  --text-5xl: 48px;
+  --text-5xl--line-height: 52px;
+  --font-sans: "Archivo", system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  color-scheme: light dark;
+  --bg: #f4f4f2;
+  --surface: #ffffff;
+  --text: #17211a;
+  --dim: #5d6a60;
+  --border: #dddeda;
+  --accent: #14532d;
+  --panel: #0c1f14;
+  --panel-text: #f2f7f2;
+  --panel-dim: #9db8a6;
+  --radius: 12px;
+  --space-surface: var(--surface);
+  --space-surface-alt: var(--surface);
+  --space-muted: var(--dim);
+  --space-border: var(--border);
+  --space-accent: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101511;
+    --surface: #1b211c;
+    --text: #eef3ee;
+    --dim: #9aa89d;
+    --border: #2e382f;
+    --accent: #4ade80;
+    --panel: #08130c;
+    --panel-text: #f2f7f2;
+    --panel-dim: #8fae99;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}

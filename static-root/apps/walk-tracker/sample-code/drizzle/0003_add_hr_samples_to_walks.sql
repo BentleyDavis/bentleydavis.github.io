@@ -1,0 +1,1 @@
+ALTER TABLE walks ADD COLUMN hr_samples_json TEXT NOT NULL DEFAULT '[]';
