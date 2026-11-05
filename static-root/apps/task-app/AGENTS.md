@@ -22,6 +22,44 @@ Decisions already made:
 - When this app is built, the Firestore task-system decisions in
   `~/workspace/docs/firestore-architecture.md` are the spec. Shared code
   from `../shared/` only. No credentials in the repo.
+
+Task model — features this app must carry (described as behavior, not
+as the systems they replace):
+- Hierarchy: tasks nest under parents, several layers deep. Each task
+  has a unique numeric ID; a child points at its parent's ID. A parent
+  row is a grouping, not a task — it never appears in a list, never
+  counts, never carries a priority of its own.
+- Priority is leaf-based: a leaf task's priority comes from where it
+  sits between the priority-region dividers (P1, P2, P3, P4). Position
+  IS the priority — never auto-sort or reorder. Moving a task between
+  regions changes its priority.
+- Waiting: a task can wait on a person or a date. Waiting and
+  future-dated tasks are excluded from every list and every count until
+  the wait passes — then they surface that morning as now pertinent.
+  Only tasks needing his attention are ever shown or counted.
+- Display: P1 leaf tasks are listed individually; P2/P3/P4 show as
+  counts only. The same rule applies everywhere — the morning recap,
+  the widget, and this app all agree on what is shown.
+- Task records say WHAT, never HOW/WHEN the reminder works. Status
+  holds the next step in plain words, no judgment on whether he has
+  acted. Each task can link its source system by ID (an external task
+  ID or a Muse goal).
+- Completion: when a task is done, its key details are recorded first,
+  then the task is deleted — never marked complete.
+
+Widget data access:
+- The phone widget shows the same filtered list as the morning recap
+  (leaf tasks needing attention, P1s listed, the rest as counts). It
+  needs a way to get that data without talking to Firestore directly.
+- Solution: a Cloud Function HTTPS endpoint that reads the task
+  collections in the shared `apps` database and returns the display
+  list as JSON, already filtered and ordered. The widget polls that
+  URL on its own schedule; tapping the widget forces a refresh.
+- The endpoint's URL is long and unguessable (capability URL, same
+  pattern as the per-agent pulse URLs). No credentials live on the
+  phone, and the filtering logic lives in one place — the endpoint —
+  so the app, the recap, and the widget can never disagree about what
+  the widget shows.
 - Once this app exists and works, do a FINAL DATA SYNC: export the
   tasks from Todoist + the Task List sheet and import them into
   Firestore, then verify counts match before the old systems are
