@@ -67,6 +67,13 @@ Widget data access:
   cannot double-apply it), or have the widget's touch action fire a
   Tasker task whose HTTP Request action POSTs a JSON body to the
   endpoint. The Tasker route is the clean one for real writes.
+- KWGT cannot render an HTML page. It draws its own canvas (text,
+  shapes, images), so formatting lives in the widget, not on the
+  server. Android widgets in general cannot host a WebView, so no
+  widget app shows a live interactive page — screenshot widgets
+  (e.g. AnyWidget) render the page in the background and show a
+  picture of it, which loses tap actions. `wg()` can scrape an HTML
+  page's data with its jsoup mode, but what it renders is KWGT text.
 - Once this app exists and works, do a FINAL DATA SYNC: export the
   tasks from Todoist + the Task List sheet and import them into
   Firestore, then verify counts match before the old systems are
