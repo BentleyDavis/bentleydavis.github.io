@@ -46,6 +46,30 @@ as the systems they replace):
   ID or a Muse goal).
 - Completion: when a task is done, its key details are recorded first,
   then the task is deleted — never marked complete.
+- `aiAction`: an instruction to Muse, in Bentley's words ("remind me
+  about this on Friday", "check whether this is done and update the
+  status"). Muse reads it, does it, then clears the field. The task
+  itself stays until it is done and deleted.
+
+Schema (approved 2026-11-05; full draft in
+`~/workspace/docs/task-schema.md`, rules in
+`~/workspace/docs/task-rules.firestore.rules`):
+- Collection `tasks` in the shared `apps` database. Document ID is the
+  task's numeric ID as a string (`"1"`, `"6"`). New tasks take max + 1.
+- Fields: `id` (same as document ID, immutable), `title` (required,
+  non-empty), `parentId` (parent's numeric ID as a string, or null),
+  `type` (Personal, Bentley, Mom, CRT, Health), `source` (todoist,
+  muse), `sourceId` (`todoist:<id>` or `muse:goal_<id>`), `next` (ISO
+  date like `2026-11-09`, or a place like `Belterra`), `status` (next
+  step in plain words), `aiAction` (see above), `priority` (`p1`–`p4`,
+  required), `order` (number, required — sort key inside a region;
+  migration seeds row position × 1000), `createdAt`, `updatedAt`
+  (ISO strings), `updatedBy` (who wrote it: `bentley` or the AI login
+  name).
+- There are no divider documents. `priority` and `order` replace them:
+  dragging a row rewrites `order`; dragging across a divider rewrites
+  `priority` and `order`.
+- The sheet's AI Action column maps to `aiAction`. Done has no field.
 
 Widget data access (final, decided 2026-11-05):
 - The phone widget shows the same filtered list as the morning recap
