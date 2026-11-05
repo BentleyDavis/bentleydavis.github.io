@@ -63,7 +63,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+const db = getFirestore(app, "apps"); // named database — getFirestore(app) alone uses the (default) database, which is empty
 const tasksCol = collection(db, "tasks");
 
 const REGIONS = ["p1", "p2", "p3", "p4"];
