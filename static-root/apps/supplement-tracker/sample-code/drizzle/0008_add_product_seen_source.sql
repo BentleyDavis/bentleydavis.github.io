@@ -1,0 +1,1 @@
+ALTER TABLE products ADD COLUMN seen_source TEXT NOT NULL DEFAULT '';

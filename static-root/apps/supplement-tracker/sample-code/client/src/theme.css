@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap');
+@import "tailwindcss";
+@import "tailwindcss-safe-area";
+
+@theme {
+  --text-xs: 12px;
+  --text-xs--line-height: 16px;
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
+  --text-base: 16px;
+  --text-base--line-height: 24px;
+  --text-lg: 18px;
+  --text-lg--line-height: 28px;
+  --text-xl: 20px;
+  --text-xl--line-height: 28px;
+  --text-2xl: 24px;
+  --text-2xl--line-height: 32px;
+  --text-3xl: 30px;
+  --text-3xl--line-height: 36px;
+}
+
+:root {
+  color-scheme: light dark;
+  --bg: #f7f4ee;
+  --surface: #ffffff;
+  --surface2: #efe9dd;
+  --text: #1c2321;
+  --dim: #6b7a72;
+  --border: #ddd5c4;
+  --accent: #1d5c4d;
+  --accent-soft: #e0ede8;
+  --warn: #b3402a;
+  --warn-soft: #fbe9e4;
+  --amber: #9a6b12;
+  --amber-soft: #fdf0d0;
+  --radius: 14px;
+  --space-surface: var(--surface);
+  --space-surface-alt: var(--surface2);
+  --space-muted: var(--dim);
+  --space-border: var(--border);
+  --space-accent: var(--accent);
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121613;
+    --surface: #1c211e;
+    --surface2: #262c28;
+    --text: #eef2ee;
+    --dim: #9aa8a0;
+    --border: #333b36;
+    --accent: #4cc2a5;
+    --accent-soft: #1e3a32;
+    --warn: #ff8a70;
+    --warn-soft: #3d211a;
+    --amber: #e8b84b;
+    --amber-soft: #3a2f14;
+  }
+}
+
+.font-serif-display { font-family: var(--serif); }
+input, select, textarea { font-size: 16px; }
