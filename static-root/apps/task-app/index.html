@@ -27,6 +27,9 @@
   .c-status { flex: 2 1 160px; }
   .c-ai { flex: 2 1 160px; }
   .del { flex: 0 0 auto; color: #a00; border: none; background: none; font-size: 1.1em; padding: .1em .4em; }
+  .parent-tag { flex: 0 0 auto; font-size: .8em; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+  .parent-tag::after { content: " ›"; }
+  .child-count { flex: 0 0 auto; font-size: .8em; color: #666; background: #eee; border-radius: 10px; padding: .1em .6em; white-space: nowrap; }
   .add { margin: .5em 0 0 .4em; }
   .grip { cursor: grab; color: #999; flex: 0 0 auto; user-select: none; }
   .head { display: flex; gap: .4em; padding: .3em .4em; font-size: .8em; color: #888; border-bottom: 2px solid #ddd; }
@@ -158,8 +161,33 @@ function rowEl(t) {
   grip.textContent = "⠿";
   row.appendChild(grip);
 
+  // Children show their parent's name — they sit in their own priority
+  // region, not under the parent, so the indent alone doesn't say
+  // where they come from.
+  if (t.parentId) {
+    const parent = tasks.find(x => x.id === t.parentId);
+    const tag = document.createElement("span");
+    tag.className = "parent-tag";
+    tag.dataset.parentId = t.parentId;
+    tag.textContent = parent ? parent.title : ("#" + t.parentId);
+    tag.title = "Parent task";
+    row.appendChild(tag);
+  }
+
   const save = (field, value) => saveField(t, field, value);
-  row.appendChild(inputEl("c-title", t.title, v => save("title", v)));
+  const titleEl = inputEl("c-title", t.title, v => save("title", v));
+  row.appendChild(titleEl);
+
+  // Parents show how many children belong to them.
+  const kidCount = tasks.filter(x => x.parentId === t.id).length;
+  if (kidCount) {
+    const badge = document.createElement("span");
+    badge.className = "child-count";
+    badge.textContent = `▾ ${kidCount} child${kidCount === 1 ? "" : "ren"}`;
+    badge.title = `${kidCount} subtask${kidCount === 1 ? "" : "s"} belong to this group`;
+    row.appendChild(badge);
+  }
+
   row.appendChild(selectEl("c-type", t.type, TYPES, v => save("type", v)));
   row.appendChild(selectEl("c-source", t.source, SOURCES, v => save("source", v)));
   row.appendChild(inputEl("c-next", t.next, v => save("next", v)));
@@ -185,6 +213,10 @@ function isParent(id) { return tasks.some(t => t.parentId === id); }
 async function saveField(t, field, value) {
   if (String(t[field] || "") === String(value)) return;
   t[field] = value;
+  // Renaming a parent renames it on its children's tags too.
+  if (field === "title") {
+    document.querySelectorAll(`.parent-tag[data-parent-id="${t.id}"]`).forEach(el => { el.textContent = value; });
+  }
   await updateDoc(doc(tasksCol, t.docId), { [field]: value, updatedAt: new Date().toISOString(), updatedBy: uid || "web" });
 }
 
