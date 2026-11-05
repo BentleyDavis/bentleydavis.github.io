@@ -60,6 +60,13 @@ Widget data access:
   phone, and the filtering logic lives in one place — the endpoint —
   so the app, the recap, and the widget can never disagree about what
   the widget shows.
+- Writes from the widget (complete, snooze, re-prioritize) cannot go
+  through KWGT's `wg()` — it is GET-only and takes no body. Two ways
+  to send an action: encode it in the URL's query params on a GET
+  (the endpoint must treat it as idempotent, so a retry or re-fetch
+  cannot double-apply it), or have the widget's touch action fire a
+  Tasker task whose HTTP Request action POSTs a JSON body to the
+  endpoint. The Tasker route is the clean one for real writes.
 - Once this app exists and works, do a FINAL DATA SYNC: export the
   tasks from Todoist + the Task List sheet and import them into
   Firestore, then verify counts match before the old systems are
