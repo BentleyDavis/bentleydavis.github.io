@@ -3,6 +3,10 @@
 Interval walk timer with server-side walk history. 3 rounds, 21:00 planned
 total, halfway "start return" cue at 10:30. Fast/slow 3 min / 3 min.
 
+Source code lives ONLY in the Muse artifact `walk-tracker` — no version
+of this app is on bentleydavis.com yet. A reference copy of that code
+belongs under `sample-code/` here (see apps/AGENTS.md).
+
 - HR goals are editable: fast target default 150, recovery drop default 30.
   Recovery is HR-guided and untimed — cue the next round when live HR is
   at or below (round peak − recovery drop).
