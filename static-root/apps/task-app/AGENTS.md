@@ -47,7 +47,7 @@ as the systems they replace):
 - Completion: when a task is done, its key details are recorded first,
   then the task is deleted — never marked complete.
 
-Widget data access:
+Widget data access (final, decided 2026-11-05):
 - The phone widget shows the same filtered list as the morning recap
   (leaf tasks needing attention, P1s listed, the rest as counts). It
   needs a way to get that data without talking to Firestore directly.
@@ -55,32 +55,22 @@ Widget data access:
   collections in the shared `apps` database and returns the display
   list as JSON, already filtered and ordered. The widget polls that
   URL on its own schedule; tapping the widget forces a refresh.
-- The endpoint's URL is long and unguessable (capability URL, same
-  pattern as the per-agent pulse URLs). No credentials live on the
-  phone, and the filtering logic lives in one place — the endpoint —
-  so the app, the recap, and the widget can never disagree about what
-  the widget shows.
-- Writes from the widget (complete, snooze, re-prioritize) cannot go
-  through KWGT's `wg()` — it is GET-only and takes no body. Two ways
-  to send an action: encode it in the URL's query params on a GET
-  (the endpoint must treat it as idempotent, so a retry or re-fetch
-  cannot double-apply it), or have the widget's touch action fire a
-  Tasker task whose HTTP Request action POSTs a JSON body to the
-  endpoint. The Tasker route is the clean one for real writes.
+- Auth is the URL itself: a really long, unguessable capability URL
+  (same pattern as the per-agent pulse URLs). KWGT's `wg()` is
+  GET-only and cannot send a header or a body, so the token lives in
+  the URL by design. That is the accepted tradeoff — no Tasker, no
+  header/body route. If the URL ever leaks, rotate it. The filtering
+  logic lives in one place — the endpoint — so the app, the recap,
+  and the widget can never disagree about what the widget shows.
 - KWGT cannot render an HTML page. It draws its own canvas (text,
   shapes, images), so formatting lives in the widget, not on the
   server. Android widgets in general cannot host a WebView, so no
-  widget app shows a live interactive page — screenshot widgets
-  (e.g. AnyWidget) render the page in the background and show a
-  picture of it, which loses tap actions. `wg()` can scrape an HTML
+  widget app shows a live interactive page. `wg()` can scrape an HTML
   page's data with its jsoup mode, but what it renders is KWGT text.
-- KWGT CAN display a remote image: an image element's Bitmap can be
+- KWGT can display a remote image: an image element's Bitmap can be
   a URL, including one pulled out of the JSON feed. So the server can
   render the list as an image (PNG, or SVG for crisp text) and the
-  widget shows it — formatting back on the server side. The catch is
-  the same as any picture: the whole image is one touch area, so
-  per-task tap actions go away. Image display and tap actions are a
-  tradeoff, not both at once.
+  widget shows it — formatting back on the server side.
 - Once this app exists and works, do a FINAL DATA SYNC: export the
   tasks from Todoist + the Task List sheet and import them into
   Firestore, then verify counts match before the old systems are
