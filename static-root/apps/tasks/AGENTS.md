@@ -2,7 +2,8 @@
 
 Editor built 2026-11-05 (`index.html` — sign-in, inline editing,
 drag-drop reorder across the P regions, add rows, reversible Done). Widget
-endpoint not built yet.
+endpoint `widgetFeed` is deployed; its source is in the repository's root
+`functions/` directory, separate from the static website.
 
 Children show their parent's title (or its ID if the parent is missing);
 parent rows show their direct child count. These labels refresh with
@@ -56,11 +57,11 @@ as the systems they replace):
 - `aiAction`: an instruction to Muse, in Bentley's words ("remind me
   about this on Friday", "check whether this is done and update the
   status"). Muse reads it, does it, then clears the field. The task
-  itself stays until it is done and deleted.
+  itself stays stored, including when marked done.
 
-Schema (approved 2026-11-05; full draft in
-`~/workspace/docs/task-schema.md`, rules in
-`~/workspace/docs/task-rules.firestore.rules`):
+Schema: root `database/collections.json` and live `collections/tasks`
+describe the expected format; root `firestore.rules` defines actual
+enforcement. Keep these and this guidance synchronized on schema changes.
 - Collection `tasks` in the shared `apps` database. Document ID is the
   task's numeric ID as a string (`"1"`, `"6"`). New tasks take max + 1.
 - Fields: `id` (same as document ID, immutable), `title` (required,
@@ -84,10 +85,8 @@ Schema (approved 2026-11-05; full draft in
   transaction before creation to prevent overwrites.
 - The heading shows Saving while a write is pending, Saved only after
   Firestore confirms it, or Save failed with a separate error message.
-- Deployment prerequisite for Done: the database rules must permit an
-  optional boolean `done` on task documents, including toggling it in
-  updates. The deployed rules are not available in this repository;
-  inspect their current policy before proposing an approved rules deploy.
+- The current rules allow the optional boolean `done` field and other
+  extensions, but do not yet enforce their types.
 
 Widget data access (final, decided 2026-11-05):
 - The phone widget shows the same filtered list as the morning recap

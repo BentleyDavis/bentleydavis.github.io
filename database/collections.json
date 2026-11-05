@@ -1,0 +1,55 @@
+{
+  "tasks": {
+    "description": "Task editor records. Completed tasks remain stored and can be reopened.",
+    "documentId": "Positive numeric task ID as a string, equal to id. Allocate max existing ID + 1 and check for collisions in a transaction; never overwrite another task.",
+    "fields": {
+      "id": { "type": "string", "required": true, "description": "Same as document ID; immutable." },
+      "title": { "type": "string", "required": true, "description": "Nonempty task title, fewer than 500 characters." },
+      "parentId": { "type": "string|null", "required": false, "default": null, "description": "Parent task ID; null for a top-level task." },
+      "type": { "type": "string", "required": false, "values": ["Personal", "Bentley", "Mom", "CRT", "Health"] },
+      "source": { "type": "string", "required": false, "values": ["todoist", "muse"] },
+      "sourceId": { "type": "string|null", "required": false, "default": null, "description": "External reference such as todoist:<id> or muse:goal_<id>." },
+      "next": { "type": "string", "required": false, "default": "", "description": "YYYY-MM-DD date, place name, or empty string. Not a Firestore timestamp." },
+      "status": { "type": "string", "required": false, "default": "", "description": "Next step in plain words." },
+      "aiAction": { "type": "string", "required": false, "default": "", "description": "Instruction for an AI; clear to an empty string after handling." },
+      "priority": { "type": "string", "required": true, "values": ["p1", "p2", "p3", "p4"] },
+      "order": { "type": "number", "required": true, "description": "Ascending position within priority; preserve manual order. New rows normally append at max order + 1000." },
+      "createdAt": { "type": "string", "required": true, "description": "ISO-8601 creation time. Preserve on updates." },
+      "updatedAt": { "type": "string", "required": true, "description": "ISO-8601 last-write time. Set on every update." },
+      "updatedBy": { "type": "string", "required": true, "description": "Writer identifier; the editor currently uses the Firebase Auth UID." },
+      "done": { "type": "boolean", "required": false, "default": false, "description": "Reversible completion checkbox. Set true or false; do not delete completed tasks. Missing means false." }
+    },
+    "validation": "Expected contract, not full rules enforcement. Current rules enforce id matching on create, immutable id on update, title length 1-499, and at most 30 top-level fields. Unknown fields are allowed.",
+    "notes": "Editor lists all records, including groups and completed tasks. Do not silently sort by title or date. The deployed widget does not yet exclude done tasks."
+  },
+  "users": {
+    "description": "Directory of Firebase Auth accounts, including accounts not yet authorized.",
+    "documentId": "Firebase Auth UID.",
+    "fields": {
+      "email": { "type": "string|null", "required": true, "description": "Email at account creation, or null." },
+      "name": { "type": "string|null", "required": true, "description": "Display name at account creation, or null." }
+    },
+    "validation": "Descriptive only; currently no field validation in rules.",
+    "notes": "Populated by registerUser and an initial backfill. Later Auth profile changes/deletions are not automatically synchronized. Labels are not proof of identity. Directory presence grants no access. Member edits do not change Firebase Auth."
+  },
+  "access": {
+    "description": "Membership granting database access and membership-management privileges.",
+    "documentId": "Firebase Auth UID of the account being authorized.",
+    "fields": {},
+    "validation": "Document existence grants membership. No fields are required; an empty document is sufficient.",
+    "notes": "All members are trusted administrators of app data and can grant/revoke membership. Create access/{UID} to grant access; delete it to revoke. Do not store credentials here. This does not grant Firebase IAM or Auth-administration permissions."
+  },
+  "collections": {
+    "description": "Discoverable catalog of app collections and their expected document formats.",
+    "documentId": "Collection name, for example tasks, users, access, or collections.",
+    "fields": {
+      "description": { "type": "string", "required": true, "description": "Purpose of the collection." },
+      "documentId": { "type": "string", "required": true, "description": "Document ID format and allocation instructions." },
+      "fields": { "type": "map", "required": true, "description": "Field name to descriptor: type (string), required (boolean), optional default (JSON value), values (array of allowed values), and description (string). Missing optional defaults do not imply a stored value." },
+      "validation": { "type": "string", "required": true, "description": "What is actually enforced, versus merely expected." },
+      "notes": { "type": "string", "required": false, "description": "Usage, ownership, or compatibility details." }
+    },
+    "validation": "Descriptive only; currently no field validation in rules.",
+    "notes": "Readable and writable by all approved members, not anonymous users. Keep live catalog documents, repository database/collections.json, app code, and agent guidance synchronized when collections or fields change. Excludes private backend credential storage."
+  }
+}

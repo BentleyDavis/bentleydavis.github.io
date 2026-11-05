@@ -20,6 +20,14 @@ Plan for each app:
   before the Muse artifact is retired.
 
 Shared plan (applies to every app):
+- Discover app collections through `collections/{collectionName}` in the
+  named `apps` database. Expected fields are maintained in root
+  `database/collections.json` and the matching live catalog documents.
+  Whenever a collection or field is added, renamed, removed, or changes
+  type/default/meaning, update both copies and the relevant app guidance
+  in the same task. Keep enforced rules distinct from descriptive formats.
+  All approved members can read/write the catalog. Never put credentials,
+  personal account records, or private backend storage schemas in it.
 - Prototype workflow: requirements are still being worked out. Do not
   add or maintain automated tests until requirements settle or the user
   explicitly requests them. Use lightweight manual checks instead.
@@ -45,8 +53,17 @@ Shared plan (applies to every app):
 - Real-time push via `onSnapshot()` is the deliberate exception — do
   not poll from app code. The agent connectivity layer (REST + per-AI
   logins + URL-polled hooks) is separate tech; do not mix the two.
-- Security rules: deny by default, hand-created accounts only (no public
-  sign-up), shape validation in rules, business logic in app code. Rules
+- Security rules: root `firestore.rules` targets the named `apps` database.
+  Access is driven by `access/{firebaseAuthUid}` document existence.
+  Members can manage all app data and membership; treat every member as
+  an administrator. Auth account creation alone does not grant access.
+  `users/{UID}` is the account directory, populated by the `registerUser`
+  Auth-created function and an initial backfill. Members can use its
+  email/name labels to find UIDs; directory presence never grants access.
+  `_oauth` is server-only credential storage, never app data. Muse's
+  platform-managed OAuth setup is documented in root `functions/OAUTH.md`;
+  helpers must not obtain or print token-endpoint responses.
+  Retain the task ID/title/field-count safeguards. Rules
   are public-safe — policy, never secrets. A rules deploy is always
   plan-first: show the diff, Bentley approves, then deploy and verify.
 - No credentials, tokens, or keys in the repo or chat — ever.

@@ -2,3 +2,7 @@ node_modules/
 dist/
 **/hide.*
 _built/
+functions/.env*
+functions/.secret.local
+firebase-debug.log
+firebase-debug.*.log
