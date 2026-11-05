@@ -2,11 +2,9 @@
 
 BUILT — this one is done and live. Web BLE reader for the Hume band,
 using the reverse-engineered protocol. Live at
-bentleydavis.com/apps/hume-band/ (moved here from
-bentleydavis.com/hume-band/ on 2026-11-05; the old URL redirects).
-The app is one static `index.html` (no build step); the identical file
-also runs as the Muse artifact `hume-band-reader`. Do not move this
-folder again unasked.
+bentleydavis.com/apps/hume-band/.
+The app is one static `index.html` (no build step). Do not move this
+folder unasked.
 
 - Read-only over BLE. Open in Chrome on the Pixel, not inside another
   app's webview — Bluetooth will not work there.
