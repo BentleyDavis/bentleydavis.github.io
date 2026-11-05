@@ -1,6 +1,7 @@
 # AGENTS.md — Apps (plan)
 
-PLAN — not built yet, except Hume Band (see its folder). This file is
+PLAN — not built yet, except Hume Band (see its folder) and the Task
+App editor (see its folder, built 2026-11-05). This file is
 the plan for the web apps on bentleydavis.com. Each app gets its own
 folder under `apps/`. Muse Local is not here — it lives in its own repo,
 `BentleyDavis/muse-local`, with its own AGENTS.md.
