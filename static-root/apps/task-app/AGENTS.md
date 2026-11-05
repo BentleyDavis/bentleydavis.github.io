@@ -1,10 +1,12 @@
-# AGENTS.md — Task App (plan)
+# AGENTS.md — Task App
 
-PLAN — NOT BUILT YET. Do not start building it unasked.
+Editor built 2026-11-05 (`index.html` — sign-in, inline editing,
+drag-drop reorder across the P regions, add/delete rows). Widget
+endpoint not built yet.
 
-Plan: build the future replacement for Todoist + the Task List Google
+Plan: the future replacement for Todoist + the Task List Google
 Sheet here: the frontend on the Firestore SDK, with task data in Cloud
-Firestore. The migration itself is deferred until the task-app build.
+Firestore.
 
 Decisions already made:
 - Database: the shared `apps` database; task data lives in its own
@@ -95,7 +97,11 @@ Widget data access (final, decided 2026-11-05):
   a URL, including one pulled out of the JSON feed. So the server can
   render the list as an image (PNG, or SVG for crisp text) and the
   widget shows it — formatting back on the server side.
-- Once this app exists and works, do a FINAL DATA SYNC: export the
-  tasks from Todoist + the Task List sheet and import them into
-  Firestore, then verify counts match before the old systems are
-  retired.
+- Data: the sheet's 40 rows were migrated into Firestore 2026-11-05
+  (verified: 7 P1 / 23 P2 / 9 P3 / 1 P4, 15 children of parent 6) —
+  Firestore is now the source; edit in the editor, not the sheet.
+  Still open: the Todoist-only tasks (14 recurring stay in Todoist;
+  1 one-off awaits his call) and how recurring tasks are handled —
+  undecided. Order of work (his correction 2026-11-05): in future
+  apps, do the data migration last — keep using the old way of
+  handling the data until the app is ready.
