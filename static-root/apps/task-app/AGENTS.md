@@ -7,7 +7,8 @@ Sheet here: the frontend on the Firestore SDK, with task data in Cloud
 Firestore. The migration itself is deferred until the task-app build.
 
 Decisions already made:
-- Database: `tasks`. One Firebase Auth email/password login per AI, over
+- Database: the shared `apps` database; task data lives in its own
+  top-level collections. One Firebase Auth email/password login per AI, over
   the Firebase REST APIs. No repository/abstraction layer — portability
   via discipline instead: plain-JSON domain model with Bentley's own IDs,
   as few Firestore-specific features as possible, real-time push via
