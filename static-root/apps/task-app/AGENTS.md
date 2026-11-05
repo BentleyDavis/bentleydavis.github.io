@@ -24,4 +24,4 @@ Decisions already made:
 - Once this app exists and works, do a FINAL DATA SYNC: export the
   tasks from Todoist + the Task List sheet and import them into
   Firestore, then verify counts match before the old systems are
-  retired. That sync has not happened yet.
+  retired.
