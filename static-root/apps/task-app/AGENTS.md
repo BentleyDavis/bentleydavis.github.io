@@ -74,6 +74,13 @@ Widget data access:
   (e.g. AnyWidget) render the page in the background and show a
   picture of it, which loses tap actions. `wg()` can scrape an HTML
   page's data with its jsoup mode, but what it renders is KWGT text.
+- KWGT CAN display a remote image: an image element's Bitmap can be
+  a URL, including one pulled out of the JSON feed. So the server can
+  render the list as an image (PNG, or SVG for crisp text) and the
+  widget shows it — formatting back on the server side. The catch is
+  the same as any picture: the whole image is one touch area, so
+  per-task tap actions go away. Image display and tap actions are a
+  tradeoff, not both at once.
 - Once this app exists and works, do a FINAL DATA SYNC: export the
   tasks from Todoist + the Task List sheet and import them into
   Firestore, then verify counts match before the old systems are
