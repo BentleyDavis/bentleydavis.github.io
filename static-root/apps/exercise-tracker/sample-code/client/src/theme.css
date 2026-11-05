@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap');
+@import "tailwindcss";
+@import "tailwindcss-safe-area";
+
+@theme {
+  --text-xs: 12px; --text-xs--line-height: 16px;
+  --text-sm: 14px; --text-sm--line-height: 20px;
+  --text-base: 16px; --text-base--line-height: 24px;
+  --text-lg: 18px; --text-lg--line-height: 28px;
+  --text-xl: 20px; --text-xl--line-height: 28px;
+  --text-2xl: 24px; --text-2xl--line-height: 32px;
+  --text-3xl: 30px; --text-3xl--line-height: 36px;
+  --text-4xl: 36px; --text-4xl--line-height: 40px;
+  --text-5xl: 48px; --text-5xl--line-height: 52px;
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: light dark;
+  --bg: #F4EFE6;
+  --surface: #FFFBF2;
+  --surface2: #EDE6D6;
+  --text: #16130F;
+  --dim: #8A7F6E;
+  --border: #D8CDB6;
+  --accent: #E85D1F;
+  --accent2: #5B7553;
+  --radius: 10px;
+  --space-surface: var(--surface);
+  --space-surface-alt: var(--surface2);
+  --space-muted: var(--dim);
+  --space-border: var(--border);
+  --space-accent: var(--accent);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16130F;
+    --surface: #211D18;
+    --surface2: #2A251F;
+    --text: #F4EFE6;
+    --dim: #A79A85;
+    --border: #3A332A;
+    --accent: #FF6B2B;
+    --accent2: #8FBF7F;
+  }
+}
+body { font-family: system-ui, -apple-system, sans-serif; }
+.font-display { font-family: var(--font-display); }
+.font-mono2 { font-family: var(--font-mono); }
