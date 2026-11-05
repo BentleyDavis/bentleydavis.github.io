@@ -37,8 +37,9 @@ folder unasked.
   apart by exact timestamp join with an SpO2 sample. Deeper protocol
   investigation (btsnoop capture during Hume Activity Mode, to check
   for a faster sampling mode) is deferred.
-- Firestore sync (deferred): write synced data into the `hume`
-  database when it is built. The JSON export format already matches.
+- Firestore sync (deferred): write synced data into its collections
+  in the shared `apps` database when it is built. The JSON export
+  format already matches.
   Plain-JSON model, `onSnapshot()` for live data, shared code from
   `../apps/shared/` only. No credentials in the repo.
 - Visualization and analysis are deferred — capture + storage first.
