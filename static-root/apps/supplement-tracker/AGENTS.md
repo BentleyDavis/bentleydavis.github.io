@@ -5,6 +5,10 @@ amounts) → daily totals vs ceilings. The Google Sheet "Supplement Tracker"
 stays the human-readable register + Science Watch log; this app is the
 live system.
 
+Source code lives ONLY in the Muse artifact `supplement-tracker` — no
+version of this app is on bentleydavis.com yet. A reference copy of that
+code belongs under `sample-code/` here (see apps/AGENTS.md).
+
 - Daily Totals sums each ingredient across all On products (per-serving
   amount × servings/day). Paused/Off products are excluded everywhere:
   totals, schedule, prep view, Sunday review.
