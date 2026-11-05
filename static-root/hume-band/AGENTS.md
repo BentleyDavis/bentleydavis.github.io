@@ -13,7 +13,23 @@ identical file also runs as the Muse artifact `hume-band-reader`.
   date, sleep segments on segment start. Re-syncing never duplicates.
 - Release the BLE connection after each sync (the app disconnects
   automatically when a sync finishes) — BLE is one connection at a time,
-  and holding it blocks the Hume app from connecting.
+  and holding it blocks the Hume app from connecting. Exception: Live
+  HR mode (see below) holds the connection during a workout, then
+  releases it on stop.
+- Live HR / continuous buffer reading (interim approach, 2026-11-05,
+  not yet built): loop the HR stream (0x55) only — START → stream to
+  terminator → take the newest record → short pause → repeat. Do NOT
+  loop all streams in Live mode; the full sync is too slow. There is
+  no live-stream or recent-only opcode: only START (0x00) and CONTINUE
+  (0x02) exist, and the band ignores the START date and returns its
+  whole buffer every time. Continuous reading cuts waiting, not
+  sampling — periodic HR is ~120 s nominal / 240 s median, spot HR
+  about every 10 min, so the newest reading is 0–4 min old.
+- HR has two populations: periodic (trustworthy at rest, reads low
+  under motion) and SpO2-coincident spot (tracks exertion). Tell them
+  apart by exact timestamp join with an SpO2 sample. Deeper protocol
+  investigation (btsnoop capture during Hume Activity Mode, to check
+  for a faster sampling mode) is deferred.
 - The Hume protocol lives ONLY here. Other apps (e.g. Exercise Tracker)
   consume Hume data through this app / shared BLE, never by copying the
   protocol.
