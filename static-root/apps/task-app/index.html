@@ -39,6 +39,7 @@
 <div id="auth">
   <span id="who"></span>
   <span id="signin">
+    <button id="googleBtn">Sign in with Google</button>
     <input id="email" type="email" placeholder="email" autocomplete="username">
     <input id="password" type="password" placeholder="password" autocomplete="current-password">
     <button id="signinBtn">Sign in</button>
@@ -49,7 +50,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import { getFirestore, collection, getDocs, doc, getDoc, setDoc, updateDoc, deleteDoc, writeBatch, query, orderBy } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -231,6 +232,18 @@ async function onDrop(e, region, beforeId) {
   render();
 }
 
+document.getElementById("googleBtn").addEventListener("click", async () => {
+  setStatus("Signing in with Google…");
+  try {
+    await signInWithPopup(auth, new GoogleAuthProvider());
+  } catch (err) {
+    if (err.code === "auth/operation-not-allowed") {
+      setStatus("Google sign-in isn't enabled for this project yet — in the Firebase console, Authentication → Sign-in method → Google → Enable, then try again.");
+    } else {
+      setStatus("Google sign-in failed: " + err.message);
+    }
+  }
+});
 document.getElementById("signinBtn").addEventListener("click", async () => {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
