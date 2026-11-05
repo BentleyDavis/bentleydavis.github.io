@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Hume Band Reader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eff1ec; --surface:#ffffff; --surface2:#e8ece5; --ink:#131a16; --muted:#57645c; --line:#d3dad1;
+    --teal:#0b6353; --teal-deep:#084a3e; --teal-soft:#dcefe8; --amber:#7c5510; --amber-soft:#fbf0cd;
+    --red:#a92118; --red-soft:#fbe9e6; --green:#146c3a; --green-soft:#e2f2e4;
+    --r-lg:12px; --r-md:9px; --r-sm:6px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e1210; --surface:#171d19; --surface2:#202823; --ink:#e9eee9; --muted:#9caba0; --line:#2d3831;
+      --teal:#35c9ad; --teal-deep:#35c9ad; --teal-soft:#10322b; --amber:#eec25e; --amber-soft:#342a10;
+      --red:#ff958a; --red-soft:#391b17; --green:#74d892; --green-soft:#13301e;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace}
+  a{color:var(--teal)}
+  button{font:inherit;cursor:pointer}
+  .wrap{max-width:980px;margin:0 auto;padding:18px 16px 56px}
+
+  .statusbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .pill{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--line);background:var(--surface);border-radius:999px;font-size:13px;font-weight:500}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex:none}
+  .dot.on{background:var(--green)} .dot.warn{background:var(--amber)} .dot.off{background:var(--red)}
+
+  .lede{margin-bottom:16px}
+  .lede h1{font-size:27px;line-height:1.15;letter-spacing:-.015em;margin:0 0 8px;font-weight:700}
+  .lede p{margin:0;color:var(--muted);font-size:15.5px;max-width:68ch}
+  .lede p strong{color:var(--ink)}
+  .notice{border-radius:var(--r-md);padding:13px 15px;font-size:14.5px;margin-bottom:16px;border:1px solid var(--line);background:var(--amber-soft);display:none}
+  .notice.show{display:block}
+
+  .viewtabs{display:flex;gap:0;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;margin-bottom:16px;background:var(--surface)}
+  .viewtab{flex:1;background:transparent;border:none;border-right:1px solid var(--line);padding:12px 8px;font-weight:600;font-size:15px;color:var(--muted)}
+  .viewtab:last-child{border-right:none}
+  .viewtab[aria-selected="true"]{background:var(--teal);color:#fff}
+  @media (prefers-color-scheme: dark){.viewtab[aria-selected="true"]{color:#06231d}}
+  .viewtab .n{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;opacity:.75;letter-spacing:.06em}
+  .view{display:none}.view.show{display:block}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;margin-bottom:16px}
+  .card h2{font-size:17px;margin:0 0 4px;font-weight:700}
+  .card .sub{color:var(--muted);font-size:14px;margin:0 0 14px}
+  .step{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.08em;color:var(--teal);text-transform:uppercase;margin-bottom:6px}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r-md);padding:11px 16px;font-weight:600;font-size:15px;border:1px solid transparent;text-decoration:none;background:transparent;color:var(--ink)}
+  .btn-primary{background:var(--teal);color:#fff}
+  @media (prefers-color-scheme: dark){.btn-primary{color:#06231d}}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn-ghost{border-color:var(--line)}
+  .btn-danger{color:var(--red);border-color:var(--line)}
+  .btn-row{display:flex;flex-wrap:wrap;gap:9px}
+  .btn-row .btn{flex:1 1 auto}
+  @media(max-width:520px){.btn-row .btn{flex:1 1 100%}}
+  .note{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+
+  .vitals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+  @media(max-width:700px){.vitals{grid-template-columns:repeat(2,1fr)}}
+  .vital{background:var(--surface2);border-radius:var(--r-sm);padding:12px 13px;min-height:78px}
+  .vital .label{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .vital .value{font-size:23px;font-weight:700;line-height:1.2;margin-top:2px;font-variant-numeric:tabular-nums;word-break:break-word}
+  .vital .value small{font-size:13px;font-weight:500;color:var(--muted)}
+  .vital .hint{font-size:12.5px;color:var(--muted)}
+
+  .stream-list{list-style:none;margin:0 0 14px;padding:0}
+  .stream-list li{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;padding:9px 12px;border:1px solid var(--line);border-radius:var(--r-md);margin-bottom:8px;font-size:14px}
+  .stream-list .sname{font-weight:600;min-width:180px}
+  .stream-list .sstat{color:var(--muted);font-variant-numeric:tabular-nums}
+  .stream-list .badge{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--surface2);color:var(--muted)}
+  .stream-list .badge.run{background:var(--amber-soft);color:var(--amber)}
+  .stream-list .badge.done{background:var(--green-soft);color:var(--green)}
+  .toggle[aria-pressed="true"]{background:var(--teal-soft);border-color:var(--teal)}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px}
+  .stat .n{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+  .stat .l{font-size:13px;color:var(--muted)}
+
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .tab{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;font-weight:600;font-size:14px}
+  .tab[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+  @media (prefers-color-scheme: dark){.tab[aria-selected="true"]{color:#06231d}}
+  .panel{display:none}.panel.show{display:block}
+
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line)}
+  td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-md)}
+  @media(max-width:640px){
+    .table-wrap{overflow-x:visible;border:none}
+    .table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap td{display:block;width:100%}
+    .table-wrap thead{display:none}
+    .table-wrap tr{border:1px solid var(--line);border-radius:var(--r-md);padding:8px 4px;margin-bottom:8px;background:var(--surface)}
+    .table-wrap td{border-bottom:none;padding:3px 10px}
+  }
+  .empty{padding:24px 16px;text-align:center;color:var(--muted);font-size:14.5px}
+  .log{background:#0c120f;color:#cfe8dd;border-radius:var(--r-md);padding:12px 14px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:1.65;height:240px;overflow:auto;white-space:pre-wrap;word-break:break-word}
+  .log .t{color:#7d9a8e}
+
+  .forensic{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+  @media(max-width:700px){.forensic{grid-template-columns:1fr}}
+  .flag{border:1px solid var(--line);border-top:4px solid var(--amber);border-radius:var(--r-md);padding:14px 15px;background:var(--surface)}
+  .flag h3{margin:0 0 6px;font-size:15.5px}
+  .flag p{margin:0;font-size:14px;color:var(--muted)}
+  .flag p strong{color:var(--ink)}
+  .flag .tag{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.05em;background:var(--amber-soft);color:var(--amber);border-radius:999px;padding:2px 9px;margin-bottom:8px}
+
+  details{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;background:var(--surface)}
+  details+details{margin-top:10px}
+  summary{font-weight:600;cursor:pointer;font-size:15px}
+  details p,details li{font-size:14.5px;color:var(--muted)}
+  details ul{margin:8px 0;padding-left:20px}
+  details code{font-family:"IBM Plex Mono",monospace;font-size:13px}
+  .test-row{display:flex;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px;flex-wrap:wrap}
+  .test-row:last-child{border-bottom:none}
+  .pass{color:var(--green);font-weight:700}.fail{color:var(--red);font-weight:700}
+  .sync-card{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;margin-bottom:10px}
+  .sync-card .head{font-weight:600;margin-bottom:4px}
+  .sync-card .line{font-size:13.5px;color:var(--muted)}
+  .footer{margin-top:20px;color:var(--muted);font-size:13.5px;text-align:center}
+  input[type="file"]{display:none}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:50;max-width:92vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="statusbar" role="status">
+    <span class="pill"><span class="dot" id="bleDot"></span><span id="bleStatus">Checking Bluetooth…</span></span>
+    <span class="pill"><span class="dot" id="connDot"></span><span>Band: <b id="connStatus">Not connected</b></span></span>
+    <span class="pill"><span class="dot on"></span><span>Storage: <b id="storeStatus">this browser</b></span></span>
+  </div>
+
+  <div class="lede">
+    <h1>Hume Band Reader</h1>
+    <p>Reads the band’s stored history over Web Bluetooth — service <span class="mono">fff0</span>, 16-byte command frames — and keeps it in this browser: heart rate, SpO₂, skin temperature, sleep segments, daily totals, and 10-minute activity buckets. <strong>Open this page in Chrome on the Pixel</strong> — Web Bluetooth does not work inside another app’s webview. Visualization and analysis are deferred; this build is capture and storage.</p>
+  </div>
+
+  <div class="notice" id="bleNotice" role="alert"></div>
+
+  <nav class="viewtabs" role="tablist" aria-label="Sections">
+    <button class="viewtab" role="tab" aria-selected="true" data-view="capture" type="button"><span class="n">Step 1–2</span>Capture</button>
+    <button class="viewtab" role="tab" aria-selected="false" data-view="data" type="button"><span class="n">Stored</span>Data &amp; export</button>
+    <button class="viewtab" role="tab" aria-selected="false" data-view="protocol" type="button"><span class="n">Reference</span>Protocol</button>
+  </nav>
+
+  <!-- ================= CAPTURE ================= -->
+  <div class="view show" id="view-capture">
+    <section class="card" aria-labelledby="connectH">
+      <span class="step">Step 1 · Connect</span>
+      <h2 id="connectH">Band</h2>
+      <p class="sub">Read-only by construction: the protocol’s erase mode is not implemented anywhere in this page, so syncing here can’t delete anything on the band, and the Hume app can still sync afterwards. Wake the band, keep it nearby, and pick it from Chrome’s list.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="connectBtn" type="button">Connect band</button>
+        <button class="btn btn-ghost" id="disconnectBtn" type="button" disabled>Disconnect</button>
+        <button class="btn btn-ghost" id="infoBtn" type="button" disabled>Read device info</button>
+      </div>
+      <p class="note" id="deviceLine">No device selected yet.</p>
+      <div class="vitals">
+        <div class="vital"><div class="label">Battery</div><div class="value" id="vBatt">—</div><div class="hint">From the band (query 0x13)</div></div>
+        <div class="vital"><div class="label">Firmware</div><div class="value" id="vFw">—</div><div class="hint">Query 0x27</div></div>
+        <div class="vital"><div class="label">Band clock</div><div class="value" id="vClock" style="font-size:17px">—</div><div class="hint">The timestamp every record uses</div></div>
+        <div class="vital"><div class="label">Step goal</div><div class="value" id="vGoal">—</div><div class="hint">Query 0x4B</div></div>
+        <div class="vital"><div class="label">Latest heart rate</div><div class="value" id="vHr">—</div><div class="hint" id="vHrHint">From stored history</div></div>
+        <div class="vital"><div class="label">Latest SpO₂</div><div class="value" id="vSpo2">—</div><div class="hint" id="vSpo2Hint">From stored history</div></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="syncH">
+      <span class="step">Step 2 · Sync</span>
+      <h2 id="syncH">Sync stored history</h2>
+      <p class="sub">Each stream is requested with a START frame, paged with a CONTINUE frame every 50 frames, and read until the band’s terminator. The band returns its whole buffer every time — duplicates are dropped on the band’s own timestamp, so re-syncing never doubles data. <strong>When the sync finishes, the Bluetooth connection is released automatically</strong> so the Hume app can connect again.</p>
+      <ul class="stream-list" id="streamList"></ul>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="syncBtn" type="button" disabled>Sync stored history</button>
+        <button class="btn toggle" id="rawToggle" type="button" aria-pressed="true">Raw frame archive: on</button>
+      </div>
+      <p class="note">Streams marked “usually empty” are ones the band’s firmware rarely fills; they’re still requested so a sync is complete.</p>
+    </section>
+  </div>
+
+  <!-- ================= DATA ================= -->
+  <div class="view" id="view-data">
+    <section class="card" aria-labelledby="storeH">
+      <h2 id="storeH">Stored data — kept in this browser</h2>
+      <p class="sub">Everything you sync is saved in this browser’s storage on this device (IndexedDB), so history accumulates across visits and re-syncs instead of resetting. It lives only here — nothing is uploaded. Clearing erases the browser store permanently, so download first if you want to keep it.</p>
+      <div class="stats">
+        <div class="stat"><div class="n" id="sSamples">0</div><div class="l">Samples stored</div></div>
+        <div class="stat"><div class="n" id="sDaily">0</div><div class="l">Daily totals</div></div>
+        <div class="stat"><div class="n" id="sSleep">0</div><div class="l">Sleep segments</div></div>
+        <div class="stat"><div class="n" id="sFrames">0</div><div class="l">Raw frames archived</div></div>
+        <div class="stat"><div class="n" id="sSyncs">0</div><div class="l">Syncs recorded</div></div>
+        <div class="stat"><div class="n" id="sRange" style="font-size:19px;padding-top:4px">—</div><div class="l">Band-clock range covered</div></div>
+      </div>
+      <div class="btn-row" style="margin-top:14px">
+        <button class="btn btn-primary" id="downloadJsonBtn" type="button">Download all data (JSON)</button>
+        <button class="btn btn-ghost" id="downloadCsvBtn" type="button">Samples (CSV)</button>
+        <button class="btn btn-ghost" id="copyJsonBtn" type="button">Copy JSON</button>
+        <label class="btn btn-ghost" for="importFile" style="margin:0">Open a previous JSON…</label>
+        <input type="file" id="importFile" accept="application/json,.json" />
+        <button class="btn btn-danger" id="clearBtn" type="button">Erase stored data</button>
+      </div>
+      <p class="note">The JSON contains: export time, device info, all samples with band timestamps, daily totals, sleep segments, every archived raw frame (hex), per-stream sync census, and the session log. It is the same format the planned Firestore sync (database <span class="mono">hume</span>) will read.</p>
+    </section>
+
+    <section class="card" aria-labelledby="browseH">
+      <h2 id="browseH">Browse stored data</h2>
+      <p class="sub">Newest first. Times are the band’s own wall clock, exactly as recorded — no timezone conversion is applied to stored values.</p>
+      <div class="tabs" role="tablist" aria-label="Stored data tables">
+        <button class="tab" role="tab" aria-selected="true" data-tab="samples" type="button">Samples</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="daily" type="button">Daily totals</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="sleep" type="button">Sleep</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="frames" type="button">Raw frames</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="syncs" type="button">Syncs</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="log" type="button">Session log</button>
+      </div>
+
+      <div class="panel show" id="panel-samples" role="tabpanel">
+        <div class="table-wrap">
+          <table><thead><tr><th>Band time</th><th>Metric</th><th>Value</th></tr></thead><tbody id="samplesBody"></tbody></table>
+          <div class="empty" id="samplesEmpty">No samples stored yet. Connect the band and run a sync — its stored history will appear here and stay here.</div>
+        </div>
+      </div>
+      <div class="panel" id="panel-daily" role="tabpanel">
+        <div class="table-wrap">
+          <table><thead><tr><th>Date</th><th>Steps</th><th>Distance</th><th>Calories</th></tr></thead><tbody id="dailyBody"></tbody></table>
+          <div class="empty" id="dailyEmpty">No daily totals stored yet.</div>
+        </div>
+      </div>
+      <div class="panel" id="panel-sleep" role="tabpanel">
+        <div class="table-wrap">
+          <table><thead><tr><th>Segment start</th><th>Minutes</th><th>Deep</th><th>Light</th><th>REM</th><th>Awake</th></tr></thead><tbody id="sleepBody"></tbody></table>
+          <div class="empty" id="sleepEmpty">No sleep segments stored yet. Each row is one segment exactly as the band recorded it.</div>
+        </div>
+      </div>
+      <div class="panel" id="panel-frames" role="tabpanel">
+        <div class="table-wrap">
+          <table><thead><tr><th>Received</th><th>Stream</th><th>Bytes</th><th>Hex</th></tr></thead><tbody id="framesBody"></tbody></table>
+          <div class="empty" id="framesEmpty">No raw frames archived. Turn on the raw frame archive before syncing to keep every frame’s hex.</div>
+        </div>
+      </div>
+      <div class="panel" id="panel-syncs" role="tabpanel">
+        <div id="syncsList"><div class="empty">No syncs recorded yet.</div></div>
+      </div>
+      <div class="panel" id="panel-log" role="tabpanel">
+        <div class="log" id="logBox" aria-live="polite"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= PROTOCOL ================= -->
+  <div class="view" id="view-protocol">
+    <section class="card" aria-labelledby="protoH">
+      <h2 id="protoH">Protocol &amp; honest labels</h2>
+      <p class="sub">The decoders are checked right here against real frames captured from a real band. A few of the band’s fields are not what their names suggest — they’re stored raw and labelled plainly, never presented as measurements they aren’t.</p>
+
+      <div class="forensic">
+        <div class="flag">
+          <span class="tag">Forensic label · 0x56, byte 9</span>
+          <h3>“HRV” is a device-state index, not HRV</h3>
+          <p>The byte the band calls HRV is a <strong>device-state index</strong>. No RR intervals are ever transmitted, so real heart-rate variability cannot be computed from it. It is stored raw and shown as <strong>Band State Index</strong>.</p>
+        </div>
+        <div class="flag">
+          <span class="tag">Forensic label · 0x56, bytes 13–14</span>
+          <h3>Blood pressure is generated, not measured</h3>
+          <p>The systolic and diastolic bytes are <strong>generated inside a ±10 clamp</strong> around a derived value — the band has no cuff and measures nothing. They are stored raw and labelled as raw bytes, never as a blood-pressure reading.</p>
+        </div>
+      </div>
+      <p class="note" style="margin:0 0 14px">Also kept raw: the “vascular” and “stress” bytes (bytes 10 and 12) carry the same value under two names in the band’s records, so both are preserved exactly as sent.</p>
+
+      <div id="selfTest"></div>
+
+      <details style="margin-top:12px">
+        <summary>Wire format</summary>
+        <ul>
+          <li>Service <code>0000fff0-…</code>, write characteristic <code>fff6</code>, notify characteristic <code>fff7</code>.</li>
+          <li>Commands are 16-byte frames: opcode, mode, BCD date/time, checksum in byte 15. Modes used here are only START (<code>0x00</code>) and CONTINUE (<code>0x02</code>, always with a zero date — repeating the start date restarts the stream).</li>
+          <li>History streams: HR <code>0x55</code>, HRV record <code>0x56</code>, daily totals <code>0x51</code>, activity detail <code>0x52</code>, sleep <code>0x53</code>, temperature <code>0x65</code>, SpO₂ <code>0x66</code>, plus the rarely-filled <code>0x54 / 0x5C / 0x5E / 0x60 / 0x62</code>.</li>
+          <li>Info queries: device info <code>0x04</code>, battery <code>0x13</code>, MAC <code>0x22</code>, firmware <code>0x27</code>, band clock <code>0x41</code>, step goal <code>0x4B</code>.</li>
+        </ul>
+      </details>
+      <details>
+        <summary>How syncing works, and why the Hume app still gets everything</summary>
+        <p>Reading doesn’t consume anything: the band’s history sits in ring buffers until new data overwrites it. The START frame carries a date, but the band ignores it and returns its whole buffer — so this page and the Hume app each get everything, and dedupe happens here on the band’s timestamps (metric + timestamp + value for samples, date for daily totals, segment start for sleep). No erase command exists in this page’s code. When a sync ends, this page disconnects on purpose — Bluetooth allows one connection at a time.</p>
+      </details>
+      <details>
+        <summary>Hosting at BentleyDavis.com, and the AGENTS files</summary>
+        <p>Web Bluetooth needs Chrome on Android or desktop, on an HTTPS page. This page is a single static file — the identical file is hosted at <span class="mono">bentleydavis.com/hume-band/</span>, with the same protocol code, storage format, and JSON download. Stored data belongs to the browser and origin it was synced on, so sync from the address you plan to keep using, or move the JSON across with the download / open buttons.</p>
+        <p>Agent instructions live with the site code so any agent picking this up cold has the full context: <code>apps/AGENTS.md</code> (shared rules for all the BentleyDavis.com apps — shared code knows nothing about any app, one Firestore database per app, deny-by-default rules, no build step), one <code>AGENTS.md</code> per app (exercise-tracker, walk-tracker, supplement-tracker, task-app), and <code>hume-band/AGENTS.md</code> at this app’s existing location, carrying the protocol specifics: read-only BLE, dedupe on band timestamp, release the connection after each sync, the forensic labels above, and database <code>hume</code> for the deferred Firestore sync.</p>
+      </details>
+      <details>
+        <summary>Troubleshooting</summary>
+        <ul>
+          <li>Band not in Chrome’s list: wake it, keep it close, and make sure the Hume app isn’t holding the connection.</li>
+          <li>A stream ending by “idle timeout” instead of “terminator” is recorded as such in the Syncs tab — the data received is still stored.</li>
+          <li>The Session log (Data tab) records the exact error Chrome returned if a connection fails.</li>
+        </ul>
+      </details>
+    </section>
+  </div>
+
+  <p class="footer">Hume Band Reader — a personal, read-only tool. Data is stored only in this browser on this device and leaves only in files you download.</p>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+
+<script>
+"use strict";
+/* =====================================================================
+   Hume Band V2 wire protocol + decoders.
+   Ported from the verified reference implementation (BandProtocol.kt /
+   BandRecords.kt). Offsets verified against real frames from a real band.
+   SAFETY: the firmware's erase mode byte is deliberately not expressible
+   here — command frames can only be START (0x00) or CONTINUE (0x02).
+   ===================================================================== */
+var SERVICE_UUID = "0000fff0-0000-1000-8000-00805f9b34fb";
+var WRITE_UUID   = "0000fff6-0000-1000-8000-00805f9b34fb";
+var NOTIFY_UUID  = "0000fff7-0000-1000-8000-00805f9b34fb";
+var FRAME_SIZE = 16;
+var MODE_START = 0x00, MODE_CONTINUE = 0x02;
+
+var STREAMS = [
+  { opcode:0x55, key:"hr",           label:"Heart rate",                        stride:10,   expectedEmpty:false },
+  { opcode:0x56, key:"hrv",          label:"HRV record (state index + raw)",    stride:15,   expectedEmpty:false },
+  { opcode:0x66, key:"spo2",         label:"SpO₂",                              stride:10,   expectedEmpty:false },
+  { opcode:0x65, key:"temp",         label:"Skin temperature",                  stride:11,   expectedEmpty:false },
+  { opcode:0x53, key:"sleep",        label:"Sleep segments",                    stride:null, expectedEmpty:false },
+  { opcode:0x51, key:"daily",        label:"Daily totals",                      stride:27,   expectedEmpty:false },
+  { opcode:0x52, key:"detail",       label:"Activity detail (10-min buckets)",  stride:25,   expectedEmpty:false },
+  { opcode:0x54, key:"dyn_hr",       label:"Dynamic HR",                        stride:null, expectedEmpty:true },
+  { opcode:0x5c, key:"workout",      label:"Workout",                           stride:null, expectedEmpty:true },
+  { opcode:0x5e, key:"hr_1s",        label:"HR 1-second",                       stride:null, expectedEmpty:true },
+  { opcode:0x60, key:"spo2_manual",  label:"Manual SpO₂",                       stride:null, expectedEmpty:true },
+  { opcode:0x62, key:"temp_history", label:"Temperature history",               stride:null, expectedEmpty:true }
+];
+var STREAM_BY_KEY = {}; STREAMS.forEach(function(s){ STREAM_BY_KEY[s.key]=s; });
+var INFO = { DEVICE_INFO:0x04, BATTERY:0x13, MAC:0x22, FIRMWARE:0x27, CLOCK:0x41, USER_INFO:0x42, STEP_GOAL:0x4b, ALARMS:0x57 };
+
+var METRICS = {
+  hr:        { label:"Heart rate", unit:"bpm" },
+  spo2:      { label:"SpO₂", unit:"%" },
+  temp:      { label:"Skin temperature", unit:"°C" },
+  hrv:       { label:"Band State Index (raw “HRV” byte)", unit:"" },
+  hrv_hr:    { label:"Heart rate (from HRV record)", unit:"bpm" },
+  vascular:  { label:"Vascular (raw byte)", unit:"" },
+  stress:    { label:"Stress (raw byte)", unit:"" },
+  sbp:       { label:"Systolic (raw byte)", unit:"mmHg" },
+  dbp:       { label:"Diastolic (raw byte)", unit:"mmHg" },
+  steps_10m: { label:"Steps (10-min bucket)", unit:"steps" },
+  steps_min: { label:"Steps (per minute)", unit:"steps" },
+  kcal_10m:  { label:"Calories (10-min bucket)", unit:"kcal" },
+  dist_10m:  { label:"Distance (10-min bucket)", unit:"km" }
+};
+
+function toBcd(v){ return ((Math.floor(v/10)<<4) | (v%10)) & 0xff; }
+function fromBcd(b){ var h=(b>>4)&0x0f, l=b&0x0f; return (h>9||l>9) ? null : h*10+l; }
+function frameChecksum(f){ var s=0; for(var i=0;i<FRAME_SIZE-1;i++) s+=f[i]; return s&0xff; }
+function encodeCommand(opcode, mode, at){
+  var f = new Uint8Array(FRAME_SIZE);
+  f[0]=opcode&0xff; f[1]=mode&0xff;
+  if(at){ f[4]=toBcd(at.year%100); f[5]=toBcd(at.month); f[6]=toBcd(at.day); f[7]=toBcd(at.hour); f[8]=toBcd(at.minute); f[9]=toBcd(at.second); }
+  f[15]=frameChecksum(f);
+  return f;
+}
+function encodeStart(opcode, at){ return encodeCommand(opcode, MODE_START, at); }
+function encodeContinue(opcode){ return encodeCommand(opcode, MODE_CONTINUE, null); } /* zero date — repeating the start date restarts the stream */
+function encodeInfo(opcode){ return encodeCommand(opcode, MODE_START, null); }
+
+function readBcdDateTime(src, off){
+  if(off+6>src.length) return null;
+  var yy=fromBcd(src[off]), mm=fromBcd(src[off+1]), dd=fromBcd(src[off+2]), hh=fromBcd(src[off+3]), mi=fromBcd(src[off+4]), ss=fromBcd(src[off+5]);
+  if(yy===null||mm===null||dd===null||hh===null||mi===null||ss===null) return null;
+  if(mm<1||mm>12||dd<1||dd>31||hh>23||mi>59||ss>59) return null;
+  return (2000+yy)*1e10 + mm*1e8 + dd*1e6 + hh*1e4 + mi*100 + ss;
+}
+function readBcdDate(src, off){
+  if(off+3>src.length) return null;
+  var yy=fromBcd(src[off]), mm=fromBcd(src[off+1]), dd=fromBcd(src[off+2]);
+  if(yy===null||mm===null||dd===null) return null;
+  if(mm<1||mm>12||dd<1||dd>31) return null;
+  return (2000+yy)*10000 + mm*100 + dd;
+}
+function le16(src, off){ return off+2>src.length ? null : (src[off] | (src[off+1]<<8)); }
+function le32(src, off){ return off+4>src.length ? null : ((src[off] | (src[off+1]<<8) | (src[off+2]<<16) | (src[off+3]<<24))>>>0); }
+function isTerminator(frame){ return frame.length>0 && frame[frame.length-1]===0xff; }
+
+function formatLocalTs(ts){ var s=String(ts); while(s.length<14) s="0"+s; return s.slice(0,4)+"-"+s.slice(4,6)+"-"+s.slice(6,8)+" "+s.slice(8,10)+":"+s.slice(10,12)+":"+s.slice(12,14); }
+function formatLocalDate(d){ var s=String(d); while(s.length<8) s="0"+s; return s.slice(0,4)+"-"+s.slice(4,6)+"-"+s.slice(6,8); }
+function localTsToDate(ts){
+  return new Date(Math.floor(ts/1e10), Math.floor(ts/1e8)%100-1, Math.floor(ts/1e6)%100, Math.floor(ts/1e4)%100, Math.floor(ts/100)%100, ts%100);
+}
+function addMinutesToLocalTs(ts, minutes){
+  var d=localTsToDate(ts); d.setMinutes(d.getMinutes()+minutes);
+  return d.getFullYear()*1e10 + (d.getMonth()+1)*1e8 + d.getDate()*1e6 + d.getHours()*1e4 + d.getMinutes()*100 + d.getSeconds();
+}
+function toHex(bytes){ var out=""; for(var i=0;i<bytes.length;i++){ var h=bytes[i].toString(16); out += (h.length===1?"0":"")+h; } return out; }
+function spacedHex(bytes){ var out=[]; for(var i=0;i<bytes.length;i++){ var h=bytes[i].toString(16); out.push(h.length===1?"0"+h:h); } return out.join(" "); }
+function hexToBytes(hex){
+  var clean=hex.replace(/[^0-9a-fA-F]/g,""), out=new Uint8Array(clean.length/2);
+  for(var i=0;i<out.length;i++) out[i]=parseInt(clean.slice(i*2,i*2+2),16);
+  return out;
+}
+
+function emptyParsed(){ return { samples:[], daily:[], sleep:[] }; }
+function isBlank(slice){ var az=true, af=true; for(var i=0;i<slice.length;i++){ if(slice[i]!==0) az=false; if(slice[i]!==0xff) af=false; } return az||af; }
+function parseTiled(frame, stride, one){
+  var out=emptyParsed(), off=0;
+  while(off+stride<=frame.length){ var slice=frame.subarray(off, off+stride); if(!isBlank(slice)) one(slice, out); off+=stride; }
+  return out;
+}
+function parseSimple(rec, metric, out){
+  var ts=readBcdDateTime(rec,3); if(ts===null) return;
+  var v=rec[9]; if(v===0||v===0xff) return;
+  out.samples.push({ metric:metric, localTs:ts, value:v });
+}
+function parseHrv(rec, out){
+  var ts=readBcdDateTime(rec,3); if(ts===null) return;
+  var fields=[["hrv",9],["vascular",10],["hrv_hr",11],["stress",12],["sbp",13],["dbp",14]];
+  fields.forEach(function(pair){ var raw=rec[pair[1]]; if(raw!==0&&raw!==0xff) out.samples.push({ metric:pair[0], localTs:ts, value:raw }); });
+}
+function parseTemperature(rec, out){
+  var ts=readBcdDateTime(rec,3); if(ts===null) return;
+  var raw=le16(rec,9); if(raw===null||raw===0||raw===0xffff) return;
+  out.samples.push({ metric:"temp", localTs:ts, value:raw/10 });
+}
+function parseDetail(rec, out){
+  var ts=readBcdDateTime(rec,3); if(ts===null) return;
+  var steps=le16(rec,9); if(steps===null) return;
+  out.samples.push({ metric:"steps_10m", localTs:ts, value:steps });
+  out.samples.push({ metric:"kcal_10m", localTs:ts, value:(le16(rec,11)||0)/100 });
+  out.samples.push({ metric:"dist_10m", localTs:ts, value:(le16(rec,13)||0)/100 });
+  for(var i=0;i<10;i++){ var pm=rec[15+i]; if(pm!==0) out.samples.push({ metric:"steps_min", localTs:addMinutesToLocalTs(ts,i), value:pm }); }
+}
+function parseDaily(rec, out){
+  var date=readBcdDate(rec,2); if(date===null) return; /* date at offset 2 — two-byte prefix */
+  var steps=le32(rec,5); if(steps===null) return;
+  var dist=le32(rec,13)||0, cal=le32(rec,17)||0, tail="";
+  for(var i=21;i<Math.min(27,rec.length);i++){ var h=rec[i].toString(16); tail+=(h.length===1?"0":"")+h; }
+  out.daily.push({ localDate:date, steps:steps, distanceM:(dist/100)*1000, calories:cal/100, rawExercise:le32(rec,9)||0, rawTail:tail });
+}
+function parseSleep(frame){
+  var out=emptyParsed();
+  var start=readBcdDateTime(frame,3); if(start===null) return out;
+  var declared=frame.length>9?frame[9]:0; if(declared<=0) return out;
+  var minutes=Math.min(declared, Math.max(0, frame.length-10), 120); if(minutes<=0) return out;
+  var stages="", deep=0, light=0, rem=0, awake=0;
+  for(var i=0;i<minutes;i++){ var c=String(frame[10+i]); stages+=c; if(c==="1")deep++; else if(c==="2")light++; else if(c==="3")rem++; else if(c==="5")awake++; }
+  out.sleep.push({ startLocalTs:start, minutes:minutes, stages:stages, deep:deep, light:light, rem:rem, awake:awake, unknown:stages.length-deep-light-rem-awake });
+  return out;
+}
+function parseFrame(stream, frame){
+  switch(stream.key){
+    case "sleep": return parseSleep(frame);
+    case "daily": return parseTiled(frame, 27, parseDaily);
+    case "detail": return parseTiled(frame, 25, parseDetail);
+    case "hr": return parseTiled(frame, 10, function(r,o){ parseSimple(r,"hr",o); });
+    case "spo2": return parseTiled(frame, 10, function(r,o){ parseSimple(r,"spo2",o); });
+    case "hrv": return parseTiled(frame, 15, parseHrv);
+    case "temp": return parseTiled(frame, 11, parseTemperature);
+    default: return emptyParsed();
+  }
+}
+function parseBattery(reply){ return reply.length>=2 ? reply[1] : null; }
+function parseFirmware(reply){ if(reply.length<5) return null; return [reply[1],reply[2],reply[3],reply[4]].join("."); }
+function parseMac(reply){ if(reply.length<7) return null; var p=[]; for(var i=1;i<=6;i++){ var h=reply[i].toString(16); p.push(((h.length===1?"0":"")+h).toUpperCase()); } return p.join(":"); }
+function parseClock(reply){ return readBcdDateTime(reply,1); }
+function parseStepGoal(reply){ return le16(reply,1); }
+
+/* Golden frames — real bytes captured off a real band (2026-08-02). */
+var GOLDEN_CASES = [
+  { name:"Heart rate 0x55", streamKey:"hr", hex:"55000026080215203449", expect:"2026-08-02 15:20:34 · 73 bpm",
+    run:function(p){ return p.samples.length===1 && p.samples[0].localTs===20260802152034 && p.samples[0].value===73; } },
+  { name:"Heart rate 0x55 (second)", streamKey:"hr", hex:"5501002608021515304a", expect:"2026-08-02 15:15:30 · 74 bpm",
+    run:function(p){ return p.samples.length===1 && p.samples[0].localTs===20260802151530 && p.samples[0].value===74; } },
+  { name:"HRV record 0x56 (fields absent)", streamKey:"hrv", hex:"560000260802151930454f004f0000", expect:"15:19:30 · state index 69 · vascular 79 · stress 79",
+    run:function(p){ var m={}; p.samples.forEach(function(s){m[s.metric]=s.value;}); return m.hrv===69 && m.vascular===79 && m.stress===79 && m.hrv_hr===undefined && m.sbp===undefined; } },
+  { name:"HRV record 0x56 (full)", streamKey:"hrv", hex:"5602002608021515302c2f4a2f7240", expect:"15:15:30 · index 44 · HR 74 · SBP 114 · DBP 64",
+    run:function(p){ var m={}; p.samples.forEach(function(s){m[s.metric]=s.value;}); return m.hrv===44 && m.hrv_hr===74 && m.sbp===114 && m.dbp===64; } },
+  { name:"SpO₂ 0x66", streamKey:"spo2", hex:"66000026080215203460", expect:"15:20:34 · 96%",
+    run:function(p){ return p.samples.length===1 && p.samples[0].localTs===20260802152034 && p.samples[0].value===96; } },
+  { name:"Temperature 0x65", streamKey:"temp", hex:"6500002608021459006c01", expect:"14:59:00 · 36.4 °C",
+    run:function(p){ return p.samples.length===1 && Math.abs(p.samples[0].value-36.4)<0.001; } },
+  { name:"Detail 0x52", streamKey:"detail", hex:"5200002608021519314500e301050024002100000000000000", expect:"15:19:31 · 69 steps · 4.83 kcal · 0.05 km",
+    run:function(p){ var b=null,sum=0,n=0; p.samples.forEach(function(s){ if(s.metric==="steps_10m")b=s; if(s.metric==="steps_min"){sum+=s.value;n++;} }); return b && b.value===69 && sum===69 && n===2; } },
+  { name:"Daily 0x51", streamKey:"daily", hex:"51002608025b180000660a00005f02000094b20000000018000000", expect:"2026-08-02 · 6,235 steps · 6.07 km · 457.16 kcal",
+    run:function(p){ var d=p.daily[0]; return !!d && d.localDate===20260802 && d.steps===6235 && Math.abs(d.distanceM-6070)<0.01 && Math.abs(d.calories-457.16)<0.01; } },
+  { name:"Sleep 0x53 segment", streamKey:"sleep", hex:"53000026080205285716"+"020202"+"05050505"+"020202020202020202020202020202", expect:"start 05:28:57 · 22 min · light 18 · awake 4",
+    run:function(p){ var s=p.sleep[0]; return !!s && s.startLocalTs===20260802052857 && s.minutes===22 && s.light===18 && s.awake===4; } }
+];
+function runSelfTest(){
+  var results=[];
+  GOLDEN_CASES.forEach(function(gc){
+    try{
+      var p=parseFrame(STREAM_BY_KEY[gc.streamKey], hexToBytes(gc.hex));
+      var pass=gc.run(p);
+      results.push({ name:gc.name, expect:gc.expect, pass:pass, detail:pass?"decoded as expected":"decoded "+p.samples.length+" samples, "+p.daily.length+" daily, "+p.sleep.length+" sleep — mismatch" });
+    }catch(e){ results.push({ name:gc.name, expect:gc.expect, pass:false, detail:String(e && e.message || e) }); }
+  });
+  var gt=toHex(encodeInfo(INFO.CLOCK));
+  results.push({ name:"Command frame GET TIME (0x41)", expect:"41 00 … checksum 41", pass:gt==="41000000000000000000000000000041", detail:gt });
+  var ct=toHex(encodeContinue(0x55));
+  results.push({ name:"Command frame HR CONTINUE (0x55)", expect:"55 02 with ZERO date … 57", pass:ct==="55020000000000000000000000000057", detail:ct });
+  var st=toHex(encodeStart(0x55, {year:2026, month:7, day:28, hour:0, minute:0, second:0}));
+  results.push({ name:"Command frame HR START from 2026-07-28", expect:"55 00 … 26 07 28 (BCD) … AA", pass:st==="550000002607280000000000000000aa", detail:st });
+  return results;
+}
+</script>
+
+<script>
+"use strict";
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* ---------------- Persistent store (IndexedDB, this browser) ---------------- */
+  var DB_NAME = "hume-band-reader", STORE_NAME = "kv", STATE_KEY = "state-v1";
+  var RAW_CAP = 20000;
+  var data = {
+    device: null,
+    deviceInfo: { battery:null, firmware:null, mac:null, clockLocalTs:null, stepGoal:null },
+    samples: [], daily: [], sleep: [], rawFrames: [], syncs: [], log: []
+  };
+  var sampleKeys = {}, dailyKeys = {}, sleepKeys = {};
+  function rebuildKeys(){
+    sampleKeys={}; dailyKeys={}; sleepKeys={};
+    data.samples.forEach(function(s){ sampleKeys[s.metric+"|"+s.localTs+"|"+s.value]=true; });
+    data.daily.forEach(function(d){ dailyKeys[d.localDate]=true; });
+    data.sleep.forEach(function(s){ sleepKeys[s.startLocalTs]=true; });
+  }
+  var db = null, saveTimer = null;
+  function openDb(){
+    return new Promise(function(resolve){
+      if(!("indexedDB" in window)){ resolve(false); return; }
+      var req = indexedDB.open(DB_NAME, 1);
+      req.onupgradeneeded = function(){ req.result.createObjectStore(STORE_NAME); };
+      req.onsuccess = function(){ db = req.result; resolve(true); };
+      req.onerror = function(){ resolve(false); };
+    });
+  }
+  function loadState(){
+    return new Promise(function(resolve){
+      if(!db){ resolve(); return; }
+      var tx = db.transaction(STORE_NAME, "readonly").objectStore(STORE_NAME).get(STATE_KEY);
+      tx.onsuccess = function(){
+        var saved = tx.result;
+        if(saved){
+          ["device","deviceInfo","samples","daily","sleep","rawFrames","syncs"].forEach(function(k){
+            if(saved[k] !== undefined) data[k] = saved[k];
+          });
+          rebuildKeys();
+        }
+        resolve();
+      };
+      tx.onerror = function(){ resolve(); };
+    });
+  }
+  function saveState(){
+    if(!db) return;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      try {
+        var snapshot = { device:data.device, deviceInfo:data.deviceInfo, samples:data.samples, daily:data.daily, sleep:data.sleep, rawFrames:data.rawFrames, syncs:data.syncs };
+        db.transaction(STORE_NAME, "readwrite").objectStore(STORE_NAME).put(snapshot, STATE_KEY);
+      } catch(e){ /* storage full/blocked — data still in memory + downloadable */ }
+    }, 350);
+  }
+  function eraseState(){
+    return new Promise(function(resolve){
+      if(!db){ resolve(); return; }
+      var req = db.transaction(STORE_NAME, "readwrite").objectStore(STORE_NAME).delete(STATE_KEY);
+      req.onsuccess = function(){ resolve(); };
+      req.onerror = function(){ resolve(); };
+    });
+  }
+
+  /* ---------------- UI helpers ---------------- */
+  function toast(msg){
+    var t=$("toast"); t.textContent=msg; t.classList.add("show");
+    setTimeout(function(){ t.classList.remove("show"); }, 2800);
+  }
+  function log(msg){
+    data.log.push({ at:new Date().toISOString(), message:String(msg) });
+    var box=$("logBox"), div=document.createElement("div");
+    var span=document.createElement("span"); span.className="t";
+    span.textContent=new Date().toLocaleTimeString([], {hour12:false});
+    div.appendChild(span); div.appendChild(document.createTextNode(" "+String(msg)));
+    box.appendChild(div); box.scrollTop=box.scrollHeight;
+  }
+  function setVital(id, value, unit){
+    var el=$(id); el.textContent="";
+    el.appendChild(document.createTextNode(String(value)));
+    if(unit){ var s=document.createElement("small"); s.textContent=" "+unit; el.appendChild(s); }
+  }
+  function metricLabel(m){ return METRICS[m] ? METRICS[m].label : m; }
+  function metricUnit(m){ return METRICS[m] ? METRICS[m].unit : ""; }
+  function fmtValue(m, v){ return (m==="temp") ? Number(v).toFixed(1) : (m==="kcal_10m"||m==="dist_10m") ? Number(v).toFixed(2) : String(v); }
+
+  /* ---------------- Rendering ---------------- */
+  function latestOf(metric){
+    var best=null;
+    data.samples.forEach(function(s){ if(s.metric===metric && (best===null || s.localTs>best.localTs)) best=s; });
+    return best;
+  }
+  function renderVitals(){
+    var di=data.deviceInfo;
+    if(di.battery!==null && di.battery!==undefined) setVital("vBatt", di.battery, "%");
+    if(di.firmware) $("vFw").textContent=di.firmware;
+    if(di.clockLocalTs) $("vClock").textContent=formatLocalTs(di.clockLocalTs);
+    if(di.stepGoal!==null && di.stepGoal!==undefined) setVital("vGoal", di.stepGoal, "steps");
+    var hr=latestOf("hr") || latestOf("hrv_hr");
+    if(hr){ setVital("vHr", hr.value, "bpm"); $("vHrHint").textContent="Band time "+formatLocalTs(hr.localTs); }
+    var sp=latestOf("spo2");
+    if(sp){ setVital("vSpo2", sp.value, "%"); $("vSpo2Hint").textContent="Band time "+formatLocalTs(sp.localTs); }
+  }
+  function renderStats(){
+    $("sSamples").textContent=data.samples.length;
+    $("sDaily").textContent=data.daily.length;
+    $("sSleep").textContent=data.sleep.length;
+    $("sFrames").textContent=data.rawFrames.length;
+    $("sSyncs").textContent=data.syncs.length;
+    var min=null,max=null;
+    data.samples.forEach(function(s){ if(min===null||s.localTs<min)min=s.localTs; if(max===null||s.localTs>max)max=s.localTs; });
+    $("sRange").textContent = min!==null ? (formatLocalDate(Math.floor(min/1e6))+" → "+formatLocalDate(Math.floor(max/1e6))) : "—";
+  }
+  function fillTable(bodyId, emptyId, rows, cellsFn){
+    var body=$(bodyId); body.innerHTML="";
+    $(emptyId).style.display = rows.length ? "none" : "block";
+    rows.forEach(function(r){
+      var tr=document.createElement("tr");
+      cellsFn(r).forEach(function(v,i){
+        var td=document.createElement("td"); if(i>=2 && bodyId==="framesBody") td.className="mono"; td.textContent=v; tr.appendChild(td);
+      });
+      body.appendChild(tr);
+    });
+  }
+  function renderTables(){
+    var samples=data.samples.slice().sort(function(a,b){ return b.localTs-a.localTs; }).slice(0,300);
+    fillTable("samplesBody","samplesEmpty",samples,function(s){
+      return [formatLocalTs(s.localTs), metricLabel(s.metric), fmtValue(s.metric,s.value)+(metricUnit(s.metric)?" "+metricUnit(s.metric):"")];
+    });
+    var daily=data.daily.slice().sort(function(a,b){ return b.localDate-a.localDate; });
+    fillTable("dailyBody","dailyEmpty",daily,function(d){
+      return [formatLocalDate(d.localDate), String(d.steps), (d.distanceM/1000).toFixed(2)+" km", Number(d.calories).toFixed(2)+" kcal"];
+    });
+    var sleep=data.sleep.slice().sort(function(a,b){ return b.startLocalTs-a.startLocalTs; });
+    fillTable("sleepBody","sleepEmpty",sleep,function(s){
+      return [formatLocalTs(s.startLocalTs), String(s.minutes), String(s.deep), String(s.light), String(s.rem), String(s.awake)];
+    });
+    var frames=data.rawFrames.slice(-300).reverse();
+    fillTable("framesBody","framesEmpty",frames,function(f){
+      return [new Date(f.at).toLocaleTimeString([], {hour12:false}), f.stream, String(f.bytes), f.hex];
+    });
+    var wrap=$("syncsList"); wrap.innerHTML="";
+    if(!data.syncs.length){ wrap.innerHTML='<div class="empty">No syncs recorded yet.</div>'; }
+    data.syncs.slice().reverse().forEach(function(sy){
+      var div=document.createElement("div"); div.className="sync-card";
+      var head=document.createElement("div"); head.className="head";
+      head.textContent=new Date(sy.at).toLocaleString()+" — "+(sy.deviceName||"band");
+      div.appendChild(head);
+      sy.streams.forEach(function(st){
+        var line=document.createElement("div"); line.className="line";
+        line.textContent=st.label+": "+st.frames+" frames · "+st.records+" records · "+st.added+" new · ended by "+st.endedBy;
+        div.appendChild(line);
+      });
+      if(sy.released){ var rel=document.createElement("div"); rel.className="line"; rel.textContent="Bluetooth connection released after this sync."; div.appendChild(rel); }
+      wrap.appendChild(div);
+    });
+  }
+  function renderAll(){ renderVitals(); renderStats(); renderTables(); }
+
+  var streamStatus = {};
+  function renderStreamList(){
+    var ul=$("streamList"); ul.innerHTML="";
+    STREAMS.forEach(function(s){
+      var li=document.createElement("li");
+      var name=document.createElement("span"); name.className="sname"; name.textContent=s.label; li.appendChild(name);
+      var stat=document.createElement("span"); stat.className="sstat"; stat.id="ss-"+s.key; stat.textContent=streamStatus[s.key]||""; li.appendChild(stat);
+      var badge=document.createElement("span"); badge.className="badge"; badge.id="sb-"+s.key;
+      badge.textContent = s.expectedEmpty ? "usually empty" : "history";
+      li.appendChild(badge);
+      ul.appendChild(li);
+    });
+  }
+  function setStreamStatus(key, text, badgeClass, badgeText){
+    var el=$("ss-"+key); if(el) el.textContent=text;
+    var b=$("sb-"+key); if(b && badgeClass){ b.className="badge "+badgeClass; if(badgeText) b.textContent=badgeText; }
+  }
+
+  /* ---------------- BLE link ---------------- */
+  var bleDevice=null, bleServer=null, writeChar=null, notifyChar=null;
+  var frameHandler=null, writeChain=Promise.resolve(), syncing=false, storeRaw=true;
+
+  function onNotifyEvent(event){
+    var v=event.target.value; if(!v) return;
+    var frame=new Uint8Array(v.buffer.slice(v.byteOffset, v.byteOffset+v.byteLength));
+    if(frameHandler) frameHandler(frame);
+  }
+  function writeBytes(bytes){
+    var run=function(){
+      var buf=bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset+bytes.byteLength);
+      if(typeof writeChar.writeValueWithoutResponse==="function") return writeChar.writeValueWithoutResponse(buf);
+      return writeChar.writeValue(buf);
+    };
+    writeChain=writeChain.then(run, run);
+    return writeChain;
+  }
+  function queryInfo(opcode, timeoutMs){
+    return new Promise(function(resolve){
+      var timer=setTimeout(function(){ frameHandler=null; resolve(null); }, timeoutMs||3000);
+      frameHandler=function(frame){
+        if(frame[0]===opcode){ clearTimeout(timer); frameHandler=null; resolve(frame); }
+      };
+      writeBytes(encodeInfo(opcode)).catch(function(){ clearTimeout(timer); frameHandler=null; resolve(null); });
+    });
+  }
+  function readStream(stream, from, onProgress){
+    var idleTimeoutMs=6000, maxMs=180000;
+    var parsed=emptyParsed(), raw=[], frames=0, maxBytes=0, continues=0, lastAt=Date.now(), startedAt=Date.now();
+    return new Promise(function(resolve){
+      var settled=false, watchdog=null;
+      function finish(endedBy){
+        if(settled) return; settled=true; clearInterval(watchdog); frameHandler=null;
+        resolve({ stream:stream, frames:frames, maxFrameBytes:maxBytes, endedBy:endedBy, parsed:parsed, rawFrames:raw });
+      }
+      watchdog=setInterval(function(){
+        if(!bleServer || !bleServer.connected) finish("disconnect");
+        else if(Date.now()-lastAt>idleTimeoutMs) finish("idle-timeout");
+        else if(Date.now()-startedAt>maxMs) finish("max-timeout");
+      }, 250);
+      frameHandler=function(frame){
+        lastAt=Date.now(); frames++;
+        if(frame.length>maxBytes) maxBytes=frame.length;
+        if(storeRaw) raw.push({ frameIndex:frames-1, byteLength:frame.length, hex:toHex(frame) });
+        var p=parseFrame(stream, frame); /* parse BEFORE the terminator check */
+        parsed.samples=parsed.samples.concat(p.samples);
+        parsed.daily=parsed.daily.concat(p.daily);
+        parsed.sleep=parsed.sleep.concat(p.sleep);
+        if(onProgress) onProgress(frames, parsed.samples.length+parsed.daily.length+parsed.sleep.length);
+        if(isTerminator(frame)){ finish("terminator"); return; }
+        var should=Math.floor(frames/50);
+        if(should>continues){ continues=should; writeBytes(encodeContinue(stream.opcode)).catch(function(){ finish("disconnect"); }); }
+      };
+      writeBytes(encodeStart(stream.opcode, from)).catch(function(){ finish("disconnect"); });
+    });
+  }
+  function mergeParsed(parsed){
+    var added=0;
+    parsed.samples.forEach(function(s){
+      var k=s.metric+"|"+s.localTs+"|"+s.value;
+      if(!sampleKeys[k]){ sampleKeys[k]=true; data.samples.push(s); added++; }
+    });
+    parsed.daily.forEach(function(d){
+      if(!dailyKeys[d.localDate]){ dailyKeys[d.localDate]=true; data.daily.push(d); added++; }
+    });
+    parsed.sleep.forEach(function(s){
+      if(!sleepKeys[s.startLocalTs]){ sleepKeys[s.startLocalTs]=true; data.sleep.push(s); added++; }
+    });
+    return added;
+  }
+
+  /* Release the BLE connection — after each sync, and on manual disconnect.
+     Bluetooth allows one connection at a time; holding it blocks the Hume app. */
+  function releaseConnection(reason){
+    if(bleDevice && bleDevice.gatt && bleDevice.gatt.connected){
+      log("Releasing the Bluetooth connection ("+reason+").");
+      try { bleDevice.gatt.disconnect(); } catch(e){ onDisconnect(); }
+      return true;
+    }
+    return false;
+  }
+
+  var supported = ("bluetooth" in navigator) && window.isSecureContext;
+  function refreshBleStatus(){
+    var dot=$("bleDot"), txt=$("bleStatus"), notice=$("bleNotice");
+    if(!supported){
+      dot.className="dot off";
+      txt.textContent="Web Bluetooth not available in this browser";
+      notice.className="notice show";
+      notice.innerHTML="<strong>This browser can’t talk to the band.</strong> Web Bluetooth needs Chrome on Android or desktop, opened over HTTPS — it isn’t available inside most in-app browsers or webviews. Open this page’s link in Chrome on the Pixel and try again. Everything already stored in a browser still browses and downloads fine.";
+      $("connectBtn").disabled=true;
+    } else {
+      dot.className="dot on"; txt.textContent="Web Bluetooth ready — open in Chrome";
+    }
+  }
+
+  $("connectBtn").addEventListener("click", function(){
+    if(!supported){ toast("Web Bluetooth isn’t available here — open in Chrome."); return; }
+    log("Opening Chrome’s Bluetooth picker…");
+    navigator.bluetooth.requestDevice({ acceptAllDevices:true, optionalServices:[SERVICE_UUID, 0x1800, 0x180a, 0x180f] })
+    .then(function(dev){
+      bleDevice=dev;
+      data.device={ name:dev.name||"(no name broadcast)", id:dev.id||"" };
+      $("deviceLine").textContent="Selected: "+data.device.name;
+      log("Selected device: "+data.device.name);
+      dev.addEventListener("gattserverdisconnected", onDisconnect);
+      return dev.gatt.connect();
+    })
+    .then(function(srv){
+      bleServer=srv;
+      return srv.getPrimaryService(SERVICE_UUID);
+    })
+    .then(function(svc){
+      return Promise.all([svc.getCharacteristic(WRITE_UUID), svc.getCharacteristic(NOTIFY_UUID)]);
+    })
+    .then(function(chars){
+      writeChar=chars[0]; notifyChar=chars[1];
+      notifyChar.addEventListener("characteristicvaluechanged", onNotifyEvent);
+      return notifyChar.startNotifications();
+    })
+    .then(function(){
+      $("connDot").className="dot on";
+      $("connStatus").textContent=data.device ? data.device.name : "Connected";
+      $("disconnectBtn").disabled=false; $("infoBtn").disabled=false; $("syncBtn").disabled=false;
+      saveState();
+      log("Connected to the band’s fff0 service. Reading device info…");
+      toast("Connected — reading device info");
+      return readDeviceInfo();
+    })
+    .catch(function(err){
+      if(err && err.name==="NotFoundError"){ log("Picker closed without choosing a device."); return; }
+      log("Connection failed: "+(err && err.message ? err.message : err));
+      toast("Connection failed — see Session log");
+    });
+  });
+
+  function onDisconnect(){
+    log("Band disconnected.");
+    $("connDot").className="dot off"; $("connStatus").textContent="Disconnected";
+    $("disconnectBtn").disabled=true; $("infoBtn").disabled=true; $("syncBtn").disabled=true;
+    bleServer=null; writeChar=null; notifyChar=null;
+  }
+  $("disconnectBtn").addEventListener("click", function(){
+    if(!releaseConnection("manual disconnect")) onDisconnect();
+  });
+
+  function readDeviceInfo(){
+    if(!bleServer || !bleServer.connected) return Promise.resolve();
+    var jobs=[
+      [INFO.BATTERY, function(r){ var v=parseBattery(r); if(v!==null){ data.deviceInfo.battery=v; log("Battery: "+v+"%"); } }],
+      [INFO.FIRMWARE, function(r){ var v=parseFirmware(r); if(v){ data.deviceInfo.firmware=v; log("Firmware: "+v); } }],
+      [INFO.MAC, function(r){ var v=parseMac(r); if(v){ data.deviceInfo.mac=v; log("MAC: "+v); } }],
+      [INFO.CLOCK, function(r){ var v=parseClock(r); if(v!==null){ data.deviceInfo.clockLocalTs=v; log("Band clock: "+formatLocalTs(v)); } }],
+      [INFO.STEP_GOAL, function(r){ var v=parseStepGoal(r); if(v!==null){ data.deviceInfo.stepGoal=v; log("Step goal: "+v); } }]
+    ];
+    var chain=Promise.resolve();
+    jobs.forEach(function(pair){
+      chain=chain.then(function(){
+        return queryInfo(pair[0]).then(function(reply){ if(reply) pair[1](reply); else log("No reply to info query 0x"+pair[0].toString(16)+" (normal on some firmware)."); });
+      });
+    });
+    return chain.then(function(){ renderVitals(); saveState(); });
+  }
+  $("infoBtn").addEventListener("click", function(){ readDeviceInfo().then(function(){ toast("Device info updated"); }); });
+
+  $("syncBtn").addEventListener("click", function(){
+    if(syncing || !bleServer || !bleServer.connected) return;
+    syncing=true; $("syncBtn").disabled=true;
+    var now=new Date();
+    var from={ year:now.getFullYear(), month:now.getMonth()+1, day:now.getDate(), hour:0, minute:0, second:0 };
+    var census=[], chain=Promise.resolve(), totalAdded=0;
+    log("Sync started. The band returns its whole buffer for each stream; duplicates are dropped by band timestamp.");
+    STREAMS.forEach(function(stream){
+      chain=chain.then(function(){
+        if(!bleServer || !bleServer.connected) return;
+        setStreamStatus(stream.key, "syncing…", "run", "syncing");
+        return readStream(stream, from, function(frames, records){
+          setStreamStatus(stream.key, frames+" frames · "+records+" records", "run", "syncing");
+        }).then(function(res){
+          var records=res.parsed.samples.length+res.parsed.daily.length+res.parsed.sleep.length;
+          var added=mergeParsed(res.parsed);
+          totalAdded+=added;
+          if(storeRaw){
+            res.rawFrames.forEach(function(rf){
+              data.rawFrames.push({ at:new Date().toISOString(), stream:stream.key, frameIndex:rf.frameIndex, bytes:rf.byteLength, hex:rf.hex });
+            });
+            if(data.rawFrames.length>RAW_CAP) data.rawFrames=data.rawFrames.slice(data.rawFrames.length-RAW_CAP);
+          }
+          census.push({ key:stream.key, label:stream.label, frames:res.frames, records:records, added:added, endedBy:res.endedBy });
+          setStreamStatus(stream.key, res.frames+" frames · "+records+" records · "+added+" new · "+res.endedBy, "done", "done");
+          log(stream.label+": "+res.frames+" frames, "+records+" records, "+added+" new, ended by "+res.endedBy+".");
+          renderAll(); saveState();
+        });
+      });
+    });
+    chain.then(function(){
+      var wasConnected = !!(bleServer && bleServer.connected);
+      data.syncs.push({ at:new Date().toISOString(), deviceName:data.device ? data.device.name : null, streams:census, released:wasConnected });
+      saveState(); renderAll();
+      syncing=false;
+      log("Sync complete — "+totalAdded+" new records stored.");
+      toast("Sync complete — "+totalAdded+" new records stored");
+      /* Release the connection after each sync so the Hume app can connect. */
+      releaseConnection("sync finished");
+    });
+  });
+
+  $("rawToggle").addEventListener("click", function(){
+    storeRaw=!storeRaw;
+    this.setAttribute("aria-pressed", storeRaw?"true":"false");
+    this.textContent="Raw frame archive: "+(storeRaw?"on":"off");
+  });
+
+  /* ---------------- Export / import / erase ---------------- */
+  function exportObject(){
+    return {
+      app:"Hume Band Reader", formatVersion:2, exportedAt:new Date().toISOString(),
+      device:data.device, deviceInfo:data.deviceInfo,
+      samples:data.samples, daily:data.daily, sleep:data.sleep,
+      rawFrames:data.rawFrames, syncs:data.syncs, log:data.log,
+      notes:"Times are the band wall clock (localTs yyyyMMddHHmmss as recorded, no timezone applied). The band 'HRV' byte (0x56 byte 9) is a device-state index, not HRV — no RR intervals are transmitted. Systolic/diastolic bytes (0x56 bytes 13-14) are generated inside a ±10 clamp, not measured. All values stored raw. Planned next step: Firestore sync (database 'hume') reading this same format."
+    };
+  }
+  function download(name, text, type){
+    var blob=new Blob([text], {type:type||"application/json"});
+    var url=URL.createObjectURL(blob), a=document.createElement("a");
+    a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  }
+  function stamp(){ return new Date().toISOString().replace(/[:.]/g,"-").slice(0,19); }
+  $("downloadJsonBtn").addEventListener("click", function(){
+    download("hume-band-data-"+stamp()+".json", JSON.stringify(exportObject(), null, 2));
+    log("Downloaded JSON export ("+data.samples.length+" samples, "+data.daily.length+" daily, "+data.sleep.length+" sleep, "+data.rawFrames.length+" raw frames).");
+    toast("JSON downloaded — that’s your complete store");
+  });
+  $("downloadCsvBtn").addEventListener("click", function(){
+    if(!data.samples.length){ toast("No samples stored yet"); return; }
+    function esc(v){ v=String(v==null?"":v); return /[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
+    var lines=["band_time,metric,value,unit"];
+    data.samples.slice().sort(function(a,b){return a.localTs-b.localTs;}).forEach(function(s){
+      lines.push([formatLocalTs(s.localTs), metricLabel(s.metric), fmtValue(s.metric,s.value), metricUnit(s.metric)].map(esc).join(","));
+    });
+    download("hume-band-samples-"+stamp()+".csv", lines.join("\n"), "text/csv");
+    toast("CSV downloaded");
+  });
+  $("copyJsonBtn").addEventListener("click", function(){
+    var text=JSON.stringify(exportObject(), null, 2);
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast("JSON copied"); }).catch(function(){ toast("Copy failed in this browser"); });
+    } else toast("Clipboard isn’t available here — use Download instead");
+  });
+  $("importFile").addEventListener("change", function(ev){
+    var file=ev.target.files && ev.target.files[0]; if(!file) return;
+    var reader=new FileReader();
+    reader.onload=function(){
+      try{
+        var parsed=JSON.parse(String(reader.result));
+        if(!parsed || !Array.isArray(parsed.samples)) throw new Error("Not a Hume Band Reader export");
+        var added=0;
+        parsed.samples.forEach(function(s){
+          if(typeof s.localTs==="number" && typeof s.value==="number" && typeof s.metric==="string"){
+            var k=s.metric+"|"+s.localTs+"|"+s.value;
+            if(!sampleKeys[k]){ sampleKeys[k]=true; data.samples.push({metric:s.metric, localTs:s.localTs, value:s.value}); added++; }
+          }
+        });
+        if(Array.isArray(parsed.daily)) parsed.daily.forEach(function(d){
+          if(typeof d.localDate==="number" && !dailyKeys[d.localDate]){ dailyKeys[d.localDate]=true; data.daily.push(d); added++; }
+        });
+        if(Array.isArray(parsed.sleep)) parsed.sleep.forEach(function(s){
+          if(typeof s.startLocalTs==="number" && !sleepKeys[s.startLocalTs]){ sleepKeys[s.startLocalTs]=true; data.sleep.push(s); added++; }
+        });
+        if(Array.isArray(parsed.rawFrames)) parsed.rawFrames.forEach(function(f){ data.rawFrames.push(f); });
+        if(data.rawFrames.length>RAW_CAP) data.rawFrames=data.rawFrames.slice(data.rawFrames.length-RAW_CAP);
+        if(parsed.deviceInfo) data.deviceInfo=parsed.deviceInfo;
+        if(parsed.device) data.device=parsed.device;
+        log("Opened export "+file.name+" — merged "+added+" new records.");
+        saveState(); renderAll(); toast("Export merged — "+added+" new records");
+      }catch(e){ toast("That file couldn’t be opened: "+e.message); }
+      ev.target.value="";
+    };
+    reader.readAsText(file);
+  });
+  var clearArmed=false, clearArmTimer=null;
+  $("clearBtn").addEventListener("click", function(){
+    var btn=this;
+    if(!clearArmed){
+      if(!data.samples.length && !data.daily.length && !data.sleep.length && !data.rawFrames.length){ toast("Nothing stored to erase"); return; }
+      clearArmed=true; btn.textContent="Tap again to confirm erase";
+      clearArmTimer=setTimeout(function(){ clearArmed=false; btn.textContent="Erase stored data"; }, 4000);
+      return;
+    }
+    clearTimeout(clearArmTimer); clearArmed=false; btn.textContent="Erase stored data";
+    data.samples=[]; data.daily=[]; data.sleep=[]; data.rawFrames=[]; data.syncs=[];
+    data.deviceInfo={ battery:null, firmware:null, mac:null, clockLocalTs:null, stepGoal:null };
+    rebuildKeys();
+    $("vBatt").textContent="—"; $("vFw").textContent="—"; $("vClock").textContent="—"; $("vGoal").textContent="—"; $("vHr").textContent="—"; $("vSpo2").textContent="—";
+    eraseState();
+    renderAll(); log("Stored data erased.");
+    toast("Stored data erased");
+  });
+
+  /* ---------------- View tabs + data tabs ---------------- */
+  var viewTabs=document.querySelectorAll(".viewtab");
+  viewTabs.forEach(function(tab){
+    tab.addEventListener("click", function(){
+      viewTabs.forEach(function(t){ t.setAttribute("aria-selected","false"); });
+      tab.setAttribute("aria-selected","true");
+      document.querySelectorAll(".view").forEach(function(v){ v.classList.remove("show"); });
+      $("view-"+tab.getAttribute("data-view")).classList.add("show");
+    });
+  });
+  var tabs=document.querySelectorAll(".tab");
+  tabs.forEach(function(tab){
+    tab.addEventListener("click", function(){
+      tabs.forEach(function(t){ t.setAttribute("aria-selected","false"); });
+      tab.setAttribute("aria-selected","true");
+      document.querySelectorAll(".panel").forEach(function(p){ p.classList.remove("show"); });
+      $("panel-"+tab.getAttribute("data-tab")).classList.add("show");
+    });
+  });
+
+  /* ---------------- Self-test ---------------- */
+  function renderSelfTest(){
+    var wrap=$("selfTest"), results=runSelfTest(), passed=0;
+    results.forEach(function(r){ if(r.pass) passed++; });
+    var head=document.createElement("p"); head.style.cssText="font-size:14.5px;margin:0 0 6px";
+    head.textContent="Decoder self-test: "+passed+" / "+results.length+" passed — run in your browser just now, against real frames captured from a real band (2026-08-02).";
+    wrap.appendChild(head);
+    results.forEach(function(r){
+      var row=document.createElement("div"); row.className="test-row";
+      var mark=document.createElement("span"); mark.className=r.pass?"pass":"fail"; mark.textContent=r.pass?"PASS":"FAIL"; row.appendChild(mark);
+      var name=document.createElement("span"); name.style.fontWeight="600"; name.textContent=r.name; row.appendChild(name);
+      var exp=document.createElement("span"); exp.style.color="var(--muted)"; exp.textContent=r.expect; row.appendChild(exp);
+      wrap.appendChild(row);
+    });
+  }
+
+  /* ---------------- Boot ---------------- */
+  refreshBleStatus();
+  renderStreamList();
+  renderSelfTest();
+  openDb().then(loadState).then(function(){
+    $("storeStatus").textContent = db ? "this browser (IndexedDB)" : "unavailable — download to keep data";
+    if(data.device) $("deviceLine").textContent="Last band: "+(data.device.name||"unknown");
+    renderAll();
+    log(db ? "Stored data loaded from this browser: "+data.samples.length+" samples, "+data.daily.length+" daily totals, "+data.sleep.length+" sleep segments." : "Browser storage unavailable here — data will last for this page session only; download the JSON to keep it.");
+    log(supported ? "Ready. Connect the band, then Sync stored history. The connection is released automatically when the sync finishes." : "Web Bluetooth isn’t available in this browser — stored-data browsing, import, and downloads still work.");
+  });
+})();
+</script>
+</body>
+</html>
