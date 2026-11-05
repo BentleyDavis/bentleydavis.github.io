@@ -5,6 +5,10 @@ next-time weights. Rep targets: upper 8–12, legs 10–15. Machines over
 dumbbells where the Marcy MWM-990 has the exercise; goblet squat, shoulder
 press and RDL stay dumbbell.
 
+Source code lives ONLY in the Muse artifact `exercise-tracker` — no
+version of this app is on bentleydavis.com yet. A reference copy of
+that code belongs under `sample-code/` here (see apps/AGENTS.md).
+
 - HR data comes from the Hume band, via the Hume Band App / shared BLE —
   do not reimplement the Hume protocol here. That protocol lives only in
   `hume-band/`.
