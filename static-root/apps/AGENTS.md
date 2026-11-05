@@ -14,19 +14,23 @@ Plan for each app:
   copy its server or SQLite database, and never copy its `app.db`
   (live user data — never in the repo).
 - Once a new app exists and works, do a FINAL DATA SYNC: export the
-  data from the Muse artifact and import it into the app's Firestore
-  database, then verify counts match before the Muse artifact is
-  retired.
+  data from the Muse artifact and import it into its collections in
+  the shared `apps` Firestore database, then verify counts match
+  before the Muse artifact is retired.
 
 Shared plan (applies to every app):
 - `shared/` will hold general code only. It knows nothing about any
   app: no collection names, no schemas, no database names. An app
   passes those in.
-- App-specific code stays in its own folder: its database, collections,
-  validation, UI, and its `firestore.rules`. Apps never import each
-  other.
-- One Firebase project (`muse-browser-extension`), one Auth user base,
-  one Firestore database per app. See
+- App-specific code stays in its own folder: its collections,
+  validation, and UI. Apps never import each other. Security rules are
+  one file for the whole database, not one per app — rules are
+  per-database, and there is only one database.
+- One Firebase project (`apps-5884f`, display name "apps"), one Auth
+  user base, ONE Firestore database (`apps`, created 2026-11-05) for
+  everything. Each domain is its own top-level collection (health,
+  task, muse/agent data), kept logically separate so a domain can be
+  split into its own database later by a scripted export/import. See
   `~/workspace/docs/firestore-architecture.md` (the recorded decisions;
   nothing there is built yet unless it says so).
 - Domain model is plain JSON: own IDs, ISO-8601 timestamps. No Firestore
