@@ -45,9 +45,10 @@ Live HR (plan, 2026-11-05 — not built yet):
   the Hume app can sync afterwards.
 
 Data and backend (plan):
-- Its own Firestore database (name TBD in firestore-architecture.md —
-  do not invent one). Plain-JSON model, `onSnapshot()` for live data,
-  shared code from `../shared/` only. No credentials in the repo.
+- Its own top-level collections in the shared `apps` Firestore
+  database (see firestore-architecture.md). Plain-JSON model,
+  `onSnapshot()` for live data, shared code from `../shared/` only.
+  No credentials in the repo.
 - Once this app exists and works, do a FINAL DATA SYNC: export the
   data from the Muse artifact and import it into Firestore, then verify
   counts match before the Muse artifact is retired. Never copy the
