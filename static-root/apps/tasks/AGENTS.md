@@ -1,8 +1,12 @@
 # AGENTS.md — Task App
 
 Editor built 2026-11-05 (`index.html` — sign-in, inline editing,
-drag-drop reorder across the P regions, add/delete rows). Widget
+drag-drop reorder across the P regions, add rows, reversible Done). Widget
 endpoint not built yet.
+
+Children show their parent's title (or its ID if the parent is missing);
+parent rows show their direct child count. These labels refresh with
+confirmed task snapshots, including parent renames.
 
 Plan: the future replacement for Todoist + the Task List Google
 Sheet here: the frontend on the Firestore SDK, with task data in Cloud
@@ -46,8 +50,9 @@ as the systems they replace):
   holds the next step in plain words, no judgment on whether he has
   acted. Each task can link its source system by ID (an external task
   ID or a Muse goal).
-- Completion: when a task is done, its key details are recorded first,
-  then the task is deleted — never marked complete.
+- Completion (updated 2026-11-05): a persistent Done checkbox toggles
+  completion. Completed tasks stay visible in their existing positions
+  and can be unchecked. There is no delete control in the editor.
 - `aiAction`: an instruction to Muse, in Bentley's words ("remind me
   about this on Friday", "check whether this is done and update the
   status"). Muse reads it, does it, then clears the field. The task
@@ -67,11 +72,22 @@ Schema (approved 2026-11-05; full draft in
   required), `order` (number, required — sort key inside a region;
   migration seeds row position × 1000), `createdAt`, `updatedAt`
   (ISO strings), `updatedBy` (who wrote it: `bentley` or the AI login
-  name).
+  name). Optional `done` (boolean) defaults to false when absent;
+  toggling Done writes it without deleting the task.
 - There are no divider documents. `priority` and `order` replace them:
   dragging a row rewrites `order`; dragging across a divider rewrites
   `priority` and `order`.
-- The sheet's AI Action column maps to `aiAction`. Done has no field.
+- The sheet's AI Action column maps to `aiAction`.
+- The editor subscribes with `onSnapshot()` while signed in and
+  unsubscribes on auth changes. Failed writes show an error without
+  changing the confirmed task data. Numeric IDs are checked inside a
+  transaction before creation to prevent overwrites.
+- The heading shows Saving while a write is pending, Saved only after
+  Firestore confirms it, or Save failed with a separate error message.
+- Deployment prerequisite for Done: the database rules must permit an
+  optional boolean `done` on task documents, including toggling it in
+  updates. The deployed rules are not available in this repository;
+  inspect their current policy before proposing an approved rules deploy.
 
 Widget data access (final, decided 2026-11-05):
 - The phone widget shows the same filtered list as the morning recap

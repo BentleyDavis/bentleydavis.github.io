@@ -2,7 +2,7 @@
 
 BUILT — this one is done and live. Web BLE reader for the Hume band,
 using the reverse-engineered protocol. Live at
-bentleydavis.com/apps/hume-band/.
+bentleydavis.com/apps/hume/.
 The app is one static `index.html` (no build step). Do not move this
 folder unasked.
 

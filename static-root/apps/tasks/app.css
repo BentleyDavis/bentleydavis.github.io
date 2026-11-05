@@ -1,0 +1,232 @@
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+h1 {
+  margin: 0 0 0.2em;
+  font-size: 1.4em;
+}
+
+#save-status {
+  color: var(--apps-color-text-muted);
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+#save-status[data-state="saving"] {
+  color: var(--apps-color-accent);
+}
+
+#save-status[data-state="failed"] {
+  color: var(--apps-color-danger);
+}
+
+#status {
+  margin-bottom: 1em;
+  color: var(--apps-color-text-muted);
+  font-size: 0.9em;
+}
+
+#error {
+  margin-bottom: 1em;
+  color: var(--apps-color-danger);
+}
+
+#auth {
+  margin-bottom: 1em;
+}
+
+#auth input {
+  margin-right: 0.4em;
+  padding: 0.4em;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  padding: 0.4em 0.8em;
+  border: 1px solid var(--apps-color-border);
+  border-radius: 4px;
+  background: var(--apps-color-surface-raised);
+  color: var(--apps-color-text);
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--apps-color-surface-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--apps-color-accent);
+  outline-offset: 2px;
+}
+
+.region {
+  margin: 1.2em 0;
+  overflow-x: auto;
+}
+
+.region > h2 {
+  margin: 0;
+  padding: 0.3em 0.6em;
+  background: var(--apps-color-surface-raised);
+  font-size: 1.05em;
+}
+
+.head,
+.list {
+  min-width: 850px;
+}
+
+.row {
+  display: flex;
+  gap: 0.4em;
+  align-items: center;
+  padding: 0.3em 0.4em;
+  border-bottom: 1px solid var(--apps-color-border);
+  background: var(--apps-color-background);
+}
+
+.row.dragging {
+  opacity: 0.4;
+}
+
+.row.dragover {
+  border-top: 2px solid var(--apps-color-accent);
+}
+
+.row.child {
+  background: var(--apps-color-surface);
+}
+
+.row.parent {
+  font-weight: 600;
+}
+
+.row input,
+.row select {
+  min-width: 0;
+  padding: 0.25em 0.35em;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+}
+
+.row input:hover,
+.row select:hover,
+.row input:focus,
+.row select:focus {
+  border-color: var(--apps-color-border);
+  background: var(--apps-color-surface-raised);
+}
+
+.c-title {
+  flex: 3 1 220px;
+}
+
+.title-cell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3em;
+  min-width: 0;
+}
+
+.title-cell input {
+  flex: 1 1 100px;
+  width: 100%;
+}
+
+.parent-tag {
+  flex: 0 0 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--apps-color-text-muted);
+  font-size: 0.8em;
+}
+
+.parent-tag::after {
+  content: " \203a";
+}
+
+.child-count {
+  padding: 0.1em 0.6em;
+  border-radius: 10px;
+  background: var(--apps-color-surface-raised);
+  color: var(--apps-color-text-muted);
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+
+.c-type {
+  flex: 0 0 92px;
+}
+
+.c-source {
+  flex: 0 0 80px;
+}
+
+.c-next {
+  flex: 1 1 110px;
+}
+
+.c-status {
+  flex: 2 1 160px;
+}
+
+.c-aiAction {
+  flex: 2 1 160px;
+}
+
+.c-done {
+  flex: 0 0 40px;
+  text-align: center;
+  accent-color: var(--apps-color-accent);
+}
+
+.row.done .c-title {
+  text-decoration: line-through;
+  color: var(--apps-color-text-muted);
+}
+
+.list:empty {
+  min-height: 2em;
+}
+
+.add {
+  margin: 0.5em 0 0 0.4em;
+}
+
+.grip {
+  flex: 0 0 auto;
+  color: var(--apps-color-text-muted);
+  cursor: grab;
+  user-select: none;
+}
+
+.head {
+  display: flex;
+  gap: 0.4em;
+  padding: 0.3em 0.4em;
+  border-bottom: 2px solid var(--apps-color-border);
+  color: var(--apps-color-text-muted);
+  font-size: 0.8em;
+}
+
+.head span {
+  overflow: hidden;
+}

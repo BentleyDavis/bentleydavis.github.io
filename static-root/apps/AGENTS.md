@@ -20,9 +20,15 @@ Plan for each app:
   before the Muse artifact is retired.
 
 Shared plan (applies to every app):
+- Prototype workflow: requirements are still being worked out. Do not
+  add or maintain automated tests until requirements settle or the user
+  explicitly requests them. Use lightweight manual checks instead.
 - `shared/` will hold general code only. It knows nothing about any
   app: no collection names, no schemas, no database names. An app
   passes those in.
+- `shared/theme.css` defines shared color and font properties, dark
+  native controls, and page-wide defaults. App-specific styles live in
+  each app's own CSS file; app pages are isolated from one another.
 - App-specific code stays in its own folder: its collections,
   validation, and UI. Apps never import each other. Security rules are
   one file for the whole database, not one per app — rules are

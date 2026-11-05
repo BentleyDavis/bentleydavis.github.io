@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task App</title>
+<link rel="stylesheet" href="../shared/theme.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<main>
+<header>
+  <h1>Tasks</h1>
+  <span id="save-status" role="status" aria-live="polite"></span>
+</header>
+<div id="status" role="status">Loading…</div>
+<div id="error" role="alert" hidden></div>
+<div id="auth">
+  <span id="who"></span>
+  <form id="signin">
+    <button id="googleBtn" type="button">Sign in with Google</button>
+    <input id="email" type="email" placeholder="email" aria-label="Email" autocomplete="username" required>
+    <input id="password" type="password" placeholder="password" aria-label="Password" autocomplete="current-password" required>
+    <button id="signinBtn" type="submit">Sign in</button>
+  </form>
+  <button id="signoutBtn" hidden>Sign out</button>
+</div>
+<div id="app" hidden></div>
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, collection, onSnapshot, doc, runTransaction, updateDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBz7SUuyhiNKtCUWetJ051xFdqzc5l4NKE",
+  authDomain: "apps-5884f.firebaseapp.com",
+  projectId: "apps-5884f",
+  storageBucket: "apps-5884f.firebasestorage.app",
+  messagingSenderId: "802105454064",
+  appId: "1:802105454064:web:2cc2ffc812f30a27cb0135"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app, "apps"); // named database — getFirestore(app) alone uses the (default) database, which is empty
+const tasksCol = collection(db, "tasks");
+
+const REGIONS = ["p1", "p2", "p3", "p4"];
+const COLUMNS = [
+  { field: "title", label: "Task" },
+  { field: "type", label: "Type", options: ["Personal", "Bentley", "Mom", "CRT", "Health"] },
+  { field: "source", label: "Source", options: ["todoist", "muse"] },
+  { field: "next", label: "Next" },
+  { field: "status", label: "Status / next step" },
+  { field: "aiAction", label: "AI Action" },
+  { field: "done", label: "Done", type: "checkbox" }
+];
+
+let tasks = [];
+let uid = null;
+let unsubscribe = null;
+let writing = false;
+
+const statusEl = document.getElementById("status");
+const errorEl = document.getElementById("error");
+const saveStatusEl = document.getElementById("save-status");
+const appEl = document.getElementById("app");
+
+function setStatus(msg) { statusEl.textContent = msg; }
+
+function setSaveStatus(state, message) {
+  saveStatusEl.dataset.state = state;
+  saveStatusEl.textContent = message;
+}
+
+function reportError(message) {
+  errorEl.textContent = message;
+  errorEl.hidden = !message;
+}
+
+async function runAction(label, action) {
+  reportError("");
+  try {
+    await action();
+  } catch (err) {
+    reportError(`${label}: ${err.message}`);
+  }
+}
+
+async function writeTasks(action) {
+  if (writing) throw new Error("Another change is still saving. Please try again.");
+  if (!uid) throw new Error("Sign in before editing tasks.");
+  writing = true;
+  const savingUid = uid;
+  setSaveStatus("saving", "Saving…");
+  try {
+    await action();
+    if (uid === savingUid) setSaveStatus("saved", "Saved");
+  } catch (err) {
+    if (uid === savingUid) setSaveStatus("failed", "Save failed");
+    throw err;
+  } finally {
+    writing = false;
+  }
+}
+
+function render() {
+  const active = document.activeElement;
+  const activeRow = active.closest(".row");
+  const editing = activeRow && active.dataset.field ? {
+    id: activeRow.dataset.id, field: active.dataset.field,
+    value: active.value, start: active.selectionStart, end: active.selectionEnd
+  } : null;
+  const scrollPositions = [...appEl.querySelectorAll(".region")].map(el => el.scrollLeft);
+  appEl.replaceChildren();
+  const counts = {};
+  for (const t of tasks) counts[t.priority] = (counts[t.priority] || 0) + 1;
+  setStatus(`${tasks.length} tasks — P1 ${counts.p1||0} · P2 ${counts.p2||0} · P3 ${counts.p3||0} · P4 ${counts.p4||0}. Drag rows to reorder; dropping across a divider changes priority.`);
+  const tasksById = new Map(tasks.map(t => [t.id, t]));
+  const childCounts = new Map();
+  for (const t of tasks) {
+    if (t.parentId) childCounts.set(t.parentId, (childCounts.get(t.parentId) || 0) + 1);
+  }
+  for (const region of REGIONS) {
+    const section = document.createElement("div");
+    section.className = "region";
+    section.dataset.region = region;
+    const h = document.createElement("h2");
+    h.textContent = `${region.toUpperCase()} — ${counts[region] || 0}`;
+    section.appendChild(h);
+    const head = document.createElement("div");
+    head.className = "head";
+    const spacer = document.createElement("span");
+    spacer.className = "grip";
+    spacer.textContent = "\u00a0";
+    head.appendChild(spacer);
+    for (const column of COLUMNS) {
+      const label = document.createElement("span");
+      label.className = `c-${column.field}`;
+      label.textContent = column.label;
+      head.appendChild(label);
+    }
+    section.appendChild(head);
+    const list = document.createElement("div");
+    list.className = "list";
+    list.dataset.region = region;
+    list.addEventListener("dragover", e => { e.preventDefault(); });
+    list.addEventListener("drop", e => handleDrop(e, region, null));
+    for (const t of tasks.filter(t => t.priority === region)) {
+      list.appendChild(rowEl(t, tasksById.get(t.parentId), childCounts.get(t.id) || 0));
+    }
+    section.appendChild(list);
+    const addBtn = document.createElement("button");
+    addBtn.className = "add";
+    addBtn.textContent = `+ Add task to ${region.toUpperCase()}`;
+    addBtn.addEventListener("click", () => runAction("Could not add task", () => addTask(region)));
+    section.appendChild(addBtn);
+    appEl.appendChild(section);
+  }
+  [...appEl.querySelectorAll(".region")].forEach((el, i) => { el.scrollLeft = scrollPositions[i] || 0; });
+  if (editing) {
+    const row = [...appEl.querySelectorAll(".row")].find(el => el.dataset.id === editing.id);
+    const control = row?.querySelector(`[data-field="${editing.field}"]`);
+    if (control) {
+      // Keep an unfinished text edit when a remote snapshot refreshes the rows.
+      if (control.type !== "checkbox") control.value = editing.value;
+      control.focus({ preventScroll: true });
+      if (editing.start !== null && control.setSelectionRange) {
+        control.setSelectionRange(editing.start, editing.end);
+      }
+    }
+  }
+}
+
+function rowEl(t, parent, childCount) {
+  const row = document.createElement("div");
+  row.className = "row" + (t.parentId ? " child" : "") + (childCount ? " parent" : "") + (t.done ? " done" : "");
+  row.draggable = true;
+  row.dataset.id = t.id;
+  row.addEventListener("dragstart", e => { e.dataTransfer.setData("text/plain", t.id); row.classList.add("dragging"); });
+  row.addEventListener("dragend", () => row.classList.remove("dragging"));
+  row.addEventListener("dragover", e => { e.preventDefault(); row.classList.add("dragover"); });
+  row.addEventListener("dragleave", () => row.classList.remove("dragover"));
+  row.addEventListener("drop", e => handleDrop(e, t.priority, t.id));
+
+  const grip = document.createElement("span");
+  grip.className = "grip";
+  grip.textContent = "⠿";
+  row.appendChild(grip);
+
+  for (const column of COLUMNS) {
+    const control = document.createElement(column.options ? "select" : "input");
+    control.className = `c-${column.field}`;
+    control.dataset.field = column.field;
+    control.setAttribute("aria-label", column.label);
+    if (column.options) {
+      for (const value of column.options) control.add(new Option(value, value));
+    }
+    if (column.type === "checkbox") {
+      control.type = "checkbox";
+      control.checked = t.done === true;
+    } else {
+      control.value = t[column.field] ?? "";
+    }
+    if (column.field === "title") control.required = true;
+    control.addEventListener("change", () => runAction(`Could not save ${column.label}`, async () => {
+      const value = column.type === "checkbox" ? control.checked : control.value;
+      try {
+        await saveField(t.id, column.field, value);
+      } catch (err) {
+        const current = tasks.find(task => task.id === t.id);
+        const currentRow = [...appEl.querySelectorAll(".row")].find(el => el.dataset.id === t.id);
+        const currentControl = currentRow?.querySelector(`[data-field="${column.field}"]`);
+        if (currentControl) {
+          if (column.type === "checkbox") currentControl.checked = current?.done === true;
+          else currentControl.value = current?.[column.field] ?? "";
+        }
+        throw err;
+      }
+    }));
+    if (column.field === "title") {
+      const cell = document.createElement("div");
+      cell.className = "c-title title-cell";
+      if (t.parentId) {
+        const tag = document.createElement("span");
+        tag.className = "parent-tag";
+        tag.textContent = parent ? parent.title : `#${t.parentId}`;
+        tag.title = "Parent task";
+        cell.appendChild(tag);
+      }
+      cell.appendChild(control);
+      if (childCount) {
+        const badge = document.createElement("span");
+        badge.className = "child-count";
+        badge.textContent = `${childCount} ${childCount === 1 ? "child" : "children"}`;
+        badge.title = `${childCount} ${childCount === 1 ? "subtask belongs" : "subtasks belong"} to this group`;
+        cell.appendChild(badge);
+      }
+      row.appendChild(cell);
+    } else {
+      row.appendChild(control);
+    }
+  }
+  return row;
+}
+
+async function saveField(id, field, value) {
+  if (field === "title" && !value.trim()) throw new Error("Task title cannot be empty.");
+  const task = tasks.find(t => t.id === id);
+  if (!task) throw new Error("This task no longer exists.");
+  if ((task[field] ?? (field === "done" ? false : "")) === value) return;
+  await writeTasks(() => updateDoc(doc(tasksCol, task.docId), {
+    [field]: value, updatedAt: new Date().toISOString(), updatedBy: uid
+  }));
+}
+
+async function addTask(region) {
+  await writeTasks(async () => {
+    const maxId = tasks.reduce((m, t) => Math.max(m, Number(t.id)), 0);
+    const maxOrder = Math.max(0, ...tasks.filter(t => t.priority === region).map(t => t.order));
+    const updatedBy = uid;
+    await runTransaction(db, async transaction => {
+      let nextId = maxId + 1;
+      let ref;
+      // Reading the candidate inside the transaction prevents concurrent creates from overwriting it.
+      while (true) {
+        if (!Number.isSafeInteger(nextId)) throw new Error("Cannot allocate a numeric task ID.");
+        ref = doc(tasksCol, String(nextId));
+        if (!(await transaction.get(ref)).exists()) break;
+        nextId++;
+      }
+      const id = String(nextId);
+      const now = new Date().toISOString();
+      transaction.set(ref, { id, title: "New task", parentId: null, type: "Personal", source: "muse", sourceId: null, next: "", status: "", aiAction: "", priority: region, order: maxOrder + 1000, createdAt: now, updatedAt: now, updatedBy });
+    });
+  });
+}
+
+function handleDrop(e, region, beforeId) {
+  e.preventDefault();
+  e.stopPropagation();
+  e.currentTarget.classList.remove("dragover");
+  const draggedId = e.dataTransfer.getData("text/plain");
+  if (!draggedId || draggedId === beforeId) return;
+  return runAction("Could not reorder tasks", () => reorderTask(draggedId, region, beforeId));
+}
+
+async function reorderTask(draggedId, region, beforeId) {
+  const dragged = tasks.find(t => t.id === draggedId);
+  if (!dragged) throw new Error("This task no longer exists.");
+  const regionTasks = tasks.filter(t => t.priority === region && t.id !== draggedId);
+  const idx = beforeId ? regionTasks.findIndex(t => t.id === beforeId) : regionTasks.length;
+  if (idx < 0) throw new Error("The drop target no longer exists.");
+  regionTasks.splice(idx, 0, dragged);
+  await writeTasks(async () => {
+    const batch = writeBatch(db);
+    const now = new Date().toISOString();
+    regionTasks.forEach((t, i) => {
+      const order = (i + 1) * 1000;
+      if (t.order !== order || t.priority !== region) {
+        batch.update(doc(tasksCol, t.docId), { order, priority: region, updatedAt: now, updatedBy: uid });
+      }
+    });
+    await batch.commit();
+  });
+}
+
+document.getElementById("googleBtn").addEventListener("click", () => runAction("Google sign-in failed", async () => {
+  setStatus("Signing in with Google…");
+  try {
+    await signInWithPopup(auth, new GoogleAuthProvider());
+  } catch (err) {
+    if (err.code === "auth/operation-not-allowed") {
+      throw new Error("Google sign-in isn't enabled for this project yet. Enable it in Firebase Authentication and try again.");
+    }
+    throw err;
+  }
+}));
+document.getElementById("signin").addEventListener("submit", e => {
+  e.preventDefault();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  return runAction("Sign-in failed", async () => {
+    setStatus("Signing in…");
+    await signInWithEmailAndPassword(auth, email, password);
+    document.getElementById("password").value = "";
+  });
+});
+document.getElementById("signoutBtn").addEventListener("click", () => runAction("Sign-out failed", () => signOut(auth)));
+
+onAuthStateChanged(auth, user => {
+  unsubscribe?.();
+  unsubscribe = null;
+  tasks = [];
+  appEl.replaceChildren();
+  appEl.hidden = true;
+  reportError("");
+  setSaveStatus("", "");
+  const who = document.getElementById("who");
+  const signin = document.getElementById("signin");
+  const signoutBtn = document.getElementById("signoutBtn");
+  if (user) {
+    uid = user.uid;
+    who.textContent = "Signed in as " + (user.email || user.uid) + " ";
+    signin.hidden = true;
+    signoutBtn.hidden = false;
+    setStatus("Loading tasks…");
+    unsubscribe = onSnapshot(tasksCol, { includeMetadataChanges: true }, snapshot => {
+      if (uid !== user.uid || snapshot.metadata.hasPendingWrites) return;
+      tasks = snapshot.docs.map(d => ({ ...d.data(), docId: d.id }));
+      tasks.sort((a, b) => a.priority.localeCompare(b.priority) || (a.order - b.order) || Number(a.id) - Number(b.id));
+      appEl.hidden = false;
+      render();
+    }, err => {
+      if (uid !== user.uid) return;
+      appEl.hidden = true;
+      setStatus("Tasks are unavailable.");
+      reportError("Could not load tasks: " + err.message);
+    });
+  } else {
+    uid = null;
+    who.textContent = "";
+    signin.hidden = false;
+    signoutBtn.hidden = true;
+    appEl.hidden = true;
+    setStatus("Sign in to edit tasks.");
+  }
+});
+</script>
+</body>
+</html>

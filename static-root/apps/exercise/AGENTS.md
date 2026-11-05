@@ -12,7 +12,7 @@ What to build:
   stay dumbbell.
 - HR data comes from the Hume band, via the Hume Band App / shared BLE
   — do not reimplement the Hume protocol here. That protocol lives only
-  in `../hume-band/`.
+  in `../hume/`.
 - Rest is HR-guided, not a fixed timer: rest until HR drops ≥~30 bpm
   from the set peak AND breathing is normal / full sentences are
   comfortable, up to ~5 min.
