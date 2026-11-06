@@ -81,6 +81,14 @@ enforcement. Keep these and this guidance synchronized on schema changes.
   recurring task when `done` becomes true, resets `done`, and records
   `lastCompletion` for undo; clients may only clear it while restoring
   its `previousNext`.
+- Recurrence is computed only on the server (`functions/recurrence.js`,
+  `advance-task.js`, `recurrence-trigger.js`, with `node --test`
+  coverage). Clients and AIs just write `done: true`, plus `completedFor`
+  when they know which `next` they are completing, so retries and stale
+  tabs cannot advance twice. The trigger is transactional and safe to
+  rerun. The editor shows "Done — next: … · Undo"; Undo restores
+  `lastCompletion.previousNext`. Pattern formats and interval `start`
+  rules are in the schema's field descriptions.
 - There are no divider documents. `priority` and `order` replace them:
   dragging a row rewrites `order`; dragging across a divider rewrites
   `priority` and `order`.
@@ -114,7 +122,7 @@ Widget data access (final, decided 2026-11-05):
   widget app shows a live interactive page. `wg()` can scrape an HTML
   page's data with its jsoup mode, but what it renders is KWGT text.
 - Firestore is the source for non-recurring tasks; edit in the editor,
-  not the sheet. Recurring tasks: see `recurring-tasks-design.md`
-  (design and build steps). Order of work (his correction 2026-11-05):
+  not the sheet. Recurring tasks stay in Todoist until Muse migrates them
+  and Bentley approves the cutover. Order of work (his correction 2026-11-05):
   in future apps, do the data migration last — keep using the old way
   of handling the data until the app is ready.
