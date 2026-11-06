@@ -31,7 +31,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { getFirestore, collection, onSnapshot, doc, runTransaction, updateDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { getFirestore, collection, onSnapshot, doc, runTransaction, updateDoc, writeBatch, deleteField } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBz7SUuyhiNKtCUWetJ051xFdqzc5l4NKE",
@@ -54,7 +54,8 @@ const COLUMNS = [
   { field: "next", label: "Next" },
   { field: "status", label: "Status / next step" },
   { field: "aiAction", label: "AI Action" },
-  { field: "done", label: "Done", type: "checkbox" }
+  { field: "done", label: "Done", type: "checkbox" },
+  { field: "recurrence", label: "Repeat", type: "recurrence" }
 ];
 
 let tasks = [];
@@ -190,6 +191,10 @@ function rowEl(t, parent, childCount) {
   row.appendChild(grip);
 
   for (const column of COLUMNS) {
+    if (column.type === "recurrence") {
+      row.appendChild(recurrenceCell(t));
+      continue;
+    }
     const control = document.createElement(column.options ? "select" : "input");
     control.className = `c-${column.field}`;
     control.dataset.field = column.field;
@@ -242,7 +247,121 @@ function rowEl(t, parent, childCount) {
       row.appendChild(control);
     }
   }
+  if (t.lastCompletion?.previousNext) {
+    const note = document.createElement("div");
+    note.className = "completion-note";
+    const text = document.createElement("span");
+    text.textContent = `Done — next: ${formatOccurrence(t.next)}`;
+    note.appendChild(text);
+    const undo = document.createElement("button");
+    undo.type = "button";
+    undo.textContent = "Undo";
+    undo.addEventListener("click", () => runAction("Could not undo completion", () => undoCompletion(t)));
+    note.appendChild(undo);
+    row.appendChild(note);
+  }
   return row;
+}
+
+function recurrenceCell(task) {
+  const cell = document.createElement("div");
+  cell.className = "c-recurrence recurrence-cell";
+  const summary = document.createElement("span");
+  summary.className = "recurrence-summary";
+  summary.textContent = task.recurrence?.length
+    ? recurrenceSummary(task.recurrence)
+    : "No recurrence";
+  cell.appendChild(summary);
+
+  const details = document.createElement("details");
+  const summaryLabel = document.createElement("summary");
+  summaryLabel.textContent = "Edit";
+  details.appendChild(summaryLabel);
+  const editor = document.createElement("div");
+  editor.className = "recurrence-editor";
+  const ruleLabel = document.createElement("label");
+  ruleLabel.textContent = "Patterns (JSON)";
+  const rules = document.createElement("textarea");
+  rules.value = JSON.stringify(task.recurrence || [], null, 2);
+  ruleLabel.appendChild(rules);
+  editor.appendChild(ruleLabel);
+  const modeLabel = document.createElement("label");
+  modeLabel.textContent = "Repeat from";
+  const mode = document.createElement("select");
+  for (const value of ["schedule", "completion"]) {
+    mode.add(new Option(value, value));
+  }
+  mode.value = task.repeatFrom || "schedule";
+  modeLabel.appendChild(mode);
+  editor.appendChild(modeLabel);
+  const save = document.createElement("button");
+  save.type = "button";
+  save.textContent = "Save recurrence";
+  save.addEventListener("click", () => runAction("Could not save recurrence", () =>
+    saveRecurrence(task.id, rules.value, mode.value)));
+  editor.appendChild(save);
+  details.appendChild(editor);
+  cell.appendChild(details);
+  return cell;
+}
+
+function recurrenceSummary(recurrence) {
+  return recurrence.map(pattern => {
+    let rule;
+    if (pattern.type === "daily") {
+      rule = "every day";
+    } else if (pattern.type === "weekly") {
+      rule = `every ${pattern.weekday}`;
+    } else if (pattern.type === "monthly" && pattern.weekday) {
+      const ordinal = pattern.ordinal === -1
+        ? "last"
+        : `${pattern.ordinal}${pattern.ordinal === 1 ? "st" : pattern.ordinal === 2 ? "nd" : pattern.ordinal === 3 ? "rd" : "th"}`;
+      rule = `every ${ordinal} ${pattern.weekday}`;
+    } else if (pattern.type === "monthly") {
+      rule = `every month on day ${pattern.day}`;
+    } else if (pattern.type === "annual" && pattern.weekday) {
+      const ordinal = pattern.ordinal === -1
+        ? "last"
+        : `${pattern.ordinal}${pattern.ordinal === 1 ? "st" : pattern.ordinal === 2 ? "nd" : pattern.ordinal === 3 ? "rd" : "th"}`;
+      rule = `every ${ordinal} ${pattern.weekday} in ${monthName(pattern.month)}`;
+    } else if (pattern.type === "annual") {
+      rule = `every ${monthName(pattern.month)} ${pattern.day}`;
+    } else if (pattern.type === "interval") {
+      rule = `every ${pattern.value} ${pattern.unit}`;
+      if (pattern.weekday) rule += ` on ${pattern.weekday}`;
+    } else {
+      rule = "invalid recurrence";
+    }
+    if (pattern.time) rule += ` at ${pattern.time}`;
+    if (pattern.offsets?.length) rule += ` (${pattern.offsets.join(", ")})`;
+    return rule;
+  }).join("; ");
+}
+
+function monthName(month) {
+  return new Intl.DateTimeFormat("en-US", { month: "long", timeZone: "UTC" })
+    .format(new Date(Date.UTC(2020, month - 1, 1)));
+}
+
+function stableStringify(value) {
+  if (Array.isArray(value)) return `[${value.map(stableStringify).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map(key =>
+      `${JSON.stringify(key)}:${stableStringify(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function formatOccurrence(value) {
+  if (typeof value !== "string") return "unknown";
+  const date = value.match(/^(\d{4}-\d{2}-\d{2})/);
+  if (!date) return value;
+  const parsedDate = new Date(`${date[1]}T12:00:00Z`);
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    month: "short", day: "numeric", year: "numeric", timeZone: "UTC"
+  }).format(parsedDate);
+  const time = value.match(/T(\d{2}:\d{2})/);
+  return time ? `${formattedDate} at ${time[1]}` : formattedDate;
 }
 
 async function saveField(id, field, value) {
@@ -250,8 +369,81 @@ async function saveField(id, field, value) {
   const task = tasks.find(t => t.id === id);
   if (!task) throw new Error("This task no longer exists.");
   if ((task[field] ?? (field === "done" ? false : "")) === value) return;
+  const patch = {
+    [field]: value,
+    updatedAt: new Date().toISOString(),
+    updatedBy: uid
+  };
+  if (field === "done" && task.recurrence?.length) {
+    if (value && (typeof task.next !== "string" || !/^\d{4}-\d{2}-\d{2}/.test(task.next))) {
+      throw new Error("Recurring tasks need a date or datetime before they can be completed.");
+    }
+    patch.completedFor = value ? task.next : null;
+  }
+  await writeTasks(() => updateDoc(doc(tasksCol, task.docId), patch));
+}
+
+async function saveRecurrence(id, rulesText, repeatFrom) {
+  const task = tasks.find(t => t.id === id);
+  if (!task) throw new Error("This task no longer exists.");
+  let recurrence;
+  try {
+    recurrence = JSON.parse(rulesText);
+  } catch (err) {
+    throw new Error(`Patterns must be valid JSON: ${err.message}`);
+  }
+  if (!Array.isArray(recurrence)) throw new Error("Patterns must be a JSON array.");
+  if (repeatFrom === "completion" &&
+      recurrence.some(pattern => pattern.type !== "interval")) {
+    throw new Error('Repeat from "completion" is only valid for interval patterns.');
+  }
+
+  const oldRules = stableStringify(task.recurrence || []);
+  const newRules = stableStringify(recurrence);
+  if (oldRules !== newRules && recurrence.some(pattern => pattern.type === "interval")) {
+    if (typeof task.next !== "string" || !/^\d{4}-\d{2}-\d{2}/.test(task.next)) {
+      throw new Error("Recurring tasks need a date or datetime before editing an interval pattern.");
+    }
+    const startDate = task.next.slice(0, 10);
+    recurrence = recurrence.map((pattern, index) => {
+      if (pattern.type !== "interval") return pattern;
+      const oldPattern = task.recurrence?.[index];
+      const withoutStart = ({ start, ...rest }) => stableStringify(rest);
+      if (!oldPattern) {
+        return pattern.start ? pattern : { ...pattern, start: startDate };
+      }
+      if (withoutStart(oldPattern) !== withoutStart(pattern)) {
+        return { ...pattern, start: startDate };
+      }
+      return pattern;
+    });
+  }
   await writeTasks(() => updateDoc(doc(tasksCol, task.docId), {
-    [field]: value, updatedAt: new Date().toISOString(), updatedBy: uid
+    recurrence,
+    repeatFrom,
+    updatedAt: new Date().toISOString(),
+    updatedBy: uid
+  }));
+}
+
+async function undoCompletion(task) {
+  const completion = task.lastCompletion;
+  if (!completion?.previousNext) throw new Error("This completion can no longer be undone.");
+  await writeTasks(() => runTransaction(db, async transaction => {
+    const ref = doc(tasksCol, task.docId);
+    const snapshot = await transaction.get(ref);
+    if (!snapshot.exists()) throw new Error("This task no longer exists.");
+    const current = snapshot.data();
+    if (current.next !== task.next || current.lastCompletion?.at !== completion.at ||
+        current.lastCompletion?.previousNext !== completion.previousNext) {
+      throw new Error("This task changed after the completion. Refresh and try again.");
+    }
+    transaction.update(ref, {
+      next: completion.previousNext,
+      lastCompletion: deleteField(),
+      updatedAt: new Date().toISOString(),
+      updatedBy: uid
+    });
   }));
 }
 

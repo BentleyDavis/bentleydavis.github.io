@@ -9,7 +9,10 @@
       "type": { "type": "string", "required": false, "values": ["Personal", "Bentley", "Mom", "CRT", "Health"] },
       "source": { "type": "string", "required": false, "values": ["todoist", "muse"] },
       "sourceId": { "type": "string|null", "required": false, "default": null, "description": "External reference such as todoist:<id> or muse:goal_<id>." },
-      "next": { "type": "string", "required": false, "default": "", "description": "YYYY-MM-DD date, place name, or empty string. Not a Firestore timestamp." },
+      "next": { "type": "string", "required": false, "default": "", "description": "YYYY-MM-DD date, ISO-8601 datetime with numeric offset, place name, or empty string. Datetimes use America/Chicago local time. Not a Firestore timestamp." },
+      "recurrence": { "type": "array", "required": false, "description": "Structured recurrence patterns for a recurring task. Patterns support daily, weekly, monthly date or nth weekday, annual date or nth weekday, and fixed intervals; see the task app recurring-tasks-design.md." },
+      "repeatFrom": { "type": "string", "required": false, "default": "schedule", "values": ["schedule", "completion"], "description": "Whether interval recurrence follows its original schedule or counts from completion." },
+      "completedFor": { "type": "string|null", "required": false, "default": null, "description": "The next occurrence the client intended to complete; a stale value is rejected by the recurrence handler." },
       "status": { "type": "string", "required": false, "default": "", "description": "Next step in plain words." },
       "aiAction": { "type": "string", "required": false, "default": "", "description": "Instruction for an AI; clear to an empty string after handling." },
       "priority": { "type": "string", "required": true, "values": ["p1", "p2", "p3", "p4"] },
@@ -17,10 +20,11 @@
       "createdAt": { "type": "string", "required": true, "description": "ISO-8601 creation time. Preserve on updates." },
       "updatedAt": { "type": "string", "required": true, "description": "ISO-8601 last-write time. Set on every update." },
       "updatedBy": { "type": "string", "required": true, "description": "Writer identifier; the editor currently uses the Firebase Auth UID." },
-      "done": { "type": "boolean", "required": false, "default": false, "description": "Reversible completion checkbox. Set true or false; do not delete completed tasks. Missing means false." }
+      "done": { "type": "boolean", "required": false, "default": false, "description": "Reversible completion checkbox. Set true or false; do not delete completed tasks. On recurring tasks, setting true advances next and resets done to false. Missing means false." },
+      "lastCompletion": { "type": "map", "required": false, "description": "Server-written details of the last recurring completion, including the previous next value for undo. Clients may only clear this field when restoring previousNext." }
     },
-    "validation": "Expected contract, not full rules enforcement. Current rules enforce id matching on create, immutable id on update, title length 1-499, and at most 30 top-level fields. Unknown fields are allowed.",
-    "notes": "Editor lists all records, including groups and completed tasks. Do not silently sort by title or date. The deployed widget does not yet exclude done tasks."
+    "validation": "Expected contract, not full rules enforcement. Rules enforce id matching on create, immutable id on update, title length 1-499, at most 30 top-level fields, types for recurrence fields, and prevent clients from writing lastCompletion except to clear it while restoring previousNext. Unknown fields are allowed.",
+    "notes": "Editor lists all records, including groups and completed tasks. Do not silently sort by title or date. Date-only next values surface on their date; datetime next values surface at the specified time."
   },
   "users": {
     "description": "Directory of Firebase Auth accounts, including accounts not yet authorized.",

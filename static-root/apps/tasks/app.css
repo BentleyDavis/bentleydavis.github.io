@@ -198,6 +198,55 @@ button:hover {
   accent-color: var(--apps-color-accent);
 }
 
+.c-recurrence {
+  flex: 0 0 190px;
+}
+
+.recurrence-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25em;
+  white-space: normal;
+  font-size: 0.85em;
+}
+
+.recurrence-summary {
+  color: var(--apps-color-text-muted);
+}
+
+.recurrence-editor {
+  display: grid;
+  gap: 0.4em;
+  width: 260px;
+  padding: 0.5em 0;
+}
+
+.recurrence-editor label {
+  display: grid;
+  gap: 0.2em;
+}
+
+.recurrence-editor textarea {
+  min-height: 120px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.completion-note {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  color: var(--apps-color-text-muted);
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+
+.completion-note button {
+  padding: 0.15em 0.4em;
+  font-size: inherit;
+}
+
 .row.done .c-title {
   text-decoration: line-through;
   color: var(--apps-color-text-muted);

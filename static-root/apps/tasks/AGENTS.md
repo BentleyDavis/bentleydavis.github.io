@@ -42,11 +42,12 @@ as the systems they replace):
   regions changes its priority.
 - Waiting: a task can wait on a person or a date. Waiting and
   future-dated tasks are excluded from every list and every count until
-  the wait passes — then they surface that morning as now pertinent.
+  the wait passes — then they surface as now pertinent: that morning for
+  a date, or at the time itself when one is given.
   Only tasks needing his attention are ever shown or counted.
-- Display: P1 leaf tasks are listed individually; P2/P3/P4 show as
-  counts only. The same rule applies everywhere — the morning recap,
-  the widget, and this app all agree on what is shown.
+- Display: the morning recap lists P1 leaf tasks individually and shows
+  P2/P3/P4 as counts. The current widget lists eligible leaves at all
+  priorities; the editor is an editable table.
 - Task records say WHAT, never HOW/WHEN the reminder works. Status
   holds the next step in plain words, no judgment on whether he has
   acted. Each task can link its source system by ID (an external task
@@ -68,13 +69,18 @@ enforcement. Keep these and this guidance synchronized on schema changes.
   non-empty), `parentId` (parent's numeric ID as a string, or null),
   `type` (Personal, Bentley, Mom, CRT, Health), `source` (todoist,
   muse), `sourceId` (`todoist:<id>` or `muse:goal_<id>`), `next` (ISO
-  date like `2026-11-09`, or a place like `Belterra`), `status` (next
+  date, ISO datetime with offset, or a place like `Belterra`), `status` (next
   step in plain words), `aiAction` (see above), `priority` (`p1`–`p4`,
   required), `order` (number, required — sort key inside a region;
   migration seeds row position × 1000), `createdAt`, `updatedAt`
   (ISO strings), `updatedBy` (who wrote it: `bentley` or the AI login
   name). Optional `done` (boolean) defaults to false when absent;
-  toggling Done writes it without deleting the task.
+  toggling Done writes it without deleting the task. Recurring tasks also
+  have `recurrence` (structured patterns), `repeatFrom` (`schedule` or
+  `completion`), and optional `completedFor`. The server advances a
+  recurring task when `done` becomes true, resets `done`, and records
+  `lastCompletion` for undo; clients may only clear it while restoring
+  its `previousNext`.
 - There are no divider documents. `priority` and `order` replace them:
   dragging a row rewrites `order`; dragging across a divider rewrites
   `priority` and `order`.
@@ -85,38 +91,30 @@ enforcement. Keep these and this guidance synchronized on schema changes.
   transaction before creation to prevent overwrites.
 - The heading shows Saving while a write is pending, Saved only after
   Firestore confirms it, or Save failed with a separate error message.
-- The current rules allow the optional boolean `done` field and other
-  extensions, but do not yet enforce their types.
+- Rules enforce the types of `done`, `recurrence`, `repeatFrom`, and
+  `completedFor`. Only the server can set `lastCompletion`; clients may
+  clear it only when restoring its `previousNext`.
 
 Widget data access (final, decided 2026-11-05):
-- The phone widget shows the same filtered list as the morning recap
-  (leaf tasks needing attention, P1s listed, the rest as counts). It
-  needs a way to get that data without talking to Firestore directly.
+- The phone widget lists eligible leaf tasks with priority dots. It needs
+  a way to get that data without talking to Firestore directly.
 - Solution: a Cloud Function HTTPS endpoint that reads the task
-  collections in the shared `apps` database and returns the display
-  list as JSON, already filtered and ordered. The widget polls that
+  collections in the shared `apps` database and returns a formatted
+  plain-text list, already filtered and ordered. The widget polls that
   URL on its own schedule; tapping the widget forces a refresh.
 - Auth is the URL itself: a really long, unguessable capability URL
   (same pattern as the per-agent pulse URLs). KWGT's `wg()` is
   GET-only and cannot send a header or a body, so the token lives in
   the URL by design. That is the accepted tradeoff — no Tasker, no
-  header/body route. If the URL ever leaks, rotate it. The filtering
-  logic lives in one place — the endpoint — so the app, the recap,
-  and the widget can never disagree about what the widget shows.
+  header/body route. If the URL ever leaks, rotate it. The widget's
+  filtering logic lives in the endpoint.
 - KWGT cannot render an HTML page. It draws its own canvas (text,
-  shapes, images), so formatting lives in the widget, not on the
-  server. Android widgets in general cannot host a WebView, so no
+  shapes, images), rendering the text formatted by the endpoint.
+  Android widgets in general cannot host a WebView, so no
   widget app shows a live interactive page. `wg()` can scrape an HTML
   page's data with its jsoup mode, but what it renders is KWGT text.
-- KWGT can display a remote image: an image element's Bitmap can be
-  a URL, including one pulled out of the JSON feed. So the server can
-  render the list as an image (PNG, or SVG for crisp text) and the
-  widget shows it — formatting back on the server side.
-- Data: the sheet's 40 rows were migrated into Firestore 2026-11-05
-  (verified: 7 P1 / 23 P2 / 9 P3 / 1 P4, 15 children of parent 6) —
-  Firestore is now the source; edit in the editor, not the sheet.
-  Still open: the Todoist-only tasks (14 recurring stay in Todoist;
-  1 one-off awaits his call) and how recurring tasks are handled —
-  undecided. Order of work (his correction 2026-11-05): in future
-  apps, do the data migration last — keep using the old way of
-  handling the data until the app is ready.
+- Firestore is the source for non-recurring tasks; edit in the editor,
+  not the sheet. Recurring tasks: see `recurring-tasks-design.md`
+  (design and build steps). Order of work (his correction 2026-11-05):
+  in future apps, do the data migration last — keep using the old way
+  of handling the data until the app is ready.

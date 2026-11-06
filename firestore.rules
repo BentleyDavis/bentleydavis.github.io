@@ -11,18 +11,34 @@ service cloud.firestore {
 
       allow create: if isAllowed()
         && request.resource.data.id == taskId
+        && !request.resource.data.keys().hasAny(['lastCompletion'])
         && sane(request.resource.data);
 
       allow update: if isAllowed()
         && request.resource.data.id == resource.data.id
+        && validLastCompletionChange()
         && sane(request.resource.data);
 
       allow delete: if isAllowed();
 
+      function validLastCompletionChange() {
+        return !request.resource.data.diff(resource.data).affectedKeys().hasAny(['lastCompletion'])
+          || (resource.data.keys().hasAny(['lastCompletion'])
+            && resource.data.lastCompletion is map
+            && !request.resource.data.keys().hasAny(['lastCompletion'])
+            && request.resource.data.next == resource.data.lastCompletion.previousNext);
+      }
+
       function sane(data) {
         return data.title is string && data.title.size() > 0
           && data.title.size() < 500
-          && data.keys().size() <= 30;
+          && data.keys().size() <= 30
+          && (!data.keys().hasAny(['done']) || data.done is bool)
+          && (!data.keys().hasAny(['recurrence']) || data.recurrence is list)
+          && (!data.keys().hasAny(['repeatFrom'])
+            || data.repeatFrom in ['schedule', 'completion'])
+          && (!data.keys().hasAny(['completedFor'])
+            || data.completedFor == null || data.completedFor is string);
       }
     }
 
