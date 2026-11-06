@@ -48,6 +48,7 @@ function advanceTask(task, { now, by }) {
     return {
       done: false,
       completedFor: null,
+      advanceError: null,
       updatedAt: now,
       updatedBy: "recurrence",
     };
@@ -70,6 +71,7 @@ function advanceTask(task, { now, by }) {
     next,
     done: false,
     completedFor: null,
+    advanceError: null,
     lastCompletion: {
       for: task.next,
       at: now,

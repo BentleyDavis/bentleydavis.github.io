@@ -21,9 +21,10 @@
       "updatedAt": { "type": "string", "required": true, "description": "ISO-8601 last-write time. Set on every update." },
       "updatedBy": { "type": "string", "required": true, "description": "Writer identifier; the editor currently uses the Firebase Auth UID." },
       "done": { "type": "boolean", "required": false, "default": false, "description": "Reversible completion checkbox. Set true or false; do not delete completed tasks. On recurring tasks, setting true advances next and resets done to false. Missing means false." },
-      "lastCompletion": { "type": "map", "required": false, "description": "Server-written details of the last recurring completion, including the previous next value for undo. Clients may only clear this field when restoring previousNext." }
+      "lastCompletion": { "type": "map", "required": false, "description": "Server-written details of the last recurring completion, including the previous next value for undo. Clients may only clear this field when restoring previousNext." },
+      "advanceError": { "type": "map", "required": false, "description": "Server-written details of the last failed recurring advance: {message, at}. Set only by advanceRecurringTask on a data error; cleared (null) by the next successful advance. Clients may never write it." }
     },
-    "validation": "Expected contract, not full rules enforcement. Rules enforce id matching on create, immutable id on update, title length 1-499, at most 30 top-level fields, types for recurrence fields, and prevent clients from writing lastCompletion except to clear it while restoring previousNext. Unknown fields are allowed.",
+    "validation": "Expected contract, not full rules enforcement. Rules enforce id matching on create, immutable id on update, title length 1-499, at most 30 top-level fields, types for recurrence fields, and prevent clients from writing lastCompletion except to clear it while restoring previousNext, and from writing advanceError at all. Unknown fields are allowed.",
     "notes": "Editor lists all records, including groups and completed tasks. Do not silently sort by title or date. Date-only next values surface on their date; datetime next values surface at the specified time."
   },
   "users": {

@@ -11,12 +11,13 @@ service cloud.firestore {
 
       allow create: if isAllowed()
         && request.resource.data.id == taskId
-        && !request.resource.data.keys().hasAny(['lastCompletion'])
+        && !request.resource.data.keys().hasAny(['lastCompletion', 'advanceError'])
         && sane(request.resource.data);
 
       allow update: if isAllowed()
         && request.resource.data.id == resource.data.id
         && validLastCompletionChange()
+        && validAdvanceErrorChange()
         && sane(request.resource.data);
 
       allow delete: if isAllowed();
@@ -27,6 +28,10 @@ service cloud.firestore {
             && resource.data.lastCompletion is map
             && !request.resource.data.keys().hasAny(['lastCompletion'])
             && request.resource.data.next == resource.data.lastCompletion.previousNext);
+      }
+
+      function validAdvanceErrorChange() {
+        return !request.resource.data.diff(resource.data).affectedKeys().hasAny(['advanceError']);
       }
 
       function sane(data) {

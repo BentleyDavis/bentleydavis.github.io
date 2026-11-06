@@ -85,9 +85,21 @@ test("stale completedFor resets done without advancing", () => {
   assert.deepEqual(patch, {
     done: false,
     completedFor: null,
+    advanceError: null,
     updatedAt: NOW,
     updatedBy: "recurrence",
   });
+});
+
+test("interval pattern without start throws instead of advancing", () => {
+  assert.throws(() => advanceTask(task({
+    recurrence: [{ type: "interval", unit: "months", value: 1 }],
+  }), { now: NOW, by: "muse" }), /interval start must be an ISO date/);
+});
+
+test("successful advance clears a previous advance error", () => {
+  const patch = advanceTask(task(), { now: NOW, by: "muse" });
+  assert.equal(patch.advanceError, null);
 });
 
 test("non-recurring and not-done tasks are untouched", () => {

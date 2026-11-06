@@ -162,6 +162,9 @@ function cardEl(t, parent) {
   if (t.recurrence?.length) {
     meta.appendChild(metaItem(`🔁 ${recurrenceSummary(t.recurrence)}`));
   }
+  if (t.advanceError?.message) {
+    meta.appendChild(metaItem(`⚠ Advance failed: ${t.advanceError.message}`, "meta-error"));
+  }
   if (t.type) {
     meta.appendChild(metaItem(`🏷️ ${t.type}`));
   }

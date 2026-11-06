@@ -56,19 +56,25 @@ function buildWidgetText(tasks, now = new Date()) {
   for (const task of tasks) {
     if (parentIds.has(task.id)) continue;
     // One-off completion remains unchanged; recurring Done waits for the advance.
-    if (task.done === true && Array.isArray(task.recurrence) && task.recurrence.length > 0) continue;
+    // A recurring task stuck at done with a recorded advance error is shown
+    // instead of hidden, so a failed advance is visible on the widget.
+    if (task.done === true && Array.isArray(task.recurrence) && task.recurrence.length > 0) {
+      if (task.advanceError) leaves.push({ task, dateKey: "", failed: true });
+      continue;
+    }
     const next = parseNext(task.next, today, nowMillis);
     if (!next.future) leaves.push({ task, dateKey: next.dateKey });
   }
   const shown = leaves.sort((a, b) =>
+    ((b.failed ? 1 : 0) - (a.failed ? 1 : 0)) ||
     RANK[a.task.priority] - RANK[b.task.priority] ||
     b.dateKey.localeCompare(a.dateKey) ||
     (a.task.order || 0) - (b.task.order || 0)
   ).slice(0, 45);
   return [
     `Updated ${timeFormatter.format(now)}`,
-    ...shown.map(({ task }) =>
-      `${EMOJI[task.priority] || "⚪"} ${task.title.slice(0, 55)}`)
+    ...shown.map(({ task, failed }) =>
+      `${EMOJI[task.priority] || "⚪"} ${failed ? "⚠ " : ""}${task.title.slice(0, 55)}`)
   ].join("\n");
 }
 

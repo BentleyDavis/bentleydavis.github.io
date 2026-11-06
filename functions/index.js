@@ -52,6 +52,20 @@ exports.advanceRecurringTask = onDocumentUpdated({
       taskId: event.params.taskId,
       error: err,
     });
+    // Data errors (bad recurrence shape, missing next) fail identically
+    // on every retry: record them on the task so they are visible, and
+    // do not retry. Anything else is transient and still throws.
+    if (err instanceof TypeError || err instanceof RangeError) {
+      await db.collection("tasks").doc(event.params.taskId).update({
+        advanceError: {
+          message: err.message,
+          at: new Date().toISOString(),
+        },
+        updatedAt: new Date().toISOString(),
+        updatedBy: "recurrence",
+      });
+      return;
+    }
     throw err;
   }
 });

@@ -106,6 +106,24 @@ test("trigger resets a stale completion without advancing the task", async () =>
   assert.equal(current.next, "2026-11-07");
   assert.equal(current.completedFor, null);
   assert.equal(current.lastCompletion, undefined);
+  assert.equal(current.advanceError, null);
+});
+
+test("trigger propagates a data error for an interval pattern without start", async () => {
+  const bad = {
+    ...completed,
+    recurrence: [{ type: "interval", unit: "months", value: 1 }],
+  };
+  const current = { ...bad };
+  const db = fakeDatabase(current);
+  await assert.rejects(() => processTaskUpdate({
+    db,
+    ref,
+    before: { done: false },
+    after: bad,
+    now: "2026-11-07T10:00:00-06:00",
+  }), /interval start must be an ISO date/);
+  assert.equal(db.updates.length, 0);
 });
 
 test("trigger advances after an unrelated edit made before the event is processed", async () => {
