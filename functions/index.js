@@ -8,16 +8,16 @@
 // by redeploying with a new WIDGET_TOKEN env var. The token is never
 // stored in this repo.
 
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
+const functions = require("firebase-functions/v1");
+const { initializeApp } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 const { onDocumentUpdated } = require("firebase-functions/v2/firestore");
 const logger = require("firebase-functions/logger");
 const { processTaskUpdate } = require("./recurrence-trigger");
 const { createWidgetFeed } = require("./widget-feed/feed");
 
-admin.initializeApp();
-const db = getFirestore(admin.app(), "apps");
+const app = initializeApp();
+const db = getFirestore(app, "apps");
 
 exports.museOAuth = require("./oauth")(db);
 

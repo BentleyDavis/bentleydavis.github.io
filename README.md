@@ -7,13 +7,13 @@
 It uses the named Firestore database `apps`. The backend is separate from the
 Netlify website build and is not published as static website files.
 
-The initial import preserves the deployed widget handler and dependency ranges.
-The archive had no lockfile; the repository lockfile records
-the dependencies resolved at import, not necessarily the deployed build's versions.
-The backend now targets Node.js 22 because Firebase retired Node.js 20.
+The initial import preserves the deployed widget handler.
+The archive had no lockfile; repository lockfiles record current reproducible
+dependency installs, not necessarily the deployed build's versions.
+The site and function packages target Node.js 24, as specified by `.nvmrc`.
 The existing widget remains on its previously deployed runtime until explicitly
-redeployed. Import-time installation reported eight moderate dependency
-advisories; dependency upgrades remain separate follow-up work.
+redeployed. The repository's npm dependency trees have been upgraded and report
+no known vulnerabilities in `npm audit`.
 
 Install backend dependencies separately:
 

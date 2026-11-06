@@ -4,6 +4,8 @@
     "allowJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "strict": false,
+    "types": ["node"],
     "sourceMap": true,
   },
   "include": [

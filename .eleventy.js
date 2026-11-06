@@ -2,6 +2,8 @@ const fs = require("fs");
 const Path = require("path");
 
 module.exports = function (eleventyConfig) {
+  // The content data directory intentionally provides a global `content` object.
+  eleventyConfig.setFreezeReservedData(false);
   eleventyConfig.ignores.add("functions/**");
   eleventyConfig.addWatchTarget("./content")
   eleventyConfig.setWatchThrottleWaitTime(1000);

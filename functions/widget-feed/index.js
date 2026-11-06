@@ -1,12 +1,12 @@
 "use strict";
 
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
+const functions = require("firebase-functions/v1");
+const { initializeApp } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 const { createWidgetFeed } = require("./feed");
 
-admin.initializeApp();
-const db = getFirestore(admin.app(), "apps");
+const app = initializeApp();
+const db = getFirestore(app, "apps");
 
 exports.widgetFeed = functions
   .region("us-central1")

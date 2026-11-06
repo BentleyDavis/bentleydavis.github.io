@@ -1,5 +1,5 @@
 const crypto = require("node:crypto");
-const functions = require("firebase-functions");
+const functions = require("firebase-functions/v1");
 
 const CLIENT_ID = "muse";
 const REDIRECT_URI = "https://agent.meta.ai/api/hatch/oauth/callback";
