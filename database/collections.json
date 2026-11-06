@@ -55,5 +55,18 @@
     },
     "validation": "Descriptive only; currently no field validation in rules.",
     "notes": "Readable and writable by all approved members, not anonymous users. Keep live catalog documents, repository database/collections.json, app code, and agent guidance synchronized when collections or fields change. Excludes private backend credential storage."
+  },
+  "taskerQueue": {
+    "description": "Work queue for the Tasker phone widget. Items are things Tasker needs to do, polled on its refresh interval.",
+    "documentId": "Auto-generated Firestore document ID. Muse creates items when publishing a new Tasker version.",
+    "fields": {
+      "type": { "type": "string", "required": true, "values": ["tasker-update"], "description": "Kind of work item. tasker-update: a new Tasker project version is available." },
+      "version": { "type": "string", "required": true, "description": "Tasker project version this item applies to, for example 2.0." },
+      "url": { "type": "string", "required": true, "description": "Download URL for the new .prj.xml file." },
+      "notes": { "type": "string", "required": false, "description": "Human-readable notes about the update." },
+      "createdAt": { "type": "string", "required": true, "description": "ISO-8601 creation time." }
+    },
+    "validation": "Descriptive only; currently no field validation in rules.",
+    "notes": "Polled by the Tasker widget task on its 5-minute refresh using its cached Firebase ID token. Tasker notifies once per version (tracked by its %TASKER_NOTIFIED_VERSION variable) and deletes the item once the installed version catches up, so the queue stays clean. Writers: Muse only, when publishing a new Tasker version."
   }
 }

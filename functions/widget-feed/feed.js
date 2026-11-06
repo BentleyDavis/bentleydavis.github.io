@@ -72,19 +72,35 @@ function buildWidgetText(tasks, now = new Date()) {
   ].join("\n");
 }
 
-function createWidgetFeed(db, { now = () => new Date(), logger = console } = {}) {
+// True when the request carries a Firebase ID token for a member:
+// verify the token, then check the UID has a membership document.
+async function isMemberRequest(req, db, auth) {
+  if (!auth) return false;
+  const header = req.headers.authorization || "";
+  const match = /^Bearer (.+)$/.exec(header);
+  if (!match) return false;
+  try {
+    const decoded = await auth.verifyIdToken(match[1]);
+    const member = await db.collection("access").doc(decoded.uid).get();
+    return member.exists;
+  } catch (err) {
+    return false;
+  }
+}
+
+function createWidgetFeed(db, { now = () => new Date(), logger = console, auth = null } = {}) {
   return async (req, res) => {
     res.set("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
     res.set("Pragma", "no-cache");
     res.set("Expires", "0");
+    // The legacy ?token= path is still accepted during the transition
+    // from the old Tasker widget and is removed once the new flow is
+    // verified live. A failed auth returns 401 so the caller knows to
+    // refresh its token and retry.
     const token = process.env.WIDGET_TOKEN;
-    if (!token) {
-      logger.error("WIDGET_TOKEN is not configured");
-      res.status(500).send("error");
-      return;
-    }
-    if (req.query.token !== token) {
-      res.status(403).send("forbidden");
+    const legacyTokenOk = !!token && req.query.token === token;
+    if (!(await isMemberRequest(req, db, auth)) && !legacyTokenOk) {
+      res.status(401).send("unauthorized");
       return;
     }
     try {
