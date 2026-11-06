@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task App</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 1em auto; max-width: 1100px; padding: 0 1em; color: #222; }
+  h1 { font-size: 1.4em; margin-bottom: .2em; }
+  #status { color: #666; font-size: .9em; margin-bottom: 1em; }
+  #auth { margin-bottom: 1em; }
+  #auth input { padding: .4em; margin-right: .4em; }
+  button { padding: .4em .8em; cursor: pointer; }
+  .region { margin: 1.2em 0; }
+  .region > h2 { font-size: 1.05em; background: #eee; padding: .3em .6em; margin: 0; }
+  .row { display: flex; gap: .4em; align-items: center; padding: .3em .4em; border-bottom: 1px solid #eee; background: #fff; }
+  .row.dragging { opacity: .4; }
+  .row.dragover { border-top: 2px solid #06c; }
+  .row.child { padding-left: 2.2em; background: #fafafa; }
+  .row.parent { font-weight: 600; }
+  .row input, .row select { font: inherit; padding: .25em .35em; border: 1px solid transparent; background: transparent; min-width: 0; }
+  .row input:hover, .row select:hover, .row input:focus, .row select:focus { border-color: #ccc; background: #fff; }
+  .c-title { flex: 3 1 220px; }
+  .c-type { flex: 0 0 92px; }
+  .c-source { flex: 0 0 80px; }
+  .c-next { flex: 1 1 110px; }
+  .c-place { flex: 1 1 90px; }
+  .c-status { flex: 2 1 160px; }
+  .c-ai { flex: 2 1 160px; }
+  .del { flex: 0 0 auto; color: #a00; border: none; background: none; font-size: 1.1em; padding: .1em .4em; }
+  .parent-tag { flex: 0 0 auto; font-size: .8em; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+  .parent-tag::after { content: " ›"; }
+  .child-count { flex: 0 0 auto; font-size: .8em; color: #666; background: #eee; border-radius: 10px; padding: .1em .6em; white-space: nowrap; }
+  .add { margin: .5em 0 0 .4em; }
+  .grip { cursor: grab; color: #999; flex: 0 0 auto; user-select: none; }
+  .head { display: flex; gap: .4em; padding: .3em .4em; font-size: .8em; color: #888; border-bottom: 2px solid #ddd; }
+  .head span { overflow: hidden; }
+</style>
+</head>
+<body>
+<h1>Tasks</h1>
+<div id="status">Loading…</div>
+<div id="auth">
+  <span id="who"></span>
+  <span id="signin">
+    <button id="googleBtn">Sign in with Google</button>
+    <input id="email" type="email" placeholder="email" autocomplete="username">
+    <input id="password" type="password" placeholder="password" autocomplete="current-password">
+    <button id="signinBtn">Sign in</button>
+  </span>
+  <button id="signoutBtn" style="display:none">Sign out</button>
+</div>
+<div id="app" style="display:none"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBz7SUuyhiNKtCUWetJ051xFdqzc5l4NKE",
+  authDomain: "apps-5884f.firebaseapp.com",
+  projectId: "apps-5884f",
+  storageBucket: "apps-5884f.firebasestorage.app",
+  messagingSenderId: "802105454064",
+  appId: "1:802105454064:web:2cc2ffc812f30a27cb0135"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app, "apps"); // named database — getFirestore(app) alone uses the (default) database, which is empty
+const tasksCol = collection(db, "tasks");
+
+const REGIONS = ["p1", "p2", "p3", "p4"];
+const REGION_LABEL = { p1: "P1", p2: "P2", p3: "P3", p4: "P4" };
+const TYPES = ["Personal", "Bentley", "Mom", "CRT", "Health"];
+const SOURCES = ["todoist", "muse"];
+
+let tasks = []; // {id, title, parentId, type, source, sourceId, next, place, status, aiAction, priority, order, ...}
+let placeFilter = ""; // unique-value filter on place; "" = show all
+let uid = null;
+
+const statusEl = document.getElementById("status");
+const appEl = document.getElementById("app");
+
+function setStatus(msg) { statusEl.textContent = msg; }
+
+async function loadTasks() {
+  // One call for the whole collection — small app, sort client-side.
+  const snap = await getDocs(tasksCol);
+  tasks = snap.docs.map(d => ({ docId: d.id, ...d.data() }));
+  tasks.sort((a, b) => a.priority.localeCompare(b.priority) || (a.order - b.order));
+  render();
+}
+
+function render() {
+  appEl.innerHTML = "";
+  const counts = {};
+  for (const t of tasks) counts[t.priority] = (counts[t.priority] || 0) + 1;
+  setStatus(`${tasks.length} tasks — P1 ${counts.p1||0} · P2 ${counts.p2||0} · P3 ${counts.p3||0} · P4 ${counts.p4||0}. Drag rows to reorder; dropping across a divider changes priority.` + (placeFilter ? ` Showing only place "${placeFilter}".` : ""));
+  // Place filter: one option per unique non-empty place value.
+  const places = [...new Set(tasks.map(t => t.place).filter(Boolean))].sort();
+  if (places.length) {
+    const bar = document.createElement("div");
+    bar.style.marginBottom = ".6em";
+    const label = document.createElement("label");
+    label.textContent = "Place: ";
+    const sel = document.createElement("select");
+    const all = document.createElement("option");
+    all.value = ""; all.textContent = "All places";
+    sel.appendChild(all);
+    for (const p of places) {
+      const o = document.createElement("option");
+      o.value = p; o.textContent = p;
+      if (p === placeFilter) o.selected = true;
+      sel.appendChild(o);
+    }
+    sel.addEventListener("change", () => { placeFilter = sel.value; render(); });
+    label.appendChild(sel);
+    bar.appendChild(label);
+    appEl.appendChild(bar);
+  }
+  for (const region of REGIONS) {
+    const section = document.createElement("div");
+    section.className = "region";
+    section.dataset.region = region;
+    const h = document.createElement("h2");
+    h.textContent = `${REGION_LABEL[region]} — ${counts[region] || 0}`;
+    section.appendChild(h);
+    const head = document.createElement("div");
+    head.className = "head";
+    head.innerHTML = `<span class="grip">&nbsp;</span><span class="c-title">Task</span><span class="c-type">Type</span><span class="c-source">Source</span><span class="c-next">Next</span><span class="c-place">Place</span><span class="c-status">Status / next step</span><span class="c-ai">AI Action</span><span class="del">&nbsp;</span>`;
+    section.appendChild(head);
+    const list = document.createElement("div");
+    list.className = "list";
+    list.dataset.region = region;
+    list.addEventListener("dragover", e => { e.preventDefault(); });
+    list.addEventListener("drop", e => { e.preventDefault(); onDrop(e, region, null); });
+    for (const t of tasks.filter(t => t.priority === region && (!placeFilter || t.place === placeFilter))) {
+      list.appendChild(rowEl(t));
+    }
+    section.appendChild(list);
+    const addBtn = document.createElement("button");
+    addBtn.className = "add";
+    addBtn.textContent = `+ Add task to ${REGION_LABEL[region]}`;
+    addBtn.addEventListener("click", () => addTask(region));
+    section.appendChild(addBtn);
+    appEl.appendChild(section);
+  }
+}
+
+function inputEl(cls, value, onChange) {
+  const el = document.createElement("input");
+  el.className = cls;
+  el.value = value || "";
+  el.addEventListener("change", () => onChange(el.value));
+  return el;
+}
+
+function selectEl(cls, value, options, onChange) {
+  const el = document.createElement("select");
+  el.className = cls;
+  for (const o of options) {
+    const opt = document.createElement("option");
+    opt.value = o; opt.textContent = o;
+    if (o === value) opt.selected = true;
+    el.appendChild(opt);
+  }
+  el.addEventListener("change", () => onChange(el.value));
+  return el;
+}
+
+// Next holds dates and datetimes only — never a place (places live in
+// `place`). A date is YYYY-MM-DD; a datetime is YYYY-MM-DDTHH:MM with
+// optional seconds and offset. A date-only value may be midnight.
+function isNextValue(v) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(v) ||
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?([+-]\d{2}:?\d{2}|Z)?$/.test(v);
+}
+
+function rowEl(t) {
+  const row = document.createElement("div");
+  row.className = "row" + (t.parentId ? " child" : "") + (isParent(t.id) ? " parent" : "");
+  row.draggable = true;
+  row.dataset.id = t.id;
+  row.addEventListener("dragstart", e => { e.dataTransfer.setData("text/plain", t.id); row.classList.add("dragging"); });
+  row.addEventListener("dragend", () => row.classList.remove("dragging"));
+  row.addEventListener("dragover", e => { e.preventDefault(); row.classList.add("dragover"); });
+  row.addEventListener("dragleave", () => row.classList.remove("dragover"));
+  row.addEventListener("drop", e => { e.preventDefault(); row.classList.remove("dragover"); onDrop(e, t.priority, t.id); });
+
+  const grip = document.createElement("span");
+  grip.className = "grip";
+  grip.textContent = "⠿";
+  row.appendChild(grip);
+
+  // Children show their parent's name — they sit in their own priority
+  // region, not under the parent, so the indent alone doesn't say
+  // where they come from.
+  if (t.parentId) {
+    const parent = tasks.find(x => x.id === t.parentId);
+    const tag = document.createElement("span");
+    tag.className = "parent-tag";
+    tag.dataset.parentId = t.parentId;
+    tag.textContent = parent ? parent.title : ("#" + t.parentId);
+    tag.title = "Parent task";
+    row.appendChild(tag);
+  }
+
+  const save = (field, value) => saveField(t, field, value);
+  const titleEl = inputEl("c-title", t.title, v => save("title", v));
+  row.appendChild(titleEl);
+
+  // Parents show how many children belong to them.
+  const kidCount = tasks.filter(x => x.parentId === t.id).length;
+  if (kidCount) {
+    const badge = document.createElement("span");
+    badge.className = "child-count";
+    badge.textContent = `▾ ${kidCount} child${kidCount === 1 ? "" : "ren"}`;
+    badge.title = `${kidCount} subtask${kidCount === 1 ? "" : "s"} belong to this group`;
+    row.appendChild(badge);
+  }
+
+  row.appendChild(selectEl("c-type", t.type, TYPES, v => save("type", v)));
+  row.appendChild(selectEl("c-source", t.source, SOURCES, v => save("source", v)));
+  const nextEl = document.createElement("input");
+  nextEl.className = "c-next";
+  nextEl.value = t.next || "";
+  nextEl.placeholder = "YYYY-MM-DD";
+  nextEl.addEventListener("change", () => {
+    const v = nextEl.value.trim();
+    if (v && !isNextValue(v)) {
+      setStatus("Next must be a date (YYYY-MM-DD) or a date and time (YYYY-MM-DDTHH:MM). Places go in Place — not saved.");
+      nextEl.value = t.next || "";
+      return;
+    }
+    save("next", v);
+  });
+  row.appendChild(nextEl);
+  row.appendChild(inputEl("c-place", t.place, v => save("place", v)));
+  row.appendChild(inputEl("c-status", t.status, v => save("status", v)));
+  row.appendChild(inputEl("c-ai", t.aiAction, v => save("aiAction", v)));
+
+  const del = document.createElement("button");
+  del.className = "del";
+  del.textContent = "×";
+  del.title = "Delete — record any details in notes first";
+  del.addEventListener("click", async () => {
+    if (!confirm(`Delete "${t.title}"? Record any details in notes first.`)) return;
+    await deleteDoc(doc(tasksCol, t.docId));
+    tasks = tasks.filter(x => x.id !== t.id);
+    render();
+  });
+  row.appendChild(del);
+  return row;
+}
+
+function isParent(id) { return tasks.some(t => t.parentId === id); }
+
+async function saveField(t, field, value) {
+  if (String(t[field] || "") === String(value)) return;
+  t[field] = value;
+  // Renaming a parent renames it on its children's tags too.
+  if (field === "title") {
+    document.querySelectorAll(`.parent-tag[data-parent-id="${t.id}"]`).forEach(el => { el.textContent = value; });
+  }
+  await updateDoc(doc(tasksCol, t.docId), { [field]: value, updatedAt: new Date().toISOString(), updatedBy: uid || "web" });
+}
+
+async function addTask(region) {
+  const maxId = tasks.reduce((m, t) => Math.max(m, parseInt(t.id, 10) || 0), 0);
+  const maxOrder = tasks.filter(t => t.priority === region).reduce((m, t) => Math.max(m, t.order || 0), 0);
+  const id = String(maxId + 1);
+  const now = new Date().toISOString();
+  const data = { id, title: "New task", parentId: null, type: "Personal", source: "muse", sourceId: null, next: "", place: "", status: "", aiAction: "", priority: region, order: maxOrder + 1000, createdAt: now, updatedAt: now, updatedBy: uid || "web" };
+  await setDoc(doc(tasksCol, id), data);
+  tasks.push({ docId: id, ...data });
+  render();
+}
+
+async function onDrop(e, region, beforeId) {
+  const draggedId = e.dataTransfer.getData("text/plain");
+  if (!draggedId) return;
+  const dragged = tasks.find(t => t.id === draggedId);
+  if (!dragged) return;
+  // Build the new order: remove dragged, insert before beforeId (or at end of region).
+  const regionTasks = tasks.filter(t => t.priority === region && t.id !== draggedId);
+  let idx;
+  if (beforeId) {
+    idx = regionTasks.findIndex(t => t.id === beforeId);
+    if (idx < 0) idx = regionTasks.length;
+  } else {
+    idx = regionTasks.length;
+  }
+  const newRegionList = [...regionTasks.slice(0, idx), dragged, ...regionTasks.slice(idx)];
+  const batch = writeBatch(db);
+  const now = new Date().toISOString();
+  newRegionList.forEach((t, i) => {
+    const order = (i + 1) * 1000;
+    const patch = {};
+    if (t.order !== order) patch.order = order;
+    if (t.priority !== region) patch.priority = region;
+    if (Object.keys(patch).length) {
+      patch.updatedAt = now;
+      patch.updatedBy = uid || "web";
+      batch.update(doc(tasksCol, t.docId), patch);
+      Object.assign(t, patch);
+    }
+  });
+  await batch.commit();
+  // Re-sort in memory: priority then order, children stay with their parent's position.
+  tasks.sort((a, b) => a.priority.localeCompare(b.priority) || (a.order - b.order));
+  render();
+}
+
+document.getElementById("googleBtn").addEventListener("click", async () => {
+  setStatus("Signing in with Google…");
+  try {
+    await signInWithPopup(auth, new GoogleAuthProvider());
+  } catch (err) {
+    if (err.code === "auth/operation-not-allowed") {
+      setStatus("Google sign-in isn't enabled for this project yet — in the Firebase console, Authentication → Sign-in method → Google → Enable, then try again.");
+    } else {
+      setStatus("Google sign-in failed: " + err.message);
+    }
+  }
+});
+document.getElementById("signinBtn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  setStatus("Signing in…");
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    setStatus("Sign-in failed: " + err.message);
+  }
+});
+document.getElementById("signoutBtn").addEventListener("click", () => signOut(auth));
+
+onAuthStateChanged(auth, async (user) => {
+  const who = document.getElementById("who");
+  const signin = document.getElementById("signin");
+  const signoutBtn = document.getElementById("signoutBtn");
+  if (user) {
+    uid = user.uid;
+    who.textContent = "Signed in as " + (user.email || user.uid) + " ";
+    signin.style.display = "none";
+    signoutBtn.style.display = "";
+    appEl.style.display = "";
+    setStatus("Loading tasks…");
+    try { await loadTasks(); }
+    catch (err) { setStatus("Could not load tasks: " + err.message); }
+  } else {
+    uid = null;
+    who.textContent = "";
+    signin.style.display = "";
+    signoutBtn.style.display = "none";
+    appEl.style.display = "none";
+    setStatus("Sign in to edit tasks.");
+  }
+});
+</script>
+</body>
+</html>
