@@ -149,7 +149,7 @@
 
   <div class="lede">
     <h1>Hume Band Reader</h1>
-    <p>Reads the band’s stored history over Web Bluetooth — service <span class="mono">fff0</span>, 16-byte command frames — and keeps it in this browser: heart rate, SpO₂, skin temperature, sleep segments, daily totals, and 10-minute activity buckets. <strong>Open this page in Chrome on the Pixel</strong> — Web Bluetooth does not work inside another app’s webview. Visualization and analysis are deferred; this build is capture and storage.</p>
+    <p>Reads the band’s stored history over Web Bluetooth — service <span class="mono">fff0</span>, 16-byte command frames — and keeps it in this browser: heart rate, SpO₂, skin temperature, sleep segments, daily totals, and 10-minute activity buckets. <strong>Open this page in Chrome on the Pixel</strong> — Web Bluetooth does not work inside another app’s webview.</p>
   </div>
 
   <div class="notice" id="bleNotice" role="alert"></div>
@@ -216,7 +216,7 @@
         <input type="file" id="importFile" accept="application/json,.json" />
         <button class="btn btn-danger" id="clearBtn" type="button">Erase stored data</button>
       </div>
-      <p class="note">The JSON contains: export time, device info, all samples with band timestamps, daily totals, sleep segments, every archived raw frame (hex), per-stream sync census, and the session log. It is the same format the planned Firestore sync (database <span class="mono">hume</span>) will read.</p>
+      <p class="note">The JSON contains: export time, device info, all samples with band timestamps, daily totals, sleep segments, every archived raw frame (hex), per-stream sync census, and the session log.</p>
     </section>
 
     <section class="card" aria-labelledby="browseH">
