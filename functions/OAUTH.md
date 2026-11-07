@@ -8,11 +8,11 @@ endpoint or expose its responses to the AI.
 ## Connector settings
 
 - Authorization URL:
-  `<museOAuthV2 URL from the deploy output>/authorize`
+  `https://museoauthv2-trsmkdyvea-uc.a.run.app/authorize`
 - Token URL:
-  `<museOAuthV2 URL from the deploy output>/token`
+  `https://museoauthv2-trsmkdyvea-uc.a.run.app/token`
 - Revocation URL (optional):
-  `<museOAuthV2 URL from the deploy output>/revoke`
+  `https://museoauthv2-trsmkdyvea-uc.a.run.app/revoke`
 - Client ID: `muse`
 - Client secret: retrieve `MUSE_OAUTH_CLIENT_SECRET` from Google Secret Manager
   using a trusted administrator and enter it only in the platform's secure
