@@ -1,7 +1,7 @@
-import Airtable from 'airtable';
-import * as airtableConfig from '../HIDE.airtableConfig.json';
+const Airtable = require('airtable');
+const airtableConfig = require('../HIDE.airtableConfig.json');
 
-export const getTable = function (tableName) {
+exports.getTable = function (tableName) {
     return new Promise((resolve, reject) => {
         const base = new Airtable({ apiKey: airtableConfig.key }).base(airtableConfig.baseBase);
         const result = [];

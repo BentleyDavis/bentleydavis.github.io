@@ -8,6 +8,8 @@ Firebase Hosting and GitHub Pages are not used.
 Use Node.js 24 (see [.nvmrc](.nvmrc)), then install dependencies with `npm ci`.
 Run `npm run build` for the production build, or `npm start` for local
 development. Run `npx tsc --noEmit` to type-check the content tooling.
+The Airtable connector is JavaScript; running the Airtable import still requires
+the ignored local `src_ts/HIDE.airtableConfig.json` file.
 
 ## Personal apps
 
