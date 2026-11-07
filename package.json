@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Bentley Davis",
   "main": "index.js",
+  "engines": {
+    "node": "24"
+  },
   "scripts": {
     "start": "npm run delete-dist && eleventy --serve --watch",
     "build": "npm run delete-dist && eleventy",
@@ -15,13 +18,13 @@
   "author": "Bentley Davis <Bentley@BentleyDavis.com> (http://BentleyDavis.com)",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy": "^3.1.8",
+    "@types/node": "^24.19.2",
     "airtable": "^0.12.2",
-    "gh-pages": "^6.1.1",
-    "got": "^14.4.2",
-    "metascraper": "^5.45.22",
-    "metascraper-logo-favicon": "^5.45.22",
-    "npm-check-updates": "^16.14.20",
-    "typescript": "^5.5.4"
+    "got": "^16.2.0",
+    "metascraper": "^5.58.5",
+    "metascraper-logo-favicon": "^5.58.4",
+    "npm-check-updates": "^23.1.1",
+    "typescript": "^7.0.2"
   }
 }
