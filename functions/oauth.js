@@ -1,5 +1,5 @@
 const crypto = require("node:crypto");
-const { onRequest } = require("firebase-functions/v2/https");
+const functions = require("firebase-functions/v1");
 
 const CLIENT_ID = "muse";
 const REDIRECT_URI = "https://agent.meta.ai/api/hatch/oauth/callback";
@@ -176,11 +176,9 @@ module.exports = function createOAuth(db) {
     });
   };
 
-  return onRequest({
-    region: "us-central1",
-    secrets: ["MUSE_OAUTH_CLIENT_SECRET"],
-    maxInstances: 5,
-  }, async (req, res) => {
+  return functions.region("us-central1")
+    .runWith({ secrets: ["MUSE_OAUTH_CLIENT_SECRET"], maxInstances: 5 })
+    .https.onRequest(async (req, res) => {
       res.set({
         "Cache-Control": "no-store",
         "Pragma": "no-cache",

@@ -1,9 +1,12 @@
-// Cloud Functions for the Task App (project apps-5884f).
+// widgetFeed — Cloud Function (1st gen) serving the phone widget's task list.
 //
-// widgetFeed is NOT exported here: it is deployed from functions/widget-feed/,
-// whose handler verifies a Firebase ID token (Bearer) and still accepts the
-// legacy ?token= during transition. The no-auth variant that used to be
-// exported from this file must not be deployed.
+// GET https://us-central1-apps-5884f.cloudfunctions.net/widgetFeed?token=<WIDGET_TOKEN>
+// Returns plain text for the widget, with leaf tasks ordered by priority.
+// Waiting and future-dated tasks are excluded until their wait passes.
+// Auth is the token in the URL: KWGT's wg() is GET-only and cannot send
+// a header or a body, so the token lives in the URL by design. Rotate it
+// by redeploying with a new WIDGET_TOKEN env var. The token is never
+// stored in this repo.
 
 const functions = require("firebase-functions/v1");
 const { initializeApp } = require("firebase-admin/app");
@@ -11,6 +14,7 @@ const { getFirestore } = require("firebase-admin/firestore");
 const { onDocumentUpdated } = require("firebase-functions/v2/firestore");
 const logger = require("firebase-functions/logger");
 const { processTaskUpdate } = require("./recurrence-trigger");
+const { createWidgetFeed } = require("./widget-feed/feed");
 
 const app = initializeApp();
 const db = getFirestore(app, "apps");
@@ -66,3 +70,6 @@ exports.advanceRecurringTask = onDocumentUpdated({
   }
 });
 
+exports.widgetFeed = functions
+  .region("us-central1")
+  .https.onRequest(createWidgetFeed(db));
