@@ -34,8 +34,10 @@ After reviewing changes, deploy only this function:
 firebase deploy --only functions:widgetFeed --project apps-5884f
 ```
 
-`WIDGET_TOKEN` is required. Set it in the ignored `functions/.env.apps-5884f`
-file before deployment. Never put its value or a complete widget URL in source,
+The widget accepts Firebase ID tokens for approved members. Older GET-only
+clients may continue using the optional `WIDGET_TOKEN` query parameter; set it
+in the ignored `functions/.env.apps-5884f` file only if that compatibility path
+is needed. Never put its value or a complete widget URL in source,
 documentation, logs, or chat.
 
 The handler retains its existing filtering, including not yet filtering out the

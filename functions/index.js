@@ -3,14 +3,13 @@
 // GET <widgetFeed URL from the deploy output>?token=<WIDGET_TOKEN>
 // Returns plain text for the widget, with leaf tasks ordered by priority.
 // Waiting and future-dated tasks are excluded until their wait passes.
-// Auth is the token in the URL: KWGT's wg() is GET-only and cannot send
-// a header or a body, so the token lives in the URL by design. Rotate it
-// by redeploying with a new WIDGET_TOKEN env var. The token is never
-// stored in this repo.
+// Firebase ID tokens are verified for signed-in members. The optional
+// WIDGET_TOKEN query parameter remains for older GET-only widget clients.
 
 const { onRequest } = require("firebase-functions/v2/https");
 const { onUserCreated } = require("firebase-functions/v2/identity");
 const { initializeApp } = require("firebase-admin/app");
+const { getAuth } = require("firebase-admin/auth");
 const { getFirestore } = require("firebase-admin/firestore");
 const { onDocumentUpdated } = require("firebase-functions/v2/firestore");
 const logger = require("firebase-functions/logger");
@@ -19,6 +18,7 @@ const { createWidgetFeed } = require("./widget-feed/feed");
 
 const app = initializeApp();
 const db = getFirestore(app, "apps");
+const auth = getAuth(app);
 
 exports.museOAuth = require("./oauth")(db);
 
@@ -73,4 +73,4 @@ exports.advanceRecurringTask = onDocumentUpdated({
 exports.widgetFeed = onRequest({
   region: "us-central1",
   invoker: "public",
-}, createWidgetFeed(db));
+}, createWidgetFeed(db, { auth }));

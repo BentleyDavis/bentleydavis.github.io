@@ -99,10 +99,8 @@ function createWidgetFeed(db, { now = () => new Date(), logger = console, auth =
     res.set("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
     res.set("Pragma", "no-cache");
     res.set("Expires", "0");
-    // The legacy ?token= path is still accepted during the transition
-    // from the old Tasker widget and is removed once the new flow is
-    // verified live. A failed auth returns 401 so the caller knows to
-    // refresh its token and retry.
+    // Keep the query-token path for older GET-only clients while preferring
+    // Firebase ID-token auth for signed-in members.
     const token = process.env.WIDGET_TOKEN;
     const legacyTokenOk = !!token && req.query.token === token;
     if (!(await isMemberRequest(req, db, auth)) && !legacyTokenOk) {
