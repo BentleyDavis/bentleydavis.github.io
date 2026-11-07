@@ -1,6 +1,6 @@
-// widgetFeed — Cloud Function (1st gen) serving the phone widget's task list.
+// widgetFeedV2 — Cloud Function (2nd gen, public invoker) serving the phone widget's task list.
 //
-// GET https://us-central1-apps-5884f.cloudfunctions.net/widgetFeed?token=<WIDGET_TOKEN>
+// GET <widgetFeedV2 URL from the deploy output>?token=<WIDGET_TOKEN>
 // Returns plain text for the widget, with leaf tasks ordered by priority.
 // Waiting and future-dated tasks are excluded until their wait passes.
 // Auth is the token in the URL: KWGT's wg() is GET-only and cannot send
@@ -8,7 +8,8 @@
 // by redeploying with a new WIDGET_TOKEN env var. The token is never
 // stored in this repo.
 
-const functions = require("firebase-functions/v1");
+const { onRequest } = require("firebase-functions/v2/https");
+const { onUserCreated } = require("firebase-functions/v2/identity");
 const { initializeApp } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 const { onDocumentUpdated } = require("firebase-functions/v2/firestore");
@@ -19,18 +20,17 @@ const { createWidgetFeed } = require("./widget-feed/feed");
 const app = initializeApp();
 const db = getFirestore(app, "apps");
 
-exports.museOAuth = require("./oauth")(db);
+exports.museOAuthV2 = require("./oauth")(db);
 
-exports.registerUser = functions
-  .region("us-central1")
-  .runWith({ failurePolicy: true })
-  .auth.user()
-  .onCreate((user) =>
-    db.collection("users").doc(user.uid).set({
-      email: user.email || null,
-      name: user.displayName || null,
-    }, { merge: true })
-  );
+exports.registerUserV2 = onUserCreated({
+  region: "us-central1",
+  retry: true,
+}, (event) =>
+  db.collection("users").doc(event.data.uid).set({
+    email: event.data.email || null,
+    name: event.data.displayName || null,
+  }, { merge: true })
+);
 
 exports.advanceRecurringTask = onDocumentUpdated({
   document: "tasks/{taskId}",
@@ -70,6 +70,7 @@ exports.advanceRecurringTask = onDocumentUpdated({
   }
 });
 
-exports.widgetFeed = functions
-  .region("us-central1")
-  .https.onRequest(createWidgetFeed(db));
+exports.widgetFeedV2 = onRequest({
+  region: "us-central1",
+  invoker: "public",
+}, createWidgetFeed(db));

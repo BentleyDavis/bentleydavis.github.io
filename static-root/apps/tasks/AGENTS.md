@@ -2,7 +2,7 @@
 
 Editor built 2026-11-05 (`index.html` — sign-in, inline editing,
 drag-drop reorder across the P regions, add rows, reversible Done). Widget
-endpoint `widgetFeed` is deployed; its source is in the repository's root
+endpoint `widgetFeedV2` is deployed; its source is in the repository's root
 `functions/` directory, separate from the static website.
 
 Children show their parent's title (or its ID if the parent is missing);

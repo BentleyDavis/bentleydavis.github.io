@@ -8,11 +8,11 @@ endpoint or expose its responses to the AI.
 ## Connector settings
 
 - Authorization URL:
-  `https://us-central1-apps-5884f.cloudfunctions.net/museOAuth/authorize`
+  `<museOAuthV2 URL from the deploy output>/authorize`
 - Token URL:
-  `https://us-central1-apps-5884f.cloudfunctions.net/museOAuth/token`
+  `<museOAuthV2 URL from the deploy output>/token`
 - Revocation URL (optional):
-  `https://us-central1-apps-5884f.cloudfunctions.net/museOAuth/revoke`
+  `<museOAuthV2 URL from the deploy output>/revoke`
 - Client ID: `muse`
 - Client secret: retrieve `MUSE_OAUTH_CLIENT_SECRET` from Google Secret Manager
   using a trusted administrator and enter it only in the platform's secure
@@ -26,7 +26,7 @@ endpoint or expose its responses to the AI.
   `client_secret_post` is also supported for the platform's own exchanges.
 - PKCE: S256 supported; recommended when the platform supports it.
 - API host: `firestore.googleapis.com`.
-- OAuth host: `us-central1-apps-5884f.cloudfunctions.net`.
+- OAuth host: the host of the deployed `museOAuthV2` URL (`*.run.app`).
 - API authentication: `Authorization: Bearer <platform-managed access token>`.
 
 The existing password/API-key connector is not used for this flow. Configure an
@@ -55,7 +55,7 @@ Firestore access rules.
 
 ## Server management
 
-- Deploy only `functions:museOAuth`; do not redeploy the widget as a side effect.
+- Deploy only `functions:museOAuthV2`; do not redeploy other functions as a side effect.
 - Runtime environment requires `FIREBASE_WEB_API_KEY` from this Firebase project.
   The web API key identifies the project and is not an administrator credential.
 - Bind Secret Manager secret `MUSE_OAUTH_CLIENT_SECRET` to the function and grant

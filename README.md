@@ -1,9 +1,16 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d6ba0488-6c48-4fc9-89dd-1e129366c0e3/deploy-status)](https://app.netlify.com/sites/bentleydavis/deploys)
 
+## Hosting
+
+- The static website (Eleventy build) is built and hosted by Netlify.
+- Firestore rules and Cloud Functions are deployed with the Firebase CLI to
+  project `apps-5884f`.
+- Firebase Hosting and GitHub Pages are not used.
+
 ## Firebase backend
 
 [functions/index.js](functions/index.js) is the source retrieved from the deployed
-`widgetFeed` HTTPS function in project `apps-5884f`, region `us-central1`.
+`widgetFeedV2` (2nd gen) HTTPS function in project `apps-5884f`, region `us-central1`.
 It uses the named Firestore database `apps`. The backend is separate from the
 Netlify website build and is not published as static website files.
 
@@ -24,7 +31,7 @@ npm ci --prefix functions
 After reviewing changes, deploy only this function:
 
 ```powershell
-firebase deploy --only functions:widgetFeed --project apps-5884f
+firebase deploy --only functions:widgetFeedV2 --project apps-5884f
 ```
 
 `WIDGET_TOKEN` is required. The deployed function currently stores it in a runtime
@@ -72,7 +79,7 @@ administrator can restore access if all membership documents are removed.
 
 ### Account directory
 
-The `registerUser` Auth account-created function writes `users/{UID}` in the
+The `registerUserV2` (2nd gen `onUserCreated`) Auth account-created function writes `users/{UID}` in the
 named `apps` database with `email` and `name` (null when unavailable).
 Existing Auth accounts are backfilled once. The directory includes accounts
 that have not been approved; a directory document never grants access.
@@ -87,7 +94,7 @@ Member edits to directory labels do not change Firebase Auth accounts.
 Deploy this trigger separately to avoid redeploying the widget:
 
 ```powershell
-firebase deploy --only functions:registerUser --project apps-5884f
+firebase deploy --only functions:registerUserV2 --project apps-5884f
 ```
 
 The `_oauth` collection is reserved for server-only OAuth credential storage and

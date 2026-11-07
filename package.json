@@ -21,7 +21,6 @@
     "@11ty/eleventy": "^3.1.8",
     "@types/node": "^24.19.2",
     "airtable": "^0.12.2",
-    "gh-pages": "^6.3.0",
     "got": "^16.2.0",
     "metascraper": "^5.58.5",
     "metascraper-logo-favicon": "^5.58.4",
