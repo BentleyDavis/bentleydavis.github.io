@@ -190,7 +190,7 @@ module.exports = function createOAuth(db) {
         "Content-Security-Policy": "default-src 'none'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
       });
       try {
-        if (!process.env.MUSE_OAUTH_CLIENT_SECRET || !process.env.FIREBASE_WEB_API_KEY) {
+        if (!process.env.MUSE_OAUTH_CLIENT_SECRET || !process.env.WEB_API_KEY) {
           throw new Error("Missing OAuth server configuration");
         }
         if (!["/authorize", "/token", "/revoke"].includes(req.path)) {
@@ -211,7 +211,7 @@ module.exports = function createOAuth(db) {
         if (!req.body || typeof req.body !== "object" || Buffer.byteLength(JSON.stringify(req.body)) > 16384) {
           throw new OAuthError("invalid_request");
         }
-        const apiKey = encodeURIComponent(process.env.FIREBASE_WEB_API_KEY);
+        const apiKey = encodeURIComponent(process.env.WEB_API_KEY);
         if (req.path === "/authorize") {
           const parameters = authorizationParameters(req.body);
           if (!equal(cookie(req, "__Host-muse-oauth"), req.body.csrf) ||

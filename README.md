@@ -9,8 +9,8 @@
 
 ## Firebase backend
 
-[functions/index.js](functions/index.js) is the source retrieved from the deployed
-`widgetFeedV2` (2nd gen) HTTPS function in project `apps-5884f`, region `us-central1`.
+[functions/index.js](functions/index.js) contains the source for the Gen 2
+`widgetFeed` HTTPS function in project `apps-5884f`, region `us-central1`.
 It uses the named Firestore database `apps`. The backend is separate from the
 Netlify website build and is not published as static website files.
 
@@ -31,18 +31,15 @@ npm ci --prefix functions
 After reviewing changes, deploy only this function:
 
 ```powershell
-firebase deploy --only functions:widgetFeedV2 --project apps-5884f
+firebase deploy --only functions:widgetFeed --project apps-5884f
 ```
 
-`WIDGET_TOKEN` is required. The deployed function currently stores it in a runtime
-environment variable, not Secret Manager. Never put its value or a complete widget
-URL in source, documentation, logs, or chat. Preserve the existing runtime value
-when redeploying; do not deploy without it. Moving it to Secret Manager is a
-separate change requiring handler configuration and deployment.
+`WIDGET_TOKEN` is required. Set it in the ignored `functions/.env.apps-5884f`
+file before deployment. Never put its value or a complete widget URL in source,
+documentation, logs, or chat.
 
-The function import does not deploy anything, change the token, or configure
-hosting. The handler retains its existing filtering, including
-not yet filtering out the editor's new `done` field.
+The handler retains its existing filtering, including not yet filtering out the
+editor's new `done` field.
 
 ## Database access
 
@@ -79,7 +76,7 @@ administrator can restore access if all membership documents are removed.
 
 ### Account directory
 
-The `registerUserV2` (2nd gen `onUserCreated`) Auth account-created function writes `users/{UID}` in the
+The `registerUser` (2nd gen `onUserCreated`) Auth account-created function writes `users/{UID}` in the
 named `apps` database with `email` and `name` (null when unavailable).
 Existing Auth accounts are backfilled once. The directory includes accounts
 that have not been approved; a directory document never grants access.
@@ -91,10 +88,10 @@ not proof of identity. The directory records account details at creation; later
 Auth profile edits and account deletions are not automatically synchronized.
 Member edits to directory labels do not change Firebase Auth accounts.
 
-Deploy this trigger separately to avoid redeploying the widget:
+Deploy this trigger separately:
 
 ```powershell
-firebase deploy --only functions:registerUserV2 --project apps-5884f
+firebase deploy --only functions:registerUser --project apps-5884f
 ```
 
 The `_oauth` collection is reserved for server-only OAuth credential storage and

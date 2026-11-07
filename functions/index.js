@@ -1,6 +1,6 @@
-// widgetFeedV2 — Cloud Function (2nd gen, public invoker) serving the phone widget's task list.
+// widgetFeed — Cloud Function (2nd gen, public invoker) serving the phone widget's task list.
 //
-// GET <widgetFeedV2 URL from the deploy output>?token=<WIDGET_TOKEN>
+// GET <widgetFeed URL from the deploy output>?token=<WIDGET_TOKEN>
 // Returns plain text for the widget, with leaf tasks ordered by priority.
 // Waiting and future-dated tasks are excluded until their wait passes.
 // Auth is the token in the URL: KWGT's wg() is GET-only and cannot send
@@ -20,9 +20,9 @@ const { createWidgetFeed } = require("./widget-feed/feed");
 const app = initializeApp();
 const db = getFirestore(app, "apps");
 
-exports.museOAuthV2 = require("./oauth")(db);
+exports.museOAuth = require("./oauth")(db);
 
-exports.registerUserV2 = onUserCreated({
+exports.registerUser = onUserCreated({
   region: "us-central1",
   retry: true,
 }, (event) =>
@@ -70,7 +70,7 @@ exports.advanceRecurringTask = onDocumentUpdated({
   }
 });
 
-exports.widgetFeedV2 = onRequest({
+exports.widgetFeed = onRequest({
   region: "us-central1",
   invoker: "public",
 }, createWidgetFeed(db));
